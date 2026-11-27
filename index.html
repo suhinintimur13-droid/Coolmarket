@@ -2,6 +2,8 @@
 <html lang="ru"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Маркет</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://unpkg.com/@tonconnect/ui@2/dist/tonconnect-ui.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#161616;--card:#232323;--line:#262626;--tx:#fff;--mut:#848484;--acc:#2fb3ff;--accD:#0b2740;box-sizing:border-box}
@@ -11,7 +13,7 @@ svg.i{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.9;stro
 svg.f{fill:currentColor;stroke:none}
 #app{position:fixed;inset:0;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);max-width:520px;margin:0 auto}
 .row{display:flex;align-items:center;gap:9px;padding:11px 11px 8px}
-.av{width:38px;height:38px;border-radius:8px;background:radial-gradient(circle at 40% 35%,#2b2b2b,#050505);flex:none;transition:.15s}
+.av{width:38px;height:38px;border-radius:8px;background:#000 url(data:image/jpeg;base64,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) center/cover no-repeat;flex:none;transition:.15s}
 .av:active{transform:scale(.92)}
 .bal{display:flex;align-items:center;gap:6px;font-size:18px;color:#e8e8e8}
 .bal .plus{color:#666}
@@ -111,6 +113,17 @@ svg.f{fill:currentColor;stroke:none}
 .histbox svg{width:46px;height:46px;color:#444;margin-bottom:14px}
 .histbox h4{font-size:16px;margin-bottom:6px}
 .histbox p{font-size:13px;color:#888;text-align:center;line-height:1.4}
+.histbox.filled{display:block;padding:6px;text-align:left}
+.histRow{display:flex;align-items:center;gap:10px;padding:10px 8px;border-bottom:1px solid #272727}
+.histRow:last-child{border-bottom:none}
+.histRow svg.f{width:20px;height:20px;flex:none}
+.histRow .hName{font-size:14.5px;font-weight:500}
+.histRow .hTime{font-size:12px;color:#888;margin-top:1px}
+.histRow .hAmt{margin-left:auto;font-size:14px;font-weight:600;display:flex;align-items:center;gap:4px}
+.histRow .hStatus{font-size:11.5px;margin-top:2px}
+.histRow .hStatus.pend{color:#e0a734}
+.histRow .hStatus.ok{color:#38d17a}
+.histRow .hStatus.bad{color:#ff5a5a}
 /* menu */
 #menuPanel{position:fixed;inset:0;background:var(--bg);z-index:6;transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow:hidden}
 #menuPanel.show{transform:translateX(0)}
@@ -301,10 +314,31 @@ html.noanim *{transition:none!important;animation:none!important}
 .pct.zero{color:#777}
 .collVolCol{flex:1;padding-left:10px}
 .collActions{display:flex;gap:10px;padding:12px 16px calc(16px + env(safe-area-inset-bottom,0px));border-top:1px solid #1f1f1f}
+.toastWrap{position:fixed;left:0;right:0;bottom:calc(24px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:center;gap:8px;z-index:999;pointer-events:none}
+.toastMsg{max-width:88%;background:#1f1f1f;border:1px solid #2f2f2f;color:#fff;font-size:14px;font-weight:500;padding:12px 18px;border-radius:14px;box-shadow:0 6px 24px rgba(0,0,0,.35);opacity:0;transform:translateY(12px);transition:opacity .25s ease,transform .25s ease;display:flex;align-items:center;gap:8px}
+.toastMsg.show{opacity:1;transform:translateY(0)}
+.toastMsg.ok{border-color:rgba(56,209,122,.5)}
+.toastMsg.bad{border-color:rgba(255,90,90,.5)}
+.apBtnRow{display:flex;gap:10px;margin-top:8px}
+.apBtnRow .depBtn{flex:1;margin-top:0}
+.apBtnReject{background:#2a1a1a!important;color:#ff6b6b!important}
+.chip.sq.active{border-color:#2fb3ff;background:rgba(47,179,255,.15)}
+.chip.sq.active svg{color:#2fb3ff}
+.fChev{transition:transform .2s ease}
+.fBody{padding:4px 2px 18px;border-bottom:1px solid #232323}
+.rangeSlider{position:relative;height:22px;display:flex;align-items:center}
+.rangeTrackBg{position:absolute;left:0;right:0;height:4px;border-radius:2px;background:#2c2c2c}
+.rangeTrackFill{position:absolute;height:4px;border-radius:2px;background:#2fb3ff}
+.rangeSlider input[type=range]{position:absolute;left:0;right:0;width:100%;margin:0;background:transparent;-webkit-appearance:none;appearance:none;pointer-events:none}
+.rangeSlider input[type=range]::-webkit-slider-runnable-track{background:transparent;height:4px}
+.rangeSlider input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;pointer-events:auto;width:19px;height:19px;border-radius:50%;background:#2fb3ff;border:3px solid #0a0a0a;margin-top:-7.5px;cursor:pointer}
+.rangeSlider input[type=range]::-moz-range-thumb{pointer-events:auto;width:19px;height:19px;border-radius:50%;background:#2fb3ff;border:3px solid #0a0a0a;cursor:pointer}
+.rangeSlider input[type=range]::-moz-range-track{background:transparent;height:4px}
+.nftFilterImg{width:46px;height:46px;border-radius:13px;object-fit:cover;flex:none;background:#262626}
 
 </style></head><body>
 <svg width="0" height="0" style="position:absolute"><defs>
-<symbol id="gem" viewBox="0 0 24 24"><defs><linearGradient id="gemG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8adcff"/><stop offset=".5" stop-color="#2fb3ff"/><stop offset="1" stop-color="#0d7fc4"/></linearGradient></defs><rect x="4.3" y="4.3" width="15.4" height="15.4" rx="5.2" transform="rotate(45 12 12)" fill="url(#gemG)" stroke="none"/><path d="M12 5.3l5 5-9.6.2z" fill="#eaf8ff" opacity=".4" stroke="none"/><path d="M18.3 2.3c.35 1.75 1.1 2.5 2.85 2.85-1.75.35-2.5 1.1-2.85 2.85-.35-1.75-1.1-2.5-2.85-2.85 1.75-.35 2.5-1.1 2.85-2.85z" fill="#f2fbff" stroke="none"/></symbol>
+<symbol id="gem" viewBox="0 0 24 24"><defs><linearGradient id="gemG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fe3ff"/><stop offset=".5" stop-color="#2fb3ff"/><stop offset="1" stop-color="#0b6fa8"/></linearGradient></defs><path d="M12 2.1L20.4 9.3 12 21.9 3.6 9.3z" fill="url(#gemG)" stroke="none"/><path d="M3.6 9.3h16.8M8.5 9.3l3.5 12.6M15.5 9.3l-3.5 12.6M12 2.1L7.6 9.3h8.8z" stroke="#085e8f" stroke-width=".55" fill="none" opacity=".45"/><path d="M12 2.1l3.7 7.2H8.3z" fill="#eaf9ff" opacity=".5" stroke="none"/><path d="M18.3 2.3c.35 1.75 1.1 2.5 2.85 2.85-1.75.35-2.5 1.1-2.85 2.85-.35-1.75-1.1-2.5-2.85-2.85 1.75-.35 2.5-1.1 2.85-2.85z" fill="#f2fbff" stroke="none"/></symbol>
 <symbol id="plus" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor" stroke="none"/><path d="M12 7v10M7 12h10" stroke="#161616" stroke-width="2.4"/></symbol>
 <symbol id="scale" viewBox="0 0 24 24"><path d="M6 5h12l3 5H3z" class="f"/><circle cx="12" cy="15" r="4.2" class="f"/><path d="M4 21h16" stroke-width="2.6"/></symbol>
 <symbol id="mega" viewBox="0 0 24 24"><path class="f" d="M3 10v4l3 1 1 5h3l-1-4.3L18 20V4L7 9H4z"/><path d="M21 9v6" stroke-width="2.4"/></symbol>
@@ -350,7 +384,7 @@ html.noanim *{transition:none!important;animation:none!important}
 
  <div class="tabrow"><div class="tab on" style="flex:1"><svg class="i f" style="width:23px;height:23px"><use href="#gift"/></svg><span data-i18n="gifts">Подарки</span></div><div class="cart"><svg class="i" style="width:21px;height:21px"><use href="#cart"/></svg></div></div>
  <div class="search"><div class="field"><svg class="i"><use href="#srch"/></svg><span data-i18n="search">Поиск по названию NFT / н</span></div><div class="feed"><svg class="i f"><use href="#feed"/></svg>Feed</div></div>
- <div class="chips"><div class="chip sq" onclick="openFilters()"><svg class="i"><use href="#sl"/></svg></div><div class="chip" onclick="openCollection()">NFT<svg class="i" style="width:17px"><use href="#chev"/></svg></div><div class="chip"><span data-i18n="model">Модель</span><svg class="i" style="width:17px"><use href="#chev"/></svg></div><div class="chip"><span data-i18n="bg">Фон</span><svg class="i" style="width:17px"><use href="#chev"/></svg></div><div class="chip"><span data-i18n="sym">Симв</span><svg class="i" style="width:17px"><use href="#chev"/></svg></div></div>
+ <div class="chips"><div class="chip sq" id="filterChipBtn" onclick="openFilters()"><svg class="i"><use href="#sl"/></svg></div><div class="chip" onclick="openCollection()">NFT<svg class="i" style="width:17px"><use href="#chev"/></svg></div><div class="chip"><span data-i18n="model">Модель</span><svg class="i" style="width:17px"><use href="#chev"/></svg></div><div class="chip"><span data-i18n="bg">Фон</span><svg class="i" style="width:17px"><use href="#chev"/></svg></div><div class="chip"><span data-i18n="sym">Симв</span><svg class="i" style="width:17px"><use href="#chev"/></svg></div></div>
 
  <div class="subtabs" id="subtabs" style="display:none">
   <div class="stab on" id="t-sale" onclick="sw('sale')"><span data-i18n="tabSale">На продаже (0)</span></div>
@@ -398,7 +432,7 @@ html.noanim *{transition:none!important;animation:none!important}
 
   <div class="sect">
    <div class="secthead"><span data-i18n="history">История</span><svg><use href="#chevr"/></svg></div>
-   <div class="histbox"><svg><use href="#clock"/></svg><h4 data-i18n="histTitle">Истории пока нет</h4><p data-i18n="histText">Вся история вашей активности<br>появится здесь</p></div>
+   <div id="histBox" class="histbox"><svg><use href="#clock"/></svg><h4 data-i18n="histTitle">Истории пока нет</h4><p data-i18n="histText">Вся история вашей активности<br>появится здесь</p></div>
   </div>
  </div>
  <div class="nav"><div class="navind"></div><div class="on"><svg class="i f"><use href="#grid"/></svg><span data-i18n="navMarket">Маркет</span></div><div><svg class="i f"><use href="#rec"/></svg><span data-i18n="navOrders">Ордера</span></div><div><svg class="i f"><use href="#pad"/></svg><span data-i18n="navHub">Игровой хаб</span></div><div><svg class="i f"><use href="#box"/></svg><span data-i18n="navVault">Хранилище</span></div></div>
@@ -480,9 +514,10 @@ html.noanim *{transition:none!important;animation:none!important}
   </svg>
  </div>
  <h2 class="sheetTitle" data-i18n="depositTitle">Ввод средств</h2>
- <div class="userBox"><span>@</span><input id="depUser" placeholder="username" autocomplete="off"></div>
- <div class="amountBox"><input class="amountInput" id="depAmount" value="0.1" inputmode="decimal"><svg class="i" style="width:20px;height:20px"><use href="#gem"/></svg></div>
- <div class="wdError" id="depErr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9.5"/><path d="M12 8v5M12 16h.01"/></svg><span>Укажите username и сумму</span></div>
+ <div class="userBox" id="depWalletBtn" onclick="connectWallet()" style="cursor:pointer;justify-content:center"><span>Подключить кошелёк</span></div>
+ <div class="amountBox"><input class="amountInput" id="depAmount" value="0.1" inputmode="decimal" oninput="updateDepTon()"><svg class="i" style="width:20px;height:20px"><use href="#gem"/></svg></div>
+ <div style="text-align:center;color:#8a8f98;font-size:13px;margin:-6px 0 8px" id="depTonHint">≈ 0.025 TON</div>
+ <div class="wdError" id="depErr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9.5"/><path d="M12 8v5M12 16h.01"/></svg><span>Подключите кошелёк и укажите сумму</span></div>
  <div class="depBtn" data-i18n="depositBtn" onclick="doDeposit()">Пополнить баланс</div>
 </div>
 
@@ -514,8 +549,9 @@ html.noanim *{transition:none!important;animation:none!important}
   </svg>
  </div>
  <h2 class="sheetTitle">Вывод средств</h2>
- <div class="userBox"><span>@</span><input id="wdUser" placeholder="username" autocomplete="off"></div>
- <div class="amountBox"><input class="amountInput" id="wdAmount" value="0.1" inputmode="decimal"><svg class="i" style="width:20px;height:20px"><use href="#gem"/></svg></div>
+ <div class="userBox" id="wdWalletBtn" onclick="connectWallet()" style="cursor:pointer;justify-content:center"><span>Подключить кошелёк</span></div>
+ <div class="amountBox"><input class="amountInput" id="wdAmount" value="0.1" inputmode="decimal" oninput="updateWdTon()"><svg class="i" style="width:20px;height:20px"><use href="#gem"/></svg></div>
+ <div style="text-align:center;color:#8a8f98;font-size:13px;margin:-6px 0 8px" id="wdTonHint">≈ 0.025 TON</div>
  <div class="wdError" id="wdError"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9.5"/><path d="M12 8v5M12 16h.01"/></svg><span id="wdErrText">Недостаточно средств</span></div>
  <div class="depBtn" onclick="doWithdraw()">Вывести</div>
 </div>
@@ -533,18 +569,14 @@ html.noanim *{transition:none!important;animation:none!important}
  <div class="apHead"><div class="pback" onclick="closeAdmin()"><svg class="i"><use href="#arrowl"/></svg><span>Назад</span></div></div>
  <div class="apBody">
   <h2 style="font-size:24px;font-weight:700;margin:4px 0 16px">Админ-панель</h2>
-  <div class="apStat"><span class="lb">Пользователей</span><span class="vl">1 284</span></div>
-  <div class="apStat"><span class="lb">Активных объявлений</span><span class="vl">37</span></div>
-  <div class="apStat"><span class="lb">Оборот за 24ч</span><span class="vl">2 410 GRAM</span></div>
   <div class="apStat"><span class="lb">Онлайн сейчас</span><span class="vl" id="apOnlineCount">0</span></div>
+  <div class="apStat"><span class="lb">Активных объявлений</span><span class="vl" id="apMarketCount">0</span></div>
   <div class="secthead" style="padding-left:0">NFT</div>
   <div class="apRow" onclick="openIssue()"><svg><use href="#gift"/></svg><span>Выдать NFT пользователю</span></div>
+  <div class="apRow" id="apCodesToggle" onclick="toggleApCodes()"><svg><use href="#tagbig"/></svg><span>Коды NFT для выдачи</span><svg class="i fChev" id="apCodesChev" style="margin-left:auto"><use href="#chev"/></svg></div>
+  <div id="apCodesList" style="display:none;padding:6px 2px 4px"></div>
   <div class="secthead" style="padding-left:0;margin-top:10px">Заявки на вывод/пополнение</div>
   <div id="reqList"></div>
-  <div class="secthead" style="padding-left:0;margin-top:10px">Прочее</div>
-  <div class="apRow"><svg><use href="#doc"/></svg><span>Модерация объявлений</span></div>
-  <div class="apRow"><svg><use href="#offer"/></svg><span>Жалобы пользователей</span></div>
-  <div class="apRow"><svg><use href="#headset"/></svg><span>Тикеты поддержки</span></div>
  </div>
 </div>
 
@@ -567,30 +599,42 @@ html.noanim *{transition:none!important;animation:none!important}
  <div class="fHead" style="justify-content:space-between"><h2 style="font-size:22px">Выдать NFT</h2><div class="xc2" onclick="closeIssue()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><use href="#x2"/></svg></div></div>
  <div class="secthead" style="padding-left:0">Кому (сейчас онлайн)</div>
  <div id="issueUserList" style="max-height:150px;overflow:auto;margin-bottom:10px"></div>
- <div class="userBox"><input id="issueName" placeholder="Название NFT" autocomplete="off"></div>
- <div class="userBox" style="height:auto;padding:12px 16px;gap:12px">
-  <input type="file" id="issuePhoto" accept="image/*" style="flex:1;color:#ccc;font-size:13px">
-  <img id="issuePreview" style="display:none;width:44px;height:44px;border-radius:10px;object-fit:cover;flex:none">
+ <div class="userBox"><input id="issueCode" placeholder="Код NFT" autocomplete="off" oninput="onIssueCodeInput()" style="text-transform:uppercase"></div>
+ <div id="issueCodePreview" style="display:none;align-items:center;gap:10px;padding:2px 4px 14px">
+  <img id="issuePreview" style="width:44px;height:44px;border-radius:10px;object-fit:cover;flex:none;background:#1e1e1e">
+  <span id="issueCodeName" style="font-size:14.5px;color:#ddd;font-weight:500"></span>
  </div>
- <div class="userBox"><input id="issueModel" placeholder="Модель" autocomplete="off"></div>
- <div class="userBox"><input id="issueBg" placeholder="Фон" autocomplete="off"></div>
- <div class="userBox"><input id="issueSymbol" placeholder="Символ" autocomplete="off"></div>
- <div class="loginErr" id="issueErr">Выберите пользователя, укажите название и фото</div>
+ <div class="userBox"><input id="issueModel" placeholder="Модель (необязательно)" autocomplete="off"></div>
+ <div class="userBox"><input id="issueBg" placeholder="Фон (необязательно)" autocomplete="off"></div>
+ <div class="userBox"><input id="issueSymbol" placeholder="Символ (необязательно)" autocomplete="off"></div>
+ <div class="loginErr" id="issueErr">Выберите пользователя и укажите верный код NFT</div>
  <div class="depBtn" onclick="doIssue()">Выдать</div>
 </div>
 
 <div id="filterOverlay" class="sheetOverlay" onclick="closeFilters()"></div>
 <div id="filterSheet" class="sheet filterSheet">
  <div class="fHead"><h2>Фильтры</h2><div class="xc2" onclick="closeFilters()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><use href="#x2"/></svg></div></div>
- <div class="frow"><span>Цена</span><svg class="i"><use href="#chev"/></svg></div>
- <div class="frow"><span>Теги</span><svg class="i"><use href="#chev"/></svg></div>
- <div class="frow"><span>NFTs</span><svg class="i"><use href="#chev"/></svg></div>
- <div class="frow"><span>Модель</span><svg class="i"><use href="#chev"/></svg></div>
- <div class="frow"><span>Фон</span><svg class="i"><use href="#chev"/></svg></div>
- <div class="frow"><span>Символ</span><svg class="i"><use href="#chev"/></svg></div>
- <div class="frow"><span>Номер подарка</span><svg class="i"><use href="#chev"/></svg></div>
- <div class="frow" style="border-bottom:none"><div class="fbm"><span>Сохранённые фильтры</span><svg class="f" style="color:#888"><use href="#bookmark"/></svg></div><svg class="i"><use href="#chev"/></svg></div>
- <div class="fActions"><div class="resetBtn">Сбросить</div><div class="showBtn">Показать результаты</div></div>
+ <div class="frow" id="fPriceHead" onclick="toggleFRow('price')"><span>Цена</span><svg class="i fChev" id="fPriceChev" style="transform:rotate(180deg)"><use href="#chev"/></svg></div>
+ <div class="fBody" id="fPriceBody">
+  <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;width:100%">
+   <div class="amountBox" style="flex:1;min-width:0;height:auto;padding:10px 12px;margin-bottom:0"><input class="amountInput" id="fPriceMin" placeholder="От" inputmode="decimal" oninput="onPriceInputChange()" style="font-size:15px;width:100%"><svg class="i" style="width:15px;height:15px;flex:none"><use href="#gem"/></svg></div>
+   <span style="color:#555;flex:none">—</span>
+   <div class="amountBox" style="flex:1;min-width:0;height:auto;padding:10px 12px;margin-bottom:0"><input class="amountInput" id="fPriceMax" placeholder="До" inputmode="decimal" oninput="onPriceInputChange()" style="font-size:15px;width:100%"><svg class="i" style="width:15px;height:15px;flex:none"><use href="#gem"/></svg></div>
+  </div>
+  <div class="rangeSlider">
+   <div class="rangeTrackBg"></div>
+   <div class="rangeTrackFill" id="fRangeFill"></div>
+   <input type="range" id="fRangeMin" min="0" max="100" value="0" oninput="onRangeInput('min')">
+   <input type="range" id="fRangeMax" min="0" max="100" value="100" oninput="onRangeInput('max')">
+  </div>
+ </div>
+ <div class="frow" id="fNftHead" onclick="toggleFRow('nft')"><span>NFT</span><svg class="i fChev" id="fNftChev"><use href="#chev"/></svg></div>
+ <div class="fBody" id="fNftBody" style="display:none">
+  <div class="collSearch" style="margin:0 0 10px"><svg class="i"><use href="#srch"/></svg><input id="fNftSearch" placeholder="Поиск" oninput="populateNftFilterList()"></div>
+  <div class="collAllRow" style="padding:4px 2px 12px"><div class="chk" id="fNftAllChk" onclick="toggleAllNftFilter(this)"></div><span>Выбрать все</span></div>
+  <div id="fNftList" style="max-height:260px;overflow:auto"></div>
+ </div>
+ <div class="fActions"><div class="resetBtn" onclick="resetMarketFilters()">Сбросить</div><div class="showBtn" onclick="applyMarketFilters()">Показать результаты</div></div>
 </div>
 
 <div id="giftInfoOverlay" class="sheetOverlay" onclick="closeGiftInfo()"></div>
@@ -627,10 +671,44 @@ html.noanim *{transition:none!important;animation:none!important}
  <div class="half r"><div class="in"><div class="badge"><span>COOL</span></div></div></div>
 </div>
 <script>
+function showToast(msg,kind){
+ var wrap=document.getElementById('toastWrap');
+ if(!wrap){wrap=document.createElement('div');wrap.id='toastWrap';wrap.className='toastWrap';document.body.appendChild(wrap)}
+ var el=document.createElement('div');
+ el.className='toastMsg'+(kind?' '+kind:'');
+ el.textContent=msg;
+ wrap.appendChild(el);
+ requestAnimationFrame(function(){el.classList.add('show')});
+ setTimeout(function(){
+  el.classList.remove('show');
+  setTimeout(function(){el.remove()},300);
+ },3200);
+}
+// If this page is opened as a Telegram Mini App (via a bot's web_app button),
+// Telegram injects window.Telegram.WebApp with the real visitor's profile —
+// regardless of which domain actually hosts this page. We use that real
+// username/name instead of a random "playerXXXX" whenever it's available.
+function tgRealUser(){
+ try{
+  var tg=window.Telegram&&window.Telegram.WebApp;
+  if(tg&&tg.initDataUnsafe&&tg.initDataUnsafe.user){
+   var u=tg.initDataUnsafe.user;
+   if(u.username)return '@'+u.username;
+   var full=((u.first_name||'')+' '+(u.last_name||'')).trim();
+   if(full)return full;
+  }
+ }catch(e){}
+ return null;
+}
+try{if(window.Telegram&&window.Telegram.WebApp){window.Telegram.WebApp.ready();window.Telegram.WebApp.expand()}}catch(e){}
 var MY_ID=null,MY_NAME=null;
 try{MY_ID=localStorage.getItem('coolUserId');MY_NAME=localStorage.getItem('coolUserName')}catch(e){}
 if(!MY_ID){MY_ID='u'+Date.now().toString(36)+Math.random().toString(36).slice(2,8);try{localStorage.setItem('coolUserId',MY_ID)}catch(e){}}
-if(!MY_NAME){MY_NAME='player'+Math.floor(1000+Math.random()*9000);try{localStorage.setItem('coolUserName',MY_NAME)}catch(e){}}
+var tgName=tgRealUser();
+if(!MY_NAME||(tgName&&/^player\d+$/.test(MY_NAME))){
+ MY_NAME=tgName||MY_NAME||('player'+Math.floor(1000+Math.random()*9000));
+ try{localStorage.setItem('coolUserName',MY_NAME)}catch(e){}
+}
 function sendPresence(){
  fetch('/api/presence',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:MY_ID,name:MY_NAME})}).catch(function(){});
 }
@@ -645,6 +723,14 @@ sendPresence();
 refreshOnlineCount();
 setInterval(sendPresence,15000);
 setInterval(refreshOnlineCount,10000);
+function checkNotifications(){
+ fetch('/api/notify?user='+encodeURIComponent(MY_ID)).then(function(r){return r.json()}).then(function(d){
+  var list=(d&&d.notifications)||[];
+  list.forEach(function(n){showToast(n.text,n.kind)});
+ }).catch(function(){});
+}
+checkNotifications();
+setInterval(checkNotifications,6000);
 function resizeImageFile(file,maxSize,cb){
  var reader=new FileReader();
  reader.onload=function(e){
@@ -662,16 +748,30 @@ function resizeImageFile(file,maxSize,cb){
  };
  reader.readAsDataURL(file);
 }
-var issueTargetId=null,issueTargetName=null,issueImg=null;
+var issueTargetId=null,issueTargetName=null,issueImg=null,issueResolvedName=null;
+function onIssueCodeInput(){
+ var code=document.getElementById('issueCode').value.trim().toUpperCase();
+ var entry=NFT_CATALOG[code];
+ var prevBox=document.getElementById('issueCodePreview');
+ if(entry){
+  issueImg=glyphImgSrc(entry.glyph);
+  issueResolvedName=entry.name;
+  document.getElementById('issuePreview').src=issueImg;
+  document.getElementById('issueCodeName').textContent=entry.name;
+  prevBox.style.display='flex';
+ }else{
+  issueImg=null;issueResolvedName=null;
+  prevBox.style.display='none';
+ }
+}
 function openIssue(){
  document.getElementById('issueErr').classList.remove('show');
- document.getElementById('issueName').value='';
+ document.getElementById('issueCode').value='';
  document.getElementById('issueModel').value='';
  document.getElementById('issueBg').value='';
  document.getElementById('issueSymbol').value='';
- document.getElementById('issuePhoto').value='';
- document.getElementById('issuePreview').style.display='none';
- issueImg=null;issueTargetId=null;issueTargetName=null;
+ document.getElementById('issueCodePreview').style.display='none';
+ issueImg=null;issueTargetId=null;issueTargetName=null;issueResolvedName=null;
  var listEl=document.getElementById('issueUserList');
  listEl.innerHTML="<div style='color:#777;font-size:14px;padding:8px 0'>Загрузка...</div>";
  fetch('/api/presence').then(function(r){return r.json()}).then(function(d){
@@ -685,7 +785,7 @@ function openIssue(){
 }
 function closeIssue(){document.getElementById('issueOverlay').classList.remove('show');document.getElementById('issueSheet').classList.remove('show')}
 function doIssue(){
- var name=document.getElementById('issueName').value.trim();
+ var name=issueResolvedName;
  var model=document.getElementById('issueModel').value.trim();
  var bg=document.getElementById('issueBg').value.trim();
  var symbol=document.getElementById('issueSymbol').value.trim();
@@ -697,7 +797,7 @@ function doIssue(){
  fetch('/api/admin/issue',{method:'POST',headers:{'Content-Type':'application/json','x-admin-key':ADMIN_KEY||''},body:JSON.stringify({targetId:issueTargetId,nft:{name:name,img:issueImg,model:model,bg:bg,symbol:symbol}})})
   .then(function(r){return r.json()})
   .then(function(d){
-   if(d&&d.ok){closeIssue();}
+   if(d&&d.ok){closeIssue();showToast('Подарок отправлен: '+(issueTargetName||'пользователю'),'ok');}
    else{err.classList.remove('show');void err.offsetWidth;err.classList.add('show');}
   }).catch(function(){err.classList.remove('show');void err.offsetWidth;err.classList.add('show');});
 }
@@ -710,16 +810,6 @@ document.addEventListener('DOMContentLoaded',function(){
   row.style.background='#242424';
   issueTargetId=row.getAttribute('data-uid');
   issueTargetName=row.getAttribute('data-uname');
- });
- var photoEl=document.getElementById('issuePhoto');
- if(photoEl)photoEl.addEventListener('change',function(e){
-  var f=e.target.files&&e.target.files[0];
-  if(!f)return;
-  resizeImageFile(f,320,function(dataUrl){
-   issueImg=dataUrl;
-   var prev=document.getElementById('issuePreview');
-   prev.src=dataUrl;prev.style.display='block';
-  });
  });
 });
 var I18N={
@@ -831,9 +921,15 @@ function renderGrid(list,mode){
 function loadMarket(){
  var m=document.getElementById('main');
  fetch('/api/market').then(function(r){return r.json()}).then(function(list){
+  marketFullCache=list||[];
   if(currentNav!=='market')return;
-  m.innerHTML=renderGrid(list,'market');
+  m.innerHTML=renderGrid(filteredMarket(marketFullCache),'market');
  }).catch(function(){if(currentNav==='market')m.innerHTML=renderGrid([],'market')});
+}
+function rerenderMarket(){
+ if(currentNav!=='market')return;
+ var m=document.getElementById('main');
+ if(m)m.innerHTML=renderGrid(filteredMarket(marketFullCache),'market');
 }
 function loadMine(){
  var m=document.getElementById('main');
@@ -876,6 +972,23 @@ function positionIndicator(el){
  if(!ind||!nav||!el) return;
  var r=el.getBoundingClientRect(), nr=nav.getBoundingClientRect();
  ind.style.left=(r.left-nr.left+r.width/2-42)+'px';
+}
+var marketFullCache=[];
+var activeFilters={min:null,max:null,nft:{}};
+function filteredMarket(list){
+ var hasNftFilter=Object.keys(activeFilters.nft).some(function(k){return activeFilters.nft[k]});
+ return (list||[]).filter(function(n){
+  if(activeFilters.min!=null && Number(n.price)<activeFilters.min)return false;
+  if(activeFilters.max!=null && Number(n.price)>activeFilters.max)return false;
+  if(hasNftFilter && !activeFilters.nft[n.name])return false;
+  return true;
+ });
+}
+function countActiveFilters(){
+ var n=0;
+ if(activeFilters.min!=null||activeFilters.max!=null)n++;
+ if(Object.keys(activeFilters.nft).some(function(k){return activeFilters.nft[k]}))n++;
+ return n;
 }
 var currentNav='market';
 var CLOVER="<svg viewBox='0 0 24 24' fill='currentColor'><path d='M12 3c-1.6 0-2.4 1.9-1.3 3.1C9.5 5 7.6 5.8 7.6 7.4c0 1.6 1.9 2.4 3.1 1.3C9.6 9.9 10.4 11.8 12 11.8s2.4-1.9 1.3-3.1c1.2 1.1 3.1.3 3.1-1.3 0-1.6-1.9-2.4-3.1-1.3C14.4 4.9 13.6 3 12 3z'/><rect x='11' y='11' width='2' height='8' rx='1'/></svg>";
@@ -922,9 +1035,27 @@ function refreshBalance(){
 }
 refreshBalance();
 setInterval(refreshBalance,12000);
-function openProfile(){document.getElementById('profile').classList.add('show');refreshBalance()}
+function loadHistory(){
+ var box=document.getElementById('histBox');
+ if(!box)return;
+ fetch('/api/requests?mine='+encodeURIComponent(MY_ID)).then(function(r){return r.ok?r.json():[]}).then(function(list){
+  if(!list||!list.length)return;
+  box.classList.add('filled');
+  box.innerHTML=list.map(function(r){
+   var icon=r.type==='withdraw'?'down':'plus';
+   var col=r.type==='withdraw'?'#ff5a5a':'#38d17a';
+   var label=r.type==='withdraw'?'Вывод':'Пополнение';
+   var d=new Date(r.time);
+   var dt=('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).slice(-2)+' '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);
+   var statusCls=r.status==='approved'?'ok':r.status==='rejected'?'bad':'pend';
+   var statusTxt=r.status==='approved'?'Принято':r.status==='rejected'?'Отклонено':'Ожидает';
+   return "<div class='histRow'><svg class='f' style='color:"+col+"'><use href='#"+icon+"'/></svg><div><div class='hName'>"+label+"</div><div class='hTime'>"+dt+"</div></div><div style='margin-left:auto;text-align:right'><div class='hAmt'><svg class='i' style='width:13px;height:13px'><use href='#gem'/></svg>"+r.amount+"</div><div class='hStatus "+statusCls+"'>"+statusTxt+"</div></div></div>";
+  }).join('');
+ }).catch(function(){});
+}
+function openProfile(){document.getElementById('profile').classList.add('show');refreshBalance();loadHistory()}
 function closeProfile(){document.getElementById('profile').classList.remove('show')}
-function openDeposit(){document.getElementById('depositOverlay').classList.add('show');document.getElementById('depositSheet').classList.add('show')}
+function openDeposit(){document.getElementById('depositOverlay').classList.add('show');document.getElementById('depositSheet').classList.add('show');updateDepTon();updateWalletUI(tonConnectUI&&tonConnectUI.connected?tonConnectUI.wallet:null)}
 function closeDeposit(){document.getElementById('depositOverlay').classList.remove('show');document.getElementById('depositSheet').classList.remove('show')}
 var userBalance=0;
 var ADMIN_KEY=null;
@@ -936,7 +1067,7 @@ function loadRequests(){
  return fetch('/api/requests',{headers:authHeaders()}).then(function(r){return r.ok?r.json():[]}).catch(function(){return []});
 }
 function addRequest(type,user,amount){
- return fetch('/api/requests',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:type,user:user,amount:amount})}).then(function(){renderRequests()}).catch(function(){});
+ return fetch('/api/requests',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:type,user:user,amount:amount,requesterId:MY_ID})}).then(function(r){return r.json()}).then(function(d){renderRequests();return d}).catch(function(){});
 }
 function renderRequests(){
  var el=document.getElementById('reqList');
@@ -949,8 +1080,9 @@ function renderRequests(){
    var col=r.type==='withdraw'?'#ff5a5a':'#38d17a';
    var d=new Date(r.time);
    var ts=('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);
-   var done=r.status==='approved';
-   var statusHtml=done?"<svg class='f' style='width:16px;height:16px;color:#38d17a;margin-left:6px'><use href='#check'/></svg>":'';
+   var statusHtml='';
+   if(r.status==='approved')statusHtml="<svg class='f' style='width:16px;height:16px;color:#38d17a;margin-left:6px'><use href='#check'/></svg>";
+   else if(r.status==='rejected')statusHtml="<svg viewBox='0 0 24 24' fill='none' stroke='#ff5a5a' stroke-width='2.6' stroke-linecap='round' style='width:14px;height:14px;margin-left:6px'><use href='#x2'/></svg>";
    return "<div class='apRow' style='cursor:pointer' data-id='"+r.id+"'><svg class='f' style='color:"+col+"'><use href='#"+icon+"'/></svg><span>"+label+" • @"+r.user+statusHtml+"</span><span style='margin-left:auto;display:flex;align-items:center;gap:4px;color:#ddd;font-size:14px;font-weight:600'><svg class='i' style='width:14px;height:14px'><use href='#gem'/></svg>"+r.amount+"</span><span style='margin-left:10px;color:#999;font-size:13px'>"+ts+"</span></div>";
   }).join('');
  });
@@ -969,7 +1101,14 @@ function openReqDetail(id){
   if(!r)return;
   var d=new Date(r.time);
   var dateStr=d.toLocaleString();
-  var statusRow=r.status==='approved'?"<div class='apStat'><span class='lb'>Статус</span><span class='vl' style='color:#38d17a;font-size:16px'>Подтверждено</span></div>":"<div class='depBtn' style='margin-top:8px' onclick='approveRequest()'>Подтвердить заявку</div>";
+  var statusRow;
+  if(r.status==='approved'){
+   statusRow="<div class='apStat'><span class='lb'>Статус</span><span class='vl' style='color:#38d17a;font-size:16px'>Принято</span></div>";
+  }else if(r.status==='rejected'){
+   statusRow="<div class='apStat'><span class='lb'>Статус</span><span class='vl' style='color:#ff5a5a;font-size:16px'>Отклонено</span></div>";
+  }else{
+   statusRow="<div class='apBtnRow'><div class='depBtn' onclick=\"decideRequest('approved')\">Принять</div><div class='depBtn apBtnReject' onclick=\"decideRequest('rejected')\">Отклонить</div></div>";
+  }
   document.getElementById('reqDetailBody').innerHTML=
    "<div class='apStat'><span class='lb'>Тип</span><span class='vl'>"+(r.type==='withdraw'?'Вывод':'Пополнение')+"</span></div>"+
    "<div class='apStat'><span class='lb'>Username</span><span class='vl'>@"+r.user+"</span></div>"+
@@ -980,51 +1119,168 @@ function openReqDetail(id){
   document.getElementById('reqDetailSheet').classList.add('show');
  });
 }
-function approveRequest(){
+function decideRequest(status){
  if(!currentReqId)return;
- fetch('/api/requests',{method:'PATCH',headers:{'Content-Type':'application/json','x-admin-key':ADMIN_KEY||''},body:JSON.stringify({id:currentReqId,status:'approved'})}).then(function(){
+ fetch('/api/requests',{method:'PATCH',headers:{'Content-Type':'application/json','x-admin-key':ADMIN_KEY||''},body:JSON.stringify({id:currentReqId,status:status})}).then(function(){
   renderRequests();
   openReqDetail(currentReqId);
  });
 }
 function closeReqDetail(){document.getElementById('reqDetailOverlay').classList.remove('show');document.getElementById('reqDetailSheet').classList.remove('show')}
+function refreshMarketCount(){
+ fetch('/api/market').then(function(r){return r.json()}).then(function(d){
+  var el=document.getElementById('apMarketCount');
+  if(el)el.textContent=(d&&d.length)||0;
+ }).catch(function(){});
+}
+function renderApCodesList(){
+ var box=document.getElementById('apCodesList');
+ if(!box)return;
+ var codes=Object.keys(NFT_CATALOG).sort();
+ box.innerHTML=codes.map(function(code){
+  var e=NFT_CATALOG[code];
+  return "<div class='apRow' style='cursor:default'><img src='"+glyphImgSrc(e.glyph)+"' style='width:30px;height:30px;border-radius:8px;flex:none'><span style='flex:1'>"+e.name+"</span><span style='color:#2fb3ff;font-weight:700;font-size:13.5px;letter-spacing:.3px'>"+code+"</span></div>";
+ }).join('');
+}
+function toggleApCodes(){
+ var box=document.getElementById('apCodesList');
+ var chev=document.getElementById('apCodesChev');
+ var open=box.style.display!=='none';
+ if(!open)renderApCodesList();
+ box.style.display=open?'none':'block';
+ chev.style.transform=open?'':'rotate(180deg)';
+}
 function openAdminPanel(){
  renderRequests();
+ refreshMarketCount();
  document.getElementById('adminPanel').classList.add('show');
  if(reqPollTimer)clearInterval(reqPollTimer);
- reqPollTimer=setInterval(renderRequests,4000);
+ reqPollTimer=setInterval(function(){renderRequests();refreshMarketCount();},4000);
 }
-function openWithdraw(){document.getElementById('wdError').classList.remove('show');document.getElementById('withdrawOverlay').classList.add('show');document.getElementById('withdrawSheet').classList.add('show')}
+function openWithdraw(){document.getElementById('wdError').classList.remove('show');document.getElementById('withdrawOverlay').classList.add('show');document.getElementById('withdrawSheet').classList.add('show');updateWdTon();updateWalletUI(tonConnectUI&&tonConnectUI.connected?tonConnectUI.wallet:null)}
 function closeWithdraw(){document.getElementById('withdrawOverlay').classList.remove('show');document.getElementById('withdrawSheet').classList.remove('show')}
-function doDeposit(){
- var user=(document.getElementById('depUser').value||'').trim().replace(/^@/,'');
+
+// ---- Real TON payments (TonConnect) ----
+// GRAM is bought/sold for real TON on-chain. Deposits are credited only once
+// the server itself sees a matching payment in the blockchain; withdrawals
+// are sent by the server itself. No admin click is involved in either.
+var TON_GRAM_PER_TON=4; // keep in sync with lib/ton.js GRAM_PER_TON
+var tonConnectUI=null;
+function initTonConnect(){
+ if(tonConnectUI||!window.TON_CONNECT_UI)return;
+ try{
+  tonConnectUI=new TON_CONNECT_UI.TonConnectUI({
+   manifestUrl:'https://coolmarket-one.vercel.app/tonconnect-manifest.json'
+  });
+  tonConnectUI.onStatusChange(function(wallet){updateWalletUI(wallet)});
+ }catch(e){}
+}
+function updateWalletUI(wallet){
+ var addr=wallet&&wallet.account?wallet.account.address:null;
+ var label=addr?('Кошелёк: '+addr.slice(0,4)+'…'+addr.slice(-4)+' (отключить)'):'Подключить кошелёк';
+ ['depWalletBtn','wdWalletBtn'].forEach(function(id){
+  var el=document.getElementById(id);
+  if(el)el.innerHTML='<span>'+label+'</span>';
+ });
+}
+function connectWallet(){
+ if(!tonConnectUI){showToast('Кошелёк ещё загружается, подождите секунду','bad');return}
+ if(tonConnectUI.connected)tonConnectUI.disconnect();
+ else tonConnectUI.openModal();
+}
+function updateDepTon(){
  var amt=parseFloat((document.getElementById('depAmount').value||'0').replace(',','.'))||0;
+ var hint=document.getElementById('depTonHint');
+ if(hint)hint.textContent='≈ '+(amt/TON_GRAM_PER_TON).toFixed(4).replace(/0+$/,'').replace(/\.$/,'')+' TON';
+}
+function updateWdTon(){
+ var amt=parseFloat((document.getElementById('wdAmount').value||'0').replace(',','.'))||0;
+ var hint=document.getElementById('wdTonHint');
+ if(hint)hint.textContent='≈ '+(amt/TON_GRAM_PER_TON).toFixed(4).replace(/0+$/,'').replace(/\.$/,'')+' TON';
+}
+function doDeposit(){
  var err=document.getElementById('depErr');
- if(!user||amt<=0){
+ if(!tonConnectUI||!tonConnectUI.connected){
+  err.querySelector('span').textContent='Сначала подключите кошелёк';
   err.classList.remove('show');void err.offsetWidth;err.classList.add('show');
   return;
  }
- addRequest('deposit',user,amt);
- closeDeposit();
+ var amt=parseFloat((document.getElementById('depAmount').value||'0').replace(',','.'))||0;
+ if(amt<=0){
+  err.querySelector('span').textContent='Укажите сумму';
+  err.classList.remove('show');void err.offsetWidth;err.classList.add('show');
+  return;
+ }
+ var btn=document.querySelector('#depositSheet .depBtn');
+ if(btn){btn.textContent='Ждём подтверждение...';btn.style.pointerEvents='none'}
+ fetch('/api/ton/deposit-create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:MY_ID,gramAmount:amt})})
+  .then(function(r){return r.json()})
+  .then(function(d){
+   if(d.error){showToast(d.error,'bad');resetDepBtn();return}
+   return tonConnectUI.sendTransaction({
+    validUntil:Math.floor(Date.now()/1000)+600,
+    messages:[{address:d.address,amount:d.amountNano,payload:d.payload}]
+   }).then(function(){pollDeposit(d.memo)},function(){showToast('Платёж отменён в кошельке','bad');resetDepBtn()});
+  })
+  .catch(function(){showToast('Ошибка сети, попробуйте снова','bad');resetDepBtn()});
+}
+function resetDepBtn(){
+ var btn=document.querySelector('#depositSheet .depBtn');
+ if(btn){btn.textContent='Пополнить баланс';btn.style.pointerEvents=''}
+}
+function pollDeposit(memo){
+ var tries=0;
+ var iv=setInterval(function(){
+  tries++;
+  fetch('/api/ton/deposit-check?memo='+encodeURIComponent(memo)).then(function(r){return r.json()}).then(function(d){
+   if(d.status==='confirmed'){
+    clearInterval(iv);resetDepBtn();closeDeposit();
+    showToast('Зачислено '+d.gramAmount+' GRAM','ok');
+    refreshBalance();loadHistory();
+   }else if(tries>50){
+    clearInterval(iv);resetDepBtn();
+    showToast('Платёж пока не виден в блокчейне. Если деньги списались — подождите и откройте "История"','bad');
+   }
+  }).catch(function(){});
+ },6000);
 }
 function doWithdraw(){
- var user=(document.getElementById('wdUser').value||'').trim().replace(/^@/,'');
- var raw=document.getElementById('wdAmount').value||'0';
- var amt=parseFloat(raw.replace(',','.'))||0;
  var err=document.getElementById('wdError'),txt=document.getElementById('wdErrText');
- if(!user){
-  txt.textContent='Введите username';
+ if(!tonConnectUI||!tonConnectUI.connected){
+  txt.textContent='Сначала подключите кошелёк';
   err.classList.remove('show');void err.offsetWidth;err.classList.add('show');
   return;
  }
+ var amt=parseFloat((document.getElementById('wdAmount').value||'0').replace(',','.'))||0;
  if(amt<=0||amt>userBalance){
   txt.textContent='Недостаточно средств';
   err.classList.remove('show');void err.offsetWidth;err.classList.add('show');
   return;
  }
- addRequest('withdraw',user,amt);
- closeWithdraw();
+ var toAddress=tonConnectUI.wallet.account.address;
+ var btn=document.querySelector('#withdrawSheet .depBtn');
+ if(btn){btn.textContent='Отправляем...';btn.style.pointerEvents='none'}
+ fetch('/api/ton/withdraw',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:MY_ID,toAddress:toAddress,gramAmount:amt})})
+  .then(function(r){return r.json()})
+  .then(function(d){
+   if(btn){btn.textContent='Вывести';btn.style.pointerEvents=''}
+   if(d.error){
+    txt.textContent=d.error;
+    err.classList.remove('show');void err.offsetWidth;err.classList.add('show');
+    return;
+   }
+   closeWithdraw();
+   showToast('Выведено '+amt+' GRAM ('+d.tonAmount+' TON)','ok');
+   refreshBalance();loadHistory();
+  })
+  .catch(function(){
+   if(btn){btn.textContent='Вывести';btn.style.pointerEvents=''}
+   txt.textContent='Ошибка сети, попробуйте снова';
+   err.classList.remove('show');void err.offsetWidth;err.classList.add('show');
+  });
 }
+initTonConnect();
+setTimeout(initTonConnect,1200);
 function openLogin(){
  document.getElementById('loginErr').classList.remove('show');
  document.getElementById('loginUser').value='';
@@ -1059,8 +1315,131 @@ function refreshAdminUI(){
  if(ap)ap.style.display=logged?'':'none';
 }
 refreshAdminUI();
-function openFilters(){document.getElementById('filterOverlay').classList.add('show');document.getElementById('filterSheet').classList.add('show')}
+function toggleFRow(which){
+ var body=document.getElementById(which==='price'?'fPriceBody':'fNftBody');
+ var chev=document.getElementById(which==='price'?'fPriceChev':'fNftChev');
+ var open=body.style.display!=='none';
+ body.style.display=open?'none':'block';
+ chev.style.transform=open?'':'rotate(180deg)';
+}
+function priceBounds(){
+ var prices=marketFullCache.map(function(n){return Number(n.price)||0});
+ var lo=prices.length?Math.min.apply(null,prices):0;
+ var hi=prices.length?Math.max.apply(null,prices):100;
+ if(hi<=lo)hi=lo+10;
+ return {lo:lo,hi:hi};
+}
+function updateRangeFill(){
+ var rMin=document.getElementById('fRangeMin'),rMax=document.getElementById('fRangeMax');
+ var fill=document.getElementById('fRangeFill');
+ if(!rMin||!rMax||!fill)return;
+ var min=Number(rMin.min),max=Number(rMin.max);
+ var span=max-min||1;
+ var a=(Number(rMin.value)-min)/span*100;
+ var b=(Number(rMax.value)-min)/span*100;
+ fill.style.left=a+'%';
+ fill.style.width=Math.max(0,b-a)+'%';
+}
+function onRangeInput(which){
+ var rMin=document.getElementById('fRangeMin'),rMax=document.getElementById('fRangeMax');
+ if(which==='min'&&Number(rMin.value)>Number(rMax.value))rMin.value=rMax.value;
+ if(which==='max'&&Number(rMax.value)<Number(rMin.value))rMax.value=rMin.value;
+ document.getElementById('fPriceMin').value=rMin.value;
+ document.getElementById('fPriceMax').value=rMax.value;
+ updateRangeFill();
+}
+function onPriceInputChange(){
+ var rMin=document.getElementById('fRangeMin'),rMax=document.getElementById('fRangeMax');
+ var minV=parseFloat((document.getElementById('fPriceMin').value||'').replace(',','.'));
+ var maxV=parseFloat((document.getElementById('fPriceMax').value||'').replace(',','.'));
+ if(!isNaN(minV))rMin.value=Math.min(Math.max(minV,Number(rMin.min)),Number(rMin.max));
+ if(!isNaN(maxV))rMax.value=Math.min(Math.max(maxV,Number(rMax.min)),Number(rMax.max));
+ updateRangeFill();
+}
+function populateNftFilterList(){
+ var box=document.getElementById('fNftList');
+ if(!box)return;
+ var q=(document.getElementById('fNftSearch')||{}).value||'';
+ q=q.toLowerCase();
+ var items=Object.keys(NFT_CATALOG).map(function(code){
+  var e=NFT_CATALOG[code];
+  var cnt=marketFullCache.filter(function(n){return n.name===e.name}).length;
+  return {name:e.name,glyph:e.glyph,count:cnt};
+ });
+ if(q)items=items.filter(function(n){return n.name.toLowerCase().indexOf(q)!==-1});
+ items.sort(function(a,b){return a.name.localeCompare(b.name)});
+ if(!items.length){box.innerHTML="<div style='padding:20px 2px;color:#777;font-size:14px;text-align:center'>Ничего не найдено</div>";return;}
+ box.innerHTML=items.map(function(n){
+  var on=activeFilters.nft[n.name]?' on':'';
+  var img="<img class='nftFilterImg' src='"+glyphImgSrc(n.glyph)+"'>";
+  var countTxt=n.count>0?("<span style='color:#777;font-size:12.5px'>"+n.count+" на продаже</span>"):"<span style='color:#555;font-size:12.5px'>нет в продаже</span>";
+  return "<div class='collRow' data-nm=\""+n.name.replace(/"/g,'&quot;')+"\" onclick='toggleNftFilterRow(this)' style='cursor:pointer'><div class='chk"+on+"'></div>"+img+"<div class='collName' style='white-space:normal;line-height:1.4'>"+n.name+"<br>"+countTxt+"</div></div>";
+ }).join('');
+ syncNftAllCheckbox();
+}
+function toggleNftFilterRow(el){
+ var nm=el.getAttribute('data-nm');
+ activeFilters.nft[nm]=!activeFilters.nft[nm];
+ el.querySelector('.chk').classList.toggle('on',!!activeFilters.nft[nm]);
+ syncNftAllCheckbox();
+}
+function syncNftAllCheckbox(){
+ var allChk=document.getElementById('fNftAllChk');
+ if(!allChk)return;
+ var rows=document.querySelectorAll('#fNftList .collRow');
+ var allOn=rows.length>0 && Array.prototype.every.call(rows,function(r){return activeFilters.nft[r.getAttribute('data-nm')]});
+ allChk.classList.toggle('on',allOn);
+}
+function toggleAllNftFilter(el){
+ var on=!el.classList.contains('on');
+ el.classList.toggle('on',on);
+ var rows=document.querySelectorAll('#fNftList .collRow');
+ Array.prototype.forEach.call(rows,function(r){
+  activeFilters.nft[r.getAttribute('data-nm')]=on;
+  r.querySelector('.chk').classList.toggle('on',on);
+ });
+}
+function openFilters(){
+ var b=priceBounds();
+ var rMin=document.getElementById('fRangeMin'),rMax=document.getElementById('fRangeMax');
+ rMin.min=rMax.min=Math.floor(b.lo);
+ rMin.max=rMax.max=Math.ceil(b.hi);
+ rMin.step=rMax.step='any';
+ rMin.value=activeFilters.min!=null?activeFilters.min:b.lo;
+ rMax.value=activeFilters.max!=null?activeFilters.max:b.hi;
+ document.getElementById('fPriceMin').value=activeFilters.min!=null?activeFilters.min:'';
+ document.getElementById('fPriceMax').value=activeFilters.max!=null?activeFilters.max:'';
+ updateRangeFill();
+ document.getElementById('fNftSearch').value='';
+ populateNftFilterList();
+ document.getElementById('filterOverlay').classList.add('show');document.getElementById('filterSheet').classList.add('show');
+}
 function closeFilters(){document.getElementById('filterOverlay').classList.remove('show');document.getElementById('filterSheet').classList.remove('show')}
+function applyMarketFilters(){
+ var minV=parseFloat((document.getElementById('fPriceMin').value||'').replace(',','.'));
+ var maxV=parseFloat((document.getElementById('fPriceMax').value||'').replace(',','.'));
+ activeFilters.min=isNaN(minV)?null:minV;
+ activeFilters.max=isNaN(maxV)?null:maxV;
+ closeFilters();
+ rerenderMarket();
+ var cnt=countActiveFilters();
+ var btn=document.getElementById('filterChipBtn');
+ if(btn)btn.classList.toggle('active',cnt>0);
+ if(cnt>0)showToast('Фильтр применён','ok');
+}
+function resetMarketFilters(){
+ activeFilters={min:null,max:null,nft:{}};
+ var b=priceBounds();
+ var rMin=document.getElementById('fRangeMin'),rMax=document.getElementById('fRangeMax');
+ rMin.value=b.lo;rMax.value=b.hi;
+ document.getElementById('fPriceMin').value='';
+ document.getElementById('fPriceMax').value='';
+ updateRangeFill();
+ populateNftFilterList();
+ var btn=document.getElementById('filterChipBtn');
+ if(btn)btn.classList.remove('active');
+ rerenderMarket();
+}
 var GLYPHS={
  ring:'<circle cx="24" cy="24" r="13" fill="none" stroke="#ffd36e" stroke-width="5"/><circle cx="24" cy="24" r="13" fill="none" stroke="#c98a1e" stroke-width="1.4"/>',
  heart:'<path d="M24 38C10 29 6 20 6 14a8 8 0 0114-5 8 8 0 0114 5c0 6-4 15-18 24z" fill="#ff4d6d"/>',
@@ -1090,6 +1469,34 @@ var GLYPHS={
  mask:'<defs><linearGradient id="gMk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f5e9cd"/><stop offset="1" stop-color="#cdb584"/></linearGradient></defs><path d="M24 6c10 0 16 8 16 18 0 12-7 20-16 20S8 36 8 24C8 14 14 6 24 6z" fill="url(#gMk)"/><path d="M14 23l5 6-5 2z" fill="#9a2f2f"/><path d="M34 23l-5 6 5 2z" fill="#9a2f2f"/><circle cx="15" cy="18" r="1.6" fill="#1a1a1a"/><circle cx="33" cy="18" r="1.6" fill="#1a1a1a"/><ellipse cx="18" cy="13" rx="5" ry="2.4" fill="#fff" opacity=".3"/>',
  poop:'<defs><linearGradient id="gPp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b07a4e"/><stop offset="1" stop-color="#6b462c"/></linearGradient></defs><path d="M24 10c4 4 2 7-1 9 5-1 9 2 9 7 0 2-1 3-3 4 3 1 5 3 5 6 0 4-5 7-11 7s-11-3-11-7c0-3 2-5 5-6-2-1-3-2-3-4 0-5 4-8 9-7-3-2-5-5-1-9z" fill="url(#gPp)"/><circle cx="19" cy="34" r="1.6" fill="#1a1a1a"/><circle cx="29" cy="34" r="1.6" fill="#1a1a1a"/><path d="M19 39q5 4 10 0" stroke="#1a1a1a" stroke-width="2" fill="none" stroke-linecap="round"/><ellipse cx="20" cy="18" rx="3" ry="2" fill="#fff" opacity=".2"/>'
 };
+// Secret catalog of issuable NFT designs. Only the admin sees/knows these codes
+// (entered in the "Выдать NFT" sheet). Each code maps to a fixed name + original
+// hand-drawn icon (from GLYPHS above), so every gift the admin ever issues comes
+// from one known, finite list — which is what lets the market filter list every
+// possible NFT, not just ones already up for sale.
+var NFT_CATALOG={
+ 'COOL-7731':{name:'Myth Mask',glyph:'mask'},
+ 'COOL-2290':{name:'Party Sparkler',glyph:'sparkler'},
+ 'COOL-1088':{name:'Plush Pepe',glyph:'frog'},
+ 'COOL-4417':{name:'Candy Cane',glyph:'cane'},
+ 'COOL-5562':{name:'Instant Ramen',glyph:'ramen'},
+ 'COOL-3309':{name:'Fresh Socks',glyph:'sock'},
+ 'COOL-9024':{name:'Jingle Bells',glyph:'bell'},
+ 'COOL-6650':{name:'Desk Calendar',glyph:'calendar'},
+ 'COOL-1543':{name:'Vintage Cigar',glyph:'cigar'},
+ 'COOL-8871':{name:'Happy Poop',glyph:'poop'},
+ 'COOL-2096':{name:'Moon Pendant',glyph:'moon'},
+ 'COOL-7205':{name:'Lucky Ring',glyph:'ring'},
+ 'COOL-3381':{name:'Royal Crown',glyph:'crown'},
+ 'COOL-9456':{name:'Star Charm',glyph:'star'}
+};
+function glyphImgSrc(key){
+ var inner=GLYPHS[key]||GLYPHS.ring;
+ var svg="<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'>"+inner+"</svg>";
+ var b64;
+ try{b64=btoa(unescape(encodeURIComponent(svg)));}catch(e){b64=btoa(svg)}
+ return 'data:image/svg+xml;base64,'+b64;
+}
 var COLL=[
  {n:"Myth Mask",g:"mask",f:"8",pct:"+0.4%",pcls:"up",v:"24 318.60"},
  {n:"Party Sparkler",g:"sparkler",f:"1",pct:"+0.5%",pcls:"up",v:"1 940.20"},
