@@ -18,7 +18,7 @@ module.exports = async function handler(req, res) {
     const name = String(nft.name || '').trim().slice(0, 60);
     const img = String(nft.img || '');
     const model = String(nft.model || '').trim().slice(0, 40);
-    const bg = String(nft.bg || '').trim().slice(0, 40);
+    const bg = String(nft.bg || '').trim().slice(0, 80);
     const symbol = String(nft.symbol || '').trim().slice(0, 40);
 
     if (!targetId || !name || !img) {
