@@ -1,0 +1,1928 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Маркет</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://unpkg.com/@tonconnect/ui@2/dist/tonconnect-ui.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#161616;--card:#232323;--line:#262626;--tx:#fff;--mut:#848484;--acc:#2fb3ff;--accD:#0b2740;box-sizing:border-box}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:var(--bg);color:var(--tx);font-family:-apple-system,system-ui,'SF Pro Text',Roboto,sans-serif;overflow:hidden}
+svg.i{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none;shape-rendering:geometricPrecision}
+svg.f{fill:currentColor;stroke:none}
+#app{position:fixed;inset:0;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);max-width:520px;margin:0 auto}
+.row{display:flex;align-items:center;gap:9px;padding:11px 11px 8px}
+.av{width:38px;height:38px;border-radius:8px;background:#000 url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCACgAKADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDowaKQUtfrp+EhS5pKKAF75pCaKM0ABPegdKKKAD6UvakooAKKKO1AB3ooooAKB1oooAOlLmkooAdSZpKUUANFLSDrS0AFFFFAkFGKSl6UDD8KKKKADn0oozR2oATNLSUooAKKM0uKAEooooAKDRRz2oAOfSgUUo60ANFLTadQAUEUAUUAJQKWjoKBARSClBooGIaKCc8DrVDWNa0jRYfN1bU7OxT/AKbyhSfoOp/KonOMFeTsioU51JcsE2/Iv9s0uK8s8RfHHwlp+5NMjvNWlHQxp5Uf/fTc/kK5Kb9oLUDIfJ8M2ax9g905b8wB/KvMq53gqTs539NT2qPDmY1ldU7erS/4J7/il+hrxjQvj7pM8qx61ol1ZA4Blt5BMo99pwf516n4f17R/ENgL7RtQhvIOhMZ5Q+jKeQfrXThsxw2J0pSu+3U48ZlOMwavWg0u+6+9Gp+NIDQvSl47V2nnhRz3ooNABSikoHWgBBjvSqKKUUAJRSnFNPNAAeaP4c9h1PpXjnxO+M8Wk3kuk+F4obu5iO2W8k+aJG7hQPvEevT614xr3jfxXrpI1PXb2ZD/wAs1k2J/wB8rgV4GM4gw9CThBczX3fefUYDhTFYmKnUagn33+4+pvEHjnwnoGRqWu2iSDrDE3mSf98rn9a848RfH6wi3R6Dok1y3QS3b7F+u1cn9RXhVtpmp3cZmtrC7njHV44WYfmBW58OvBt94y8QNpVtNHbLFGZZ5ZAT5aggdOpOSBivFqZ5jcRJQpLlvt3+9n0NHhrLcJB1K8ubl3u9PuRp+Ifi1431jcn9qmwhb/lnZL5X/j33v1rjD9t1K8zm4u7mQ+7ux/ma98k+AWi/ZTHH4hvRdbMhmiTZn129cfjWn8EfD0fhHUtX0DVbeFdZLieC5Az9otsYyhPOA2cjqMjNQ8rxtatGOJlo+t7/ACNo51l+Hw8pYOKbj0Stp39D57m0HVraWFdQsbmwSZwgluomjQEnGSSOBXceLvg/regeFTrovrW/EWGnjtgSEjI++GP3h64HTmvb5/Eltc+M7rwR4m0uKOG7j3WDytvivU7qQeje3t9KNBL+GdVTwnqDGbSrvcNHnl+YAYy1q5PdRnbnqOO1dVPJsOuZOV1tfblfmvM4qvEOLfK4wSa962/NHyfddf8AgHyGeDWx4V8Q6r4a1VNS0e7eCdeDjlXX+6w7g+ldj8bvALeFNY+36fEx0a8YmLHPkP3jJ/l7fSvNs187WpVcJWcZaSR9VQr0cdQU46xkv6TPsT4beNdP8aaILu2Kw3kQC3dqTzE3qPVT2P4V1QFfFXhHxFqfhjWodW0uYxzRnBU/dkXurDuDX1h8PfGOmeMtFW+sW8uePC3Nsx+aFv6qex/rX22T5xHFx9nU0mvxPznP8hlgZ+2oq9N/h/wOzOmoxmkFKDXvHzIE0neloxzQAAUUUY96AFwDXAfHfxFL4d8AXBtZDHdX7i1iYHlQQS5HvtGPxrvxXjP7VZI8MaMB/wA/r/8AoFedm1SVPB1JR3serkdGNbMKUJrS/wCWp86knNb3gE6UPGOk/wBuKrab9qT7QH+7tz/F7Zxn2rApQSDxX5rCXJJS7H69Uhzwcb2ufZ/i/W28J+GTqlnpL3ltbMvmw2zBPLi7uoAwQPTjrWNqFlazm1+IPg+CO5uTDunjhGPt9ufvIQP+WgxkH1XBrk/2f/Ha6xp3/CI6zIr3UMZFq0nPnw4wYznqQPzH0rmviN4b8ReGNbt9B0bXLiw8N6tck2we4ZIYJG6o7DoM9PUfjX21bG89BYiCvF9FvGX9f1qfneGy10sS8LOXLNNu7vacXuvX+uh6P4702bxBpOm+OPBl0W1WwTzrUrnFzF/FEw9eowe+RU9neWvxE8J2mt6NKtlrVi++An71rcAfNE/cxt0I7gg9RWP4K0nWPhfbwQavqMV9ol5NtnkRWAsJm4V+f+WbdCeMHBpfF1nc/D/xUfG2jQNJot6wTWrSPopJ4mUD65+v1rVSlb2s42vbnXbtJGfs43VGlK7V/Zy7rrB/p69mamsWFr8R/CLRMp03XdPlO0lsSWV0vbI52HqD3GD1FReFNTi8c+Hb7wx4mia117TyI7xB8siup+S4j984OR39mFX/ABQBpssXj7RczRCBW1GCP/l8teocD++gOR7ZFPfQ9J8Ta5pHjjQdUMNxEAGnt1DLcwnrHIOxxxzyPwFauEvaaaytqv5o9/Vf10OdVYqjrdRveL6wl1i/J/11G2Sx+J9I1HwZ4tiR9Rt4ws5UACeM/wCruY/Tnr6NkV4ZP8HPGR8Q3GnWtisltFJhL2SQJE6noc9c46gDivV/jvr0HhpNF1i0mRNbtrv9zHnmSAg+YrjrsPH41j618fNJitk/snRbm5uWQFvtDCNEbuOMlsevFefjo4Kc/Z4mdnDqt2u3qepls8xpU1VwVO8am6eya3a20f8AWx4V4i0e+0HWbnStShMNzbOUdf5EeoI5B9DVvwR4l1Dwr4gg1awc7oziSMk7ZUPVG9j/ADxVjx94w1HxnqiahqcFpFJGnloIItuFzkAnq341zRNfKSmqVXmovRPTufcRhKrQUa8VdrVbrzPuHQtStNZ0a01Wybdb3UQljJ6gHsfcHI/CrwFeTfsw6nJd+CLuwkfP2K8IQZ5Cuu78sg16xiv0vA4j6zh41X1R+PZlhFhMXOitk/w6C0o60lKK6zhE70UA5ooAOe1eOftVoT4W0dx0F8wP/fuvY65X4q+Gf+Es8F3mlw4+1ria1J/56L0H4gkfjXBmlGVbCzhHex6eTYiGHx1OpPZP89D46NJU91bzWtxJBcRPFLGxV0cYKkcEEetQmvzJqzsz9jWupa029utPvoL6zmeG4gcPE6nBVh0r6j8M6to3xW+H8tnqARbgoEu4lxvhlH3ZE9BnkH6ivlLJrQ0HWtU0K/W/0m+ms7hRgPE2OPQ+o9jXo5dmDwsmpK8Hujyc1ytY6MZQfLOOsX/XQ+vPCui38PhFNB8Tz2+qMqtbs6gkTQ9FDZ/ixx+ArzHw38VrLw3f3vhXX/Ov7Cxnkt7W+jAkZo1YhVcE/NxxkV5xq3xT8danYtZ3GuyJE67X8iNImYd8lQDXEEknOa9HFZ4k4fVk1y6a9V2PKwXDrtU+uNPmd7R0s+67H0B47+NejSaFc6d4atriae4iMXnTRiNIlIwcL3OOnavD9P1nVdN3DTdSvLMN94QTMgP1waz80GvJxeYV8VNTm9V20PbwWWYbBU3TpR0e99bk95dXN3O091cSzysfmeRyzH6k1Bmkorjbbd2d6SWwuaKSr+iaZe6xqcGm6dbvcXU7hY41HJPr7AdzRGLk7LcJSUU29ke+fsrWZj8N6zfMGHnXaRqexCJn+bV7IKwvAXh2Hwt4TstEiZXaFd00g/5aSNyx/PgewFbwr9Oy3DvD4aFOW6R+N5vio4vG1Ksdm9PRaBSikNFdx5wDiiiloASjHNHeigDxn9oD4djUbeXxVosH+mRLuvYUHMyj+MD+8B19R9K+d+hIr7uOPSvnT42fC65028uPEPh+2MumSEyXEEQy1se5A7p9On0r4/PcpabxFFeq/U++4Zz1NLCYiWq+Fv8AL/L7jxs0lOI9jTa+SPuAoop3PpQA2iuo8N+A/FfiEq2l6LdSQt/y3kXy4v8AvpsD8q9N8NfAGdtsniHWki7mCzTcfpvbA/IGu7D5bicR8EHbvsedi82weE/i1Fftu/uR4YBW/wCHvB3ifxAw/snRbu4Q/wDLTZtjH/AjgV9P+Gvhr4L0HbJaaNDcTr/y2uz5z/rwPwFdeoAUIoAUdABwK93DcMSetadvJf5nzOL4yhHTD07+b/y/4J89+G/gHqkwSTXtXt7NT1ith5r/AJnCj9a9f8EeCPD3hC3ZNJtP37jElzKd0r+2ew9hiumor6DCZThsK+aEde7Pl8dnmNxq5ak/d7LRBRS4pDxXpHkBTqbSg5oASl4pOe9FABRRilxigAFJRRQB574y+EfhLxDM91FDJpV25y0lngIx9Sh4/LFcDdfs+X/mn7L4mtGj7GW2dW/QmvoAjNFeVXybB1pc0oa+Wh7eG4gzDDx5Y1Lrz1PDtG/Z+t0dX1fxE8q/xR2sG3P/AAJs/wAq9I8M/Dzwf4f2vYaLA86/8t7n99Jn1y3A/ACupOMUVph8qwmHd4Q189THFZ3jsUrVKjt2Wn5B2x2HT2oIx0paDXonlXuJQR6UuKaeooAWiil6UAHQUlKaQ0AAFKtGaBQAlLiiloAbSmkooAUUhBB4ope2KAENFFFAC5xSUUc0AL0oJozxg0lAC5pKKKAClBpKMZoAXFJS96Q5zxQAUooFAoAOtJQM9AaKACigc0UAFFFFABSdTS0UWAXtSUUUAFFGOMUme1AC0A0dBR1oAKdTB0pQaAFxSUvvSUAFKKSigD//2Q==) center/cover no-repeat;flex:none;transition:.15s}
+.av:active{transform:scale(.92)}
+.bal{display:flex;align-items:center;gap:6px;font-size:18px;color:#e8e8e8}
+.bal .plus{color:#666}
+.sp{flex:1}
+.ib{width:38px;height:38px;border-radius:10px;background:#1f1f1f;border:1px solid #2e2e2e;display:grid;place-items:center;color:#c6c6c6;transition:.15s}
+.ib:active{transform:scale(.9);background:#282828}
+.tabrow{display:flex;gap:9px;padding:6px 11px 11px;border-bottom:1px solid #1f1f1f;align-items:center}
+.tabs{flex:1;display:flex;border:1px solid #272727;border-radius:11px;background:#1a1a1a;overflow:hidden;height:42px}
+.tab{display:grid;place-items:center;color:#aaa;padding:0 14px;flex:1}
+.tab.on{flex:none;background:#242424;border:1px solid #3a3a3a;border-radius:11px;display:flex;align-items:center;gap:8px;color:#fff;font-size:16px;padding:0 13px;margin:-1px}
+.cart{width:42px;height:42px;border-radius:11px;background:#1c1c1c;border:1px solid #2a2a2a;display:grid;place-items:center;color:#cfcfcf}
+.cartBadge{position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;padding:0 4px;border-radius:9px;background:#2fb3ff;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid #161616}
+.gcart.inCart{background:var(--acc);color:#fff}
+.search{display:flex;gap:8px;padding:12px 11px 8px}
+.field{flex:1;min-width:0;height:42px;border-radius:11px;background:#1e1e1e;border:1px solid #292929;display:flex;align-items:center;gap:10px;padding:0 12px;color:#707070;font-size:15px;white-space:nowrap;overflow:hidden}
+.feed{height:42px;border-radius:11px;background:#1e1e1e;border:1px solid #292929;display:flex;align-items:center;gap:10px;padding:0 16px;color:#999;font-size:15px}
+.chips{display:flex;gap:8px;padding:5px 11px;overflow:hidden;position:relative}
+.chip{height:38px;border-radius:10px;background:#222;display:flex;align-items:center;gap:10px;padding:0 12px;color:#a5a5a5;font-size:15px;white-space:nowrap}
+.chip.sq{padding:0 10px}
+.subtabs{display:flex;align-items:center;gap:22px;padding:13px 14px 10px;border-bottom:1px solid #1f1f1f}
+.stab{font-size:15px;color:#707070;padding-bottom:8px;position:relative;transition:.2s}
+.stab.on{color:#fff}
+.stab.on:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;background:#fff;border-radius:2px;animation:grow .25s ease}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.info{margin-left:auto;width:22px;height:22px;border-radius:50%;background:#2c2c2c;display:grid;place-items:center;color:#999;font-size:12px;font-style:italic;font-weight:700}
+.main{flex:1;overflow:auto;padding:10px;display:flex;flex-direction:column;align-items:center;text-align:center;scrollbar-width:none}
+.main.load{justify-content:center}
+.spin{width:30px;height:30px;border:3.5px solid #343434;border-top-color:#888;border-radius:50%;animation:s .9s linear infinite}
+@keyframes s{to{transform:rotate(360deg)}}
+.empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 8px;animation:fadeUp .4s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.empty svg.big{width:72px;height:72px;color:#444;margin-bottom:18px}
+.empty h3{font-size:19px;font-weight:600;margin-bottom:7px}
+.empty p{font-size:13px;color:#888;line-height:1.4;max-width:270px}
+.empty .more{font-size:13px;color:#888;margin-top:4px;display:flex;align-items:center;gap:6px}
+.empty .more b{color:var(--acc);font-weight:600}
+.empty .more i{width:17px;height:17px;border-radius:50%;background:var(--acc);color:#071b2e;display:grid;place-items:center;font-style:italic;font-weight:800;font-size:11px}
+.btn{margin-top:18px;background:#232323;border:1px solid #303030;border-radius:13px;padding:11px 18px;font-size:14px;color:#ddd;transition:.15s}
+.btn:active{transform:scale(.96);background:#2a2a2a}
+.icons3{display:flex;gap:22px;margin-top:22px}
+.icons3 .ic{width:58px;height:58px;display:grid;place-items:center}
+.icons3 svg{width:48px;height:48px;color:#4d4d4d}
+.cool{width:60px;height:36px;background:#0e0e0e;border:1px solid #222;border-radius:13px;display:flex;align-items:center;justify-content:center;transform:rotate(-10deg) skewX(-5deg)}
+.cool span{font-family:Anton,Impact,sans-serif;font-size:16px;color:var(--acc);transform:skewX(5deg)}
+.btns3{display:flex;gap:8px;margin-top:20px;width:100%;max-width:400px}
+.btns3 div{flex:1;background:#1e1e1e;border:1px solid #292929;border-radius:13px;padding:12px 4px;font-size:14px;color:#c6c6c6;transition:.15s}
+.btns3 div:active{transform:scale(.95)}
+.nav{display:flex;justify-content:space-around;padding:10px 4px 10px;background:#161616;border-top:1px solid #1f1f1f;font-size:12.5px;color:#747474;position:relative}
+.nav div{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;transition:.15s}
+.nav div:active{transform:scale(.93)}
+.nav svg{width:23px;height:23px}
+.nav .on{color:#fff}
+.navind{position:absolute;top:-1px;height:4px;width:84px;border-radius:0 0 5px 5px;background:#f2f2f2;transition:left .25s cubic-bezier(.4,0,.2,1);left:calc(12.5% - 42px)}
+#splash{position:fixed;inset:0;z-index:10;display:flex}
+.half{position:relative;width:50%;height:100%;overflow:hidden;background:#2fb3ff;transition:transform .9s cubic-bezier(.77,0,.18,1)}
+.half .in{position:absolute;top:0;width:100vw;height:100%;background:#2fb3ff;display:grid;place-items:center}
+.half.l .in{left:0}.half.r .in{right:0}
+.badge{width:78vw;max-width:620px;height:44vw;max-height:55vh;background:#000;border-radius:14vw;display:grid;place-items:center;transform:rotate(-16deg) skewX(-6deg);animation:pop 1.6s ease-in-out infinite alternate;box-shadow:0 3vw 0 -1vw rgba(0,0,0,.25)}
+.badge span{font-family:Anton,Impact,'Arial Narrow',sans-serif;font-size:min(27vw,200px);line-height:1;color:#2fb3ff}
+@keyframes pop{to{transform:rotate(-12deg) skewX(-6deg) scale(1.05)}}
+#splash.open .l{transform:translateY(-100%)}#splash.open .r{transform:translateY(-100%)}
+
+/* profile */
+#profile{position:fixed;inset:0;background:var(--bg);z-index:5;transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow:hidden}
+#profile.show{transform:translateX(0)}
+.pbody{flex:1;overflow:auto;padding:0 11px 20px;scrollbar-width:none}
+.pback{display:flex;align-items:center;gap:8px;padding:11px 4px;font-size:16px;font-weight:600;color:#fff}
+.pback svg{width:21px;height:21px}
+.stats{display:flex;gap:9px;margin:4px 0 14px}
+.stat{flex:1;background:#1e1e1e;border:1px solid #272727;border-radius:13px;padding:12px;animation:fadeUp .35s ease both}
+.stat .ic{width:26px;height:26px;display:grid;place-items:center;margin-bottom:10px}
+.stat .num{font-size:21px;font-weight:600}
+.stat .lb{font-size:12.5px;color:#8a8a8a;margin-top:2px}
+.ptabs{display:flex;gap:26px;padding:4px 4px 10px;border-bottom:1px solid #222}
+.ptab{display:flex;align-items:center;gap:7px;font-size:15px;color:#8a8a8a;padding-bottom:9px;position:relative}
+.ptab.on{color:#fff}
+.ptab.on:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;background:#fff;border-radius:2px}
+.promo{margin:12px 0;border-radius:14px;padding:13px 14px;background:linear-gradient(100deg,#2fb3ff,#7a5cff 55%,#ff8a5c);display:flex;align-items:center;gap:10px;animation:fadeUp .4s .05s ease both}
+.promo b{font-size:14.5px;letter-spacing:-.2px;color:#0b1224;flex:1;line-height:1.25}
+.promo svg{width:34px;height:34px;flex:none;color:#0b1224;opacity:.85}
+.cardsr{display:flex;gap:10px;margin-bottom:13px;animation:fadeUp .4s .1s ease both;background:linear-gradient(135deg,#2a2440,#201a35 45%,#1a2c40);border:1px solid #2e2850;border-radius:18px;padding:14px}
+.gramcard{flex:1;background:none;border:none;padding:2px 6px 2px 0}
+.gramcard .ic{width:40px;height:40px;border-radius:11px;background:rgba(47,179,255,.18);display:grid;place-items:center;margin-bottom:26px}
+.gramcard .num{font-size:24px;font-weight:600}
+.gramcard .lb{font-size:13px;color:#9a93b8;margin-top:2px}
+.smallr{display:flex;flex-direction:column;gap:9px;flex:1}
+.smallcard{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px 13px;display:flex;align-items:center;gap:9px}
+.smallcard svg{width:18px;height:18px;color:#b7b0d9}
+.smallcard span{flex:1;font-size:14.5px;color:#d6d2ec}
+.smallcard b{font-size:16px}
+.sect{margin-bottom:16px;background:#1c1c1c;border:1px solid #272727;border-radius:20px;overflow:hidden;animation:fadeUp .4s .15s ease both}
+.secthead{font-size:12px;letter-spacing:.6px;color:#777;padding:16px 16px;text-transform:uppercase;display:flex;align-items:center;border-bottom:1px solid #272727}
+.secthead svg{width:16px;height:16px;margin-left:auto;color:#777}
+.qa{display:flex;gap:8px;padding:14px}
+.qa div{flex:1;background:#262626;border:1px solid #303030;border-radius:13px;padding:14px 4px;display:flex;flex-direction:column;align-items:center;gap:7px;font-size:13.5px;color:#aaa;transition:.15s}
+.qa div:active{transform:scale(.95);background:#2c2c2c}
+.qa svg{width:19px;height:19px;color:#999}
+.histbox{padding:34px 16px;display:flex;flex-direction:column;align-items:center}
+.histbox svg{width:46px;height:46px;color:#444;margin-bottom:14px}
+.histbox h4{font-size:16px;margin-bottom:6px}
+.histbox p{font-size:13px;color:#888;text-align:center;line-height:1.4}
+.histbox.filled{display:block;padding:6px;text-align:left}
+.histRow{display:flex;align-items:center;gap:10px;padding:10px 8px;border-bottom:1px solid #272727}
+.histRow:last-child{border-bottom:none}
+.histRow svg.f{width:20px;height:20px;flex:none}
+.histRow .hName{font-size:14.5px;font-weight:500}
+.histRow .hTime{font-size:12px;color:#888;margin-top:1px}
+.histRow .hAmt{margin-left:auto;font-size:14px;font-weight:600;display:flex;align-items:center;gap:4px}
+.histRow .hStatus{font-size:11.5px;margin-top:2px}
+.histRow .hStatus.pend{color:#e0a734}
+.histRow .hStatus.ok{color:#38d17a}
+.histRow .hStatus.bad{color:#ff5a5a}
+/* menu */
+#menuPanel{position:fixed;inset:0;background:var(--bg);z-index:6;transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow:hidden}
+#menuPanel.show{transform:translateX(0)}
+.mbody{flex:1;overflow:auto;padding:0 0 24px;scrollbar-width:none}
+.mhead{display:flex;align-items:center;padding:14px 16px 14px}
+.mhead h2{font-size:24px;font-weight:700;flex:1}
+.mhead .xc{width:26px;height:26px;color:#888}
+.msec{padding:16px 16px 8px;font-size:12px;letter-spacing:.6px;color:#777;text-transform:uppercase}
+.mdiv{height:1px;background:#222;margin:6px 0}
+.mrow2{display:flex;gap:9px;padding:0 16px 4px}
+.mrow2 div{flex:1;background:#1e1e1e;border:1px solid #272727;border-radius:12px;padding:13px 10px;display:flex;align-items:center;gap:9px;font-size:14.5px;color:#ccc;transition:.15s}
+.mrow2 div:active{transform:scale(.96);background:#262626}
+.mrow2 svg{width:19px;height:19px;color:#aaa;flex:none}
+.mlink{display:flex;align-items:center;gap:13px;padding:13px 16px;font-size:15.5px;color:#ddd;transition:.15s}
+.mlink:active{background:#1c1c1c}
+.mlink svg{width:22px;height:22px;color:#999;flex:none}
+.mlink .ch{margin-left:auto;width:18px;height:18px;color:#777;transform:rotate(90deg)}
+.mbadge{width:30px;height:18px;background:#0e0e0e;border:1px solid #222;border-radius:6px;display:flex;align-items:center;justify-content:center;flex:none}
+.mbadge span{font-family:Anton,Impact,sans-serif;font-size:7px;color:var(--acc)}
+.langs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:6px 16px 4px}
+.lang{display:flex;align-items:center;gap:8px;background:#1e1e1e;border:1.5px solid #272727;border-radius:12px;padding:11px 9px;font-size:13.5px;color:#ccc;transition:.15s}
+.lang.on{border-color:#555;background:#262626}
+.lang .fl{width:20px;height:20px;border-radius:50%;flex:none;overflow:hidden}
+.toggler{display:flex;align-items:center;gap:13px;padding:16px}
+.sw{width:46px;height:27px;border-radius:14px;background:#333;position:relative;flex:none;transition:.2s}
+.sw.on{background:var(--acc)}
+.sw b{position:absolute;top:2.5px;left:2.5px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s;display:block}
+.sw.on b{transform:translateX(19px)}
+html.noanim *{transition:none!important;animation:none!important}
+.cdLink{text-align:center;padding:20px 16px 6px;font-size:10.5px;color:#2a2a2a;letter-spacing:1.5px;user-select:none}
+.cdLink:active{opacity:.5}
+.loginSheet{align-items:stretch;text-align:left}
+.loginField{width:100%;height:50px;background:#1e1e1e;border:1px solid #2c2c2c;border-radius:13px;display:flex;align-items:center;padding:0 16px;margin-bottom:12px}
+.loginField input{flex:1;min-width:0;background:none;border:none;outline:none;color:#fff;font-size:15px;font-family:inherit}
+.loginErr{color:#ff5a5a;font-size:13.5px;text-align:center;margin:-2px 0 14px;display:none}
+.loginErr.show{display:block;animation:shakeX .35s}
+#adminPanel{position:fixed;inset:0;background:var(--bg);z-index:9;transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow:hidden}
+#adminPanel.show{transform:translateX(0)}
+.apHead{display:flex;align-items:center;gap:8px;padding:12px 16px}
+.apBody{flex:1;overflow:auto;padding:0 16px 24px;scrollbar-width:none}
+.apStat{background:#1e1e1e;border:1px solid #272727;border-radius:14px;padding:16px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.apStat .lb{color:#999;font-size:14px}
+.apStat .vl{font-size:19px;font-weight:700}
+.apRow{display:flex;align-items:center;gap:12px;padding:13px 2px;border-bottom:1px solid #222;font-size:15px;color:#ddd}
+.apRow svg{width:20px;height:20px;color:#999}
+.userBox{width:100%;height:50px;background:#1f1f1f;border:1px solid #2c2c2c;border-radius:14px;display:flex;align-items:center;padding:0 16px;margin-bottom:12px}
+.userBox span{color:#777;margin-right:2px;font-size:16px}
+.userBox input{flex:1;min-width:0;background:none;border:none;outline:none;color:#fff;font-size:15px;font-family:inherit}
+
+/* deposit sheet */
+.sheetOverlay{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:7;opacity:0;pointer-events:none;transition:opacity .25s ease}
+.sheetOverlay.show{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;max-width:520px;margin:0 auto;background:#131313;border-radius:26px 26px 0 0;z-index:8;padding:14px 22px calc(26px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:center;text-align:center;transform:translateY(100%);transition:transform .32s cubic-bezier(.4,0,.2,1)}
+.sheet.show{transform:translateY(0)}
+.sheetHead{width:100%;display:flex;justify-content:flex-end;margin-bottom:4px}
+.xc2{width:30px;height:30px;border-radius:50%;background:#242424;display:grid;place-items:center;color:#aaa;transition:.15s}
+.xc2:active{transform:scale(.92);background:#2b2b2b}
+.xc2 svg{width:15px;height:15px}
+.purseIcon{width:132px;height:132px;margin:6px 0 8px}
+.sheetTitle{font-size:25px;font-weight:700;margin-bottom:18px}
+.amountBox{width:100%;height:56px;background:#1f1f1f;border:1px solid #2c2c2c;border-radius:14px;display:flex;align-items:center;padding:0 18px;margin-bottom:20px}
+.amountInput{flex:1;min-width:0;background:none;border:none;outline:none;color:#fff;font-size:21px;font-family:inherit}
+.depBtn{width:100%;background:var(--acc);color:#07243d;font-weight:700;font-size:17px;border-radius:15px;padding:16px;transition:.15s}
+.depBtn:active{transform:scale(.97)}
+.purseWrap{position:relative;width:132px;height:132px;margin:6px 0 8px}
+.purseIcon{width:100%;height:100%;display:block;transform-origin:50% 85%}
+.sheet.show .purseIcon{animation:purseBounce 2.6s ease-in-out infinite}
+.purseClasp{transform-origin:60px 46px}
+.sheet.show .purseClasp{animation:claspWiggle 2.6s ease-in-out infinite}
+@keyframes purseBounce{0%,100%{transform:rotate(0deg) translateY(0)}20%{transform:rotate(-5deg) translateY(-5px)}40%{transform:rotate(4deg) translateY(0)}60%{transform:rotate(-2deg) translateY(-2px)}80%{transform:rotate(0deg) translateY(0)}}
+@keyframes claspWiggle{0%,100%{transform:rotate(0deg)}20%{transform:rotate(6deg)}40%{transform:rotate(-5deg)}60%{transform:rotate(2deg)}80%{transform:rotate(0deg)}}
+.sparkle{position:absolute;width:16px;height:16px;opacity:0;filter:drop-shadow(0 0 3px rgba(255,255,255,.6))}
+.sparkle.s1{top:2px;right:10px}
+.sparkle.s2{bottom:18px;left:0;width:12px;height:12px}
+.sparkle.s3{top:30px;right:-4px;width:10px;height:10px}
+.sheet.show .sparkle.s1{animation:twinkle 2.6s ease-in-out infinite}
+.sheet.show .sparkle.s2{animation:twinkle 2.6s ease-in-out .6s infinite}
+.sheet.show .sparkle.s3{animation:twinkle 2.6s ease-in-out 1.3s infinite}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.3) rotate(0deg)}50%{opacity:1;transform:scale(1) rotate(25deg)}}
+.fallgem{position:absolute;width:18px;height:18px;top:-24px;opacity:0;z-index:1}
+.fallgem.g1{left:34%}
+.fallgem.g2{left:52%;width:14px;height:14px}
+.fallgem.g3{left:44%;width:16px;height:16px}
+.sheet.show .fallgem.g1{animation:gemFall 2s ease-in infinite}
+.sheet.show .fallgem.g2{animation:gemFall 2.3s ease-in .75s infinite}
+.sheet.show .fallgem.g3{animation:gemFall 1.8s ease-in 1.4s infinite}
+.purseIcon{position:relative;z-index:2}
+@keyframes gemFall{0%{top:-24px;opacity:0;transform:scale(.55) rotate(-20deg)}15%{opacity:1}70%{top:38px;opacity:1;transform:scale(.9) rotate(200deg)}88%{top:46px;opacity:.3;transform:scale(.6) rotate(230deg)}100%{top:50px;opacity:0;transform:scale(.3) rotate(250deg)}}
+.risegem{position:absolute;width:18px;height:18px;top:48px;opacity:0;z-index:1}
+.risegem.g1{left:34%}
+.risegem.g2{left:52%;width:14px;height:14px}
+.risegem.g3{left:44%;width:16px;height:16px}
+.sheet.show .risegem.g1{animation:gemRise 2s ease-out infinite}
+.sheet.show .risegem.g2{animation:gemRise 2.3s ease-out .75s infinite}
+.sheet.show .risegem.g3{animation:gemRise 1.8s ease-out 1.4s infinite}
+@keyframes gemRise{0%{top:48px;opacity:0;transform:scale(.3) rotate(230deg)}15%{opacity:1}70%{top:-10px;opacity:1;transform:scale(.8) rotate(20deg)}100%{top:-26px;opacity:0;transform:scale(.4) rotate(-10deg)}}
+.wdError{display:none;align-items:center;justify-content:center;gap:7px;color:#ff5a5a;font-size:14px;margin:-6px 0 16px;width:100%}
+.wdError.show{display:flex;animation:shakeX .35s}
+.wdError svg{width:17px;height:17px;flex:none}
+@keyframes shakeX{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+
+/* filters sheet */
+.filterSheet{align-items:stretch;text-align:left;max-height:86vh;overflow-y:auto;scrollbar-width:none}
+.fHead{display:flex;align-items:center;justify-content:space-between;width:100%;padding:4px 0 8px}
+.fHead h2{font-size:27px;font-weight:700}
+.frow{display:flex;align-items:center;justify-content:space-between;padding:17px 2px;border-bottom:1px solid #232323;font-size:13.5px;letter-spacing:.6px;color:#9a9a9a;text-transform:uppercase;transition:.15s}
+.frow:active{opacity:.6}
+.frow svg{width:20px;height:20px;color:#888;flex:none}
+.frow .fbm{display:flex;align-items:center;gap:9px}
+.saveBtn{margin:16px 0 4px;width:100%;border:1px solid #303030;border-radius:13px;padding:14px;display:flex;align-items:center;justify-content:center;gap:8px;color:#9a9a9a;font-size:15px;transition:.15s}
+.saveBtn:active{transform:scale(.97)}
+.saveBtn svg{width:15px;height:15px}
+.fActions{display:flex;gap:10px;width:100%;margin-top:20px}
+.resetBtn{flex:1;background:#202020;border:1px solid #2e2e2e;border-radius:14px;padding:16px;text-align:center;color:#9a9a9a;font-size:15px;transition:.15s}
+.resetBtn:active{transform:scale(.96)}
+.showBtn{flex:2;background:var(--acc);color:#07243d;font-weight:700;border-radius:14px;padding:16px;text-align:center;font-size:16px;transition:.15s}
+.showBtn:active{transform:scale(.97)}
+
+/* gift info sheet */
+.giBadgeRow{display:flex;align-items:center;justify-content:center;gap:16px;margin:4px 0 20px}
+.giBadge{width:64px;height:64px;border-radius:18px;display:grid;place-items:center;flex:none}
+.giBadge.cool2{background:#0e0e0e;border:1px solid #222}
+.giBadge.cool2 span{font-family:Anton,Impact,sans-serif;font-size:15px;color:var(--acc)}
+.giBadge.gemB{background:linear-gradient(160deg,#ff6b63,#d6362f)}
+.giSwap{width:24px;height:24px;color:#666;flex:none}
+.giTitle{font-size:24px;font-weight:700;text-align:center;margin-bottom:16px}
+.giDiv{height:1px;background:#242424;margin:4px 0 16px;width:100%}
+.giSec{font-size:19px;font-weight:700;margin-bottom:12px}
+.giItem{display:flex;gap:12px;margin-bottom:14px;font-size:15px;color:#aaa;line-height:1.4}
+.giNum{width:24px;height:24px;border-radius:7px;background:var(--acc);color:#07243d;font-weight:700;font-size:13px;display:grid;place-items:center;flex:none}
+.giDot{width:8px;height:8px;border-radius:50%;background:var(--acc);flex:none;margin-top:6px}
+.giLink{color:var(--acc)}
+.giBtn{width:100%;background:var(--acc);color:#07243d;font-weight:700;font-size:16px;border-radius:15px;padding:16px;text-align:center;margin-top:4px;transition:.15s}
+.giBtn:active{transform:scale(.97)}
+
+/* market grid */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;width:100%;text-align:left;padding-bottom:88px}
+.gcard{background:#1b1b1b;border:1px solid #262626;border-radius:16px;overflow:hidden;animation:fadeUp .4s both}
+.gtile{position:relative;aspect-ratio:1;display:grid;place-items:center;overflow:hidden}
+.gpat{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.12) 2px,transparent 2.5px);background-size:20px 20px;opacity:.5}
+.gtile .art{width:60%;height:60%;position:relative;filter:drop-shadow(0 4px 6px rgba(0,0,0,.28))}
+.bdg{position:absolute;top:8px;right:8px;display:flex;flex-direction:column;gap:6px}
+.bdg div{width:30px;height:30px;border-radius:9px;background:rgba(0,0,0,.2);display:grid;place-items:center;color:#fff}
+.bdg svg{width:17px;height:17px}
+.gmeta{padding:10px 12px 3px}
+.gname{font-size:16px;font-weight:600;color:#f0f0f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gid{font-size:13px;color:#777;margin-top:1px}
+.gbuy{display:flex;gap:8px;padding:8px 10px 11px}
+.gprice{flex:1;background:#232323;border-radius:11px;display:flex;align-items:center;justify-content:center;gap:7px;font-size:15px;font-weight:600;height:42px;color:#fff}
+.gcart{width:50px;height:42px;background:#232323;border-radius:11px;display:grid;place-items:center;color:#cfcfcf;transition:.15s}
+.cartRow{display:flex;align-items:center;gap:12px;padding:11px 2px;border-bottom:1px solid #222}
+.cartThumb{width:46px;height:46px;border-radius:12px;flex:none;background:#232323;display:grid;place-items:center;overflow:hidden}
+.cartBuyBtn{background:var(--acc);color:#fff;font-weight:700;font-size:13.5px;padding:9px 14px;border-radius:11px;flex:none}
+.cartRmBtn{width:34px;height:34px;border-radius:10px;background:#232323;display:grid;place-items:center;color:#999;flex:none}
+.cartFoot{display:flex;align-items:center;gap:12px;padding:14px 0 2px}
+.cartFoot .showBtn{flex:1}
+.gcart:active{transform:scale(.92);background:#2a2a2a}
+.wholesale{position:fixed;left:14px;bottom:78px;z-index:4;background:#1f1f1f;border:1px solid #343434;border-radius:13px;padding:12px 16px;display:flex;align-items:center;gap:9px;font-size:16px;color:#eee;box-shadow:0 8px 22px rgba(0,0,0,.45)}
+.wholesale svg{width:19px;height:19px}
+
+/* collection panel */
+.collPanel{position:fixed;inset:0;background:var(--bg);z-index:6;transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow:hidden}
+.collPanel.show{transform:translateX(0)}
+.collTop{display:flex;align-items:center;gap:8px;padding:13px 16px 2px}
+.collTop .back{display:flex;align-items:center;gap:6px;font-size:16px;color:#fff;cursor:pointer}
+.collTop svg{width:21px;height:21px}
+.collHead2{display:flex;align-items:center;justify-content:space-between;padding:10px 16px 10px}
+.collHead2 h2{font-size:26px;font-weight:700}
+.collHead2 .xc2{cursor:pointer}
+.collSearch{margin:0 16px 12px;height:44px;border-radius:12px;background:#1e1e1e;border:1px solid #292929;display:flex;align-items:center;gap:10px;padding:0 14px;color:#707070}
+.collSearch svg{width:18px;height:18px;flex:none}
+.collSearch input{flex:1;min-width:0;background:none;border:none;outline:none;color:#fff;font-size:15px;font-family:inherit}
+.collSearch input::placeholder{color:#707070}
+.collAllRow{display:flex;align-items:center;padding:4px 16px 12px;border-bottom:1px solid #222;font-size:15.5px;color:#ddd}
+.collAllRow .colh{display:flex;align-items:center;gap:4px;color:#8a8a8a;font-size:13.5px}
+.collAllRow .colh svg{width:12px;height:12px;opacity:.7}
+.collAllRow .colFloor{width:106px}
+.collAllRow .colVol{flex:1;padding-left:10px}
+.collList{flex:1;overflow:auto;scrollbar-width:none;padding-bottom:6px}
+.collRow{display:flex;align-items:center;padding:11px 16px;gap:12px;animation:fadeUp .3s both}
+.chk{width:23px;height:23px;border-radius:7px;border:2px solid #474747;flex:none;position:relative;transition:.15s}
+.chk:active{transform:scale(.9)}
+.chk.on{background:var(--acc);border-color:var(--acc)}
+.chk.on:after{content:"";position:absolute;left:6px;top:2px;width:6px;height:11px;border:solid #07243d;border-width:0 2.6px 2.6px 0;transform:rotate(40deg)}
+.collIcon{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;flex:none;background:var(--bg)}
+.collIcon svg{width:40px;height:40px}
+.collName{flex:1;min-width:0;font-size:15.5px;color:#f0f0f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:6px}
+.collFloorCol{width:106px}
+.collFloorCol .fv,.collVolCol .fv{display:flex;align-items:center;gap:5px;font-size:15px;color:#fff}
+.collFloorCol .fv svg,.collVolCol .fv svg{width:14px;height:14px}
+.collFloorCol .pct{font-size:12px;margin-top:2px}
+.pct.up{color:#38d17a}
+.pct.down{color:#ff5a5a}
+.pct.zero{color:#777}
+.collVolCol{flex:1;padding-left:10px}
+.collActions{display:flex;gap:10px;padding:12px 16px calc(16px + env(safe-area-inset-bottom,0px));border-top:1px solid #1f1f1f}
+.toastWrap{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(24px + env(safe-area-inset-bottom,0px));width:100%;max-width:460px;display:flex;flex-direction:column;align-items:center;gap:8px;z-index:999;pointer-events:none}
+.toastMsg{max-width:88%;background:#1f1f1f;border:1px solid #2f2f2f;color:#fff;font-size:14px;font-weight:500;padding:12px 18px;border-radius:14px;box-shadow:0 6px 24px rgba(0,0,0,.35);opacity:0;transform:translateY(12px);transition:opacity .25s ease,transform .25s ease;display:flex;align-items:center;gap:8px}
+.toastMsg.show{opacity:1;transform:translateY(0)}
+.toastMsg.ok{border-color:rgba(56,209,122,.5)}
+.toastMsg.bad{border-color:rgba(255,90,90,.5)}
+.apBtnRow{display:flex;gap:10px;margin-top:8px}
+.apBtnRow .depBtn{flex:1;margin-top:0}
+.apBtnReject{background:#2a1a1a!important;color:#ff6b6b!important}
+.chip.sq.active{border-color:#2fb3ff;background:rgba(47,179,255,.15)}
+.chip.sq.active svg{color:#2fb3ff}
+.fChev{transition:transform .2s ease}
+.fBody{padding:4px 2px 18px;border-bottom:1px solid #232323}
+.rangeSlider{position:relative;height:22px;display:flex;align-items:center}
+.rangeTrackBg{position:absolute;left:0;right:0;height:4px;border-radius:2px;background:#2c2c2c}
+.rangeTrackFill{position:absolute;height:4px;border-radius:2px;background:#2fb3ff}
+.rangeSlider input[type=range]{position:absolute;left:0;right:0;width:100%;margin:0;background:transparent;-webkit-appearance:none;appearance:none;pointer-events:none}
+.rangeSlider input[type=range]::-webkit-slider-runnable-track{background:transparent;height:4px}
+.rangeSlider input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;pointer-events:auto;width:19px;height:19px;border-radius:50%;background:#2fb3ff;border:3px solid #0a0a0a;margin-top:-7.5px;cursor:pointer}
+.rangeSlider input[type=range]::-moz-range-thumb{pointer-events:auto;width:19px;height:19px;border-radius:50%;background:#2fb3ff;border:3px solid #0a0a0a;cursor:pointer}
+.rangeSlider input[type=range]::-moz-range-track{background:transparent;height:4px}
+.nftFilterImg{width:46px;height:46px;border-radius:13px;object-fit:cover;flex:none;background:#262626}
+
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="gem" viewBox="0 0 24 24"><defs><linearGradient id="gemG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4faaE6"/><stop offset="1" stop-color="#2f8fd4"/></linearGradient></defs><circle cx="12" cy="12" r="11" fill="url(#gemG)"/><path d="M7.3 8.6h9.4L12 18z" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><path d="M12 8.6v5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></symbol>
+<symbol id="plus" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor" stroke="none"/><path d="M12 7v10M7 12h10" stroke="#161616" stroke-width="2.4"/></symbol>
+<symbol id="scale" viewBox="0 0 24 24"><path d="M6 5h12l3 5H3z" class="f"/><circle cx="12" cy="15" r="4.2" class="f"/><path d="M4 21h16" stroke-width="2.6"/></symbol>
+<symbol id="mega" viewBox="0 0 24 24"><path class="f" d="M3 10v4l3 1 1 5h3l-1-4.3L18 20V4L7 9H4z"/><path d="M21 9v6" stroke-width="2.4"/></symbol>
+<symbol id="menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" stroke-width="2.4"/></symbol>
+<symbol id="gift" viewBox="0 0 24 24"><path class="f" d="M3 8h8v4H3zM13 8h8v4h-8zM4 13.5h7V21H6a2 2 0 01-2-2zM13 13.5h7V19a2 2 0 01-2 2h-5z"/><path d="M12 8c-2-4-6-4-6-1.5S10 8 12 8zm0 0c2-4 6-4 6-1.5S14 8 12 8z" stroke-width="2"/></symbol>
+<symbol id="pistol" viewBox="0 0 24 24"><path class="f" d="M2 13h9l2-3h6a2 2 0 012 2v2h-2v3h-3v-3H9l-2 3H4a2 2 0 01-2-2z"/></symbol>
+<symbol id="tagheart" viewBox="0 0 24 24"><path d="M4 4h9l7 7-9 9-7-7z" stroke-width="2"/><circle cx="8" cy="8" r="1.4" class="f"/><path d="M12 15.3c-2.6-1.7-3-3.1-2-4 .8-.8 1.8-.3 2 .4.2-.7 1.2-1.2 2-.4 1 .9.6 2.3-2 4z" class="f"/></symbol>
+<symbol id="send" viewBox="0 0 24 24"><path class="f" d="M3 11.5L21 4l-5 17-4.5-6.5z"/><path d="M11.5 14.5L21 4" stroke-width="1.6" stroke="#161616"/></symbol>
+<symbol id="cart" viewBox="0 0 24 24"><path d="M2 3h3l2.6 12.2a2 2 0 002 1.6h8.2a2 2 0 002-1.5L21.5 8H6.2" stroke-width="2.2"/><circle cx="10" cy="20.5" r="1.6" class="f"/><circle cx="18" cy="20.5" r="1.6" class="f"/></symbol>
+<symbol id="srch" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></symbol>
+<symbol id="feed" viewBox="0 0 24 24"><rect x="3" y="2" width="18" height="20" rx="4" class="f"/><path d="M8 8h8M8 13h4M8 17h8" stroke="#222" stroke-width="2.2"/></symbol>
+<symbol id="sl" viewBox="0 0 24 24"><path d="M3 7h9M17 7h4M3 17h4M12 17h9" stroke-width="2.2"/><circle cx="14.5" cy="7" r="2.5"/><circle cx="9.5" cy="17" r="2.5"/></symbol>
+<symbol id="chev" viewBox="0 0 24 24"><path d="M5.5 9l6.5 6.5L18.5 9" stroke-width="2.1" vector-effect="non-scaling-stroke"/></symbol>
+<symbol id="chevr" viewBox="0 0 24 24"><path d="M8.5 4.5l8 7.5-8 7.5" stroke-width="2.1" vector-effect="non-scaling-stroke"/></symbol>
+<symbol id="grid" viewBox="0 0 24 24"><g class="f"><rect x="3" y="3" width="8" height="8" rx="3"/><rect x="13" y="3" width="8" height="8" rx="3"/><rect x="3" y="13" width="8" height="8" rx="3"/><rect x="13" y="13" width="8" height="8" rx="3"/></g></symbol>
+<symbol id="rec" viewBox="0 0 24 24"><path class="f" d="M5 2h14a1 1 0 011 1v19l-3-2-2.5 2-2.5-2-2.5 2L7 20l-3 2V3a1 1 0 011-1z"/><path d="M8 8h8M8 12h8" stroke="#161616" stroke-width="2"/></symbol>
+<symbol id="pad" viewBox="0 0 24 24"><path class="f" d="M7 5h10a5 5 0 015 5l-1 6.5a3 3 0 01-5 1.5l-1.5-2h-5L8 18a3 3 0 01-5-1.5L2 10a5 5 0 015-5z"/><path d="M7 9v4M5 11h4" stroke="#161616" stroke-width="2"/><circle cx="16" cy="10" r="1.2" fill="#161616" stroke="none"/><circle cx="18.5" cy="12.5" r="1.2" fill="#161616" stroke="none"/></symbol>
+<symbol id="box" viewBox="0 0 24 24"><path class="f" d="M12 2l9 4.5v11L12 22l-9-4.5v-11z"/><path d="M12 22V12M3 6.5l9 5.5 9-5.5" stroke="#161616" stroke-width="1.6"/></symbol>
+<symbol id="tagbig" viewBox="0 0 24 24"><path class="f" d="M4 4h9l7 7-9 9-7-7z"/><circle cx="8" cy="8" r="1.6" fill="#161616" stroke="none"/></symbol>
+<symbol id="arrowl" viewBox="0 0 24 24"><path d="M19.5 12H5M11 5.5L4.5 12l6.5 6.5" stroke-width="2.1" vector-effect="non-scaling-stroke"/></symbol>
+<symbol id="clover" viewBox="0 0 24 24"><path class="f" fill="#2fb3ff" d="M12 2c-2.4 0-3.6 2.8-2 4.6C8.2 5 5.4 6.2 5.4 8.6c0 2.4 2.8 3.6 4.6 2C8.4 12.4 9.6 15.2 12 15.2s3.6-2.8 2-4.6c1.8 1.6 4.6.4 4.6-2 0-2.4-2.8-3.6-4.6-2 1.6-1.8.4-4.6-2-4.6z"/><path d="M12 15v7" stroke="#2fb3ff" stroke-width="2"/></symbol>
+<symbol id="mcoin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#2fb3ff" stroke="none"/><text x="12" y="16.5" font-family="Anton,Impact,sans-serif" font-size="13" fill="#07243d" text-anchor="middle">M</text></symbol>
+<symbol id="doc" viewBox="0 0 24 24"><path class="f" d="M5 3h10l4 4v14H5z"/><path d="M8 9h8M8 13h8M8 17h5" stroke="#161616" stroke-width="1.6"/></symbol>
+<symbol id="offer" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" class="f"/><circle cx="9" cy="10" r="1.3" fill="#161616" stroke="none"/><circle cx="15" cy="14" r="1.3" fill="#161616" stroke="none"/><path d="M9 15l6-6" stroke="#161616" stroke-width="1.8"/></symbol>
+<symbol id="down" viewBox="0 0 24 24"><path d="M12 4v13M6 12l6 6 6-6" stroke-width="2.3"/></symbol>
+<symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#4a4a4a" stroke="none"/><path d="M12 7.3v5l3 2" stroke="#1c1c1c" stroke-width="2.2" stroke-linecap="round" fill="none"/></symbol>
+<symbol id="mascot" viewBox="0 0 100 60"><ellipse cx="50" cy="34" rx="26" ry="20" fill="#0b1224" opacity=".9"/><circle cx="36" cy="26" r="5" fill="#0b1224"/><circle cx="64" cy="26" r="5" fill="#0b1224"/><circle cx="36" cy="26" r="2.2" fill="#2fb3ff"/><circle cx="64" cy="26" r="2.2" fill="#2fb3ff"/><path d="M40 38q10 7 20 0" stroke="#2fb3ff" stroke-width="2.4" fill="none" stroke-linecap="round"/></symbol>
+<symbol id="bolt" viewBox="0 0 24 24"><path class="f" d="M13 2L4 14h6l-1 8 9-13h-6z"/></symbol>
+<symbol id="planef" viewBox="0 0 24 24"><path class="f" d="M2 11.3L21.5 3l-4 18-6-5-3 3-.6-5z"/></symbol>
+<symbol id="headset" viewBox="0 0 24 24"><path d="M4 13v-1a8 8 0 0116 0v1" stroke-width="2"/><rect x="3" y="13" width="5" height="7" rx="2.2" class="f"/><rect x="16" y="13" width="5" height="7" rx="2.2" class="f"/><path d="M19 20.5a4 4 0 01-4 2.3h-2.3" stroke-width="2"/></symbol>
+<symbol id="doc2" viewBox="0 0 24 24"><path class="f" d="M6 2h8l5 5v15H6z"/><path d="M8 11h8M8 15h8M8 7h4" stroke="#161616" stroke-width="1.6"/></symbol>
+<symbol id="x2" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19" stroke-width="2.3" stroke-linecap="round"/></symbol>
+<symbol id="check" viewBox="0 0 24 24"><path d="M4 12.5l5.5 5.5L20 6.5" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4" stroke-width="2" stroke-linecap="round"/><path class="f" d="M12 2a7 7 0 00-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0012 2z"/></symbol>
+<symbol id="bookmark" viewBox="0 0 24 24"><path d="M6 3.5h12v17l-6-4.2-6 4.2z" stroke-width="2" stroke-linejoin="round"/></symbol>
+<symbol id="gem2" viewBox="0 0 48 48"><defs><linearGradient id="gemW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#ffd9d3"/></linearGradient></defs><path d="M24 6l13 10-13 26-13-26z" fill="url(#gemW)"/><path d="M11 16h26M17 16l7 26M31 16l-7 26M24 6l-7 10h14z" stroke="#e8695f" stroke-width="1" fill="none" opacity=".55"/><path d="M17 16l-4 2 5 5z" fill="#fff" opacity=".7"/></symbol>
+<symbol id="swap" viewBox="0 0 24 24"><path d="M7 7h12m0 0l-4-4m4 4l-4 4M17 17H5m0 0l4-4m-4 4l4 4" stroke-width="2" stroke-linecap="round"/></symbol>
+</defs></svg>
+
+<div id="app">
+ <div class="row"><div class="av" onclick="openProfile()"></div><div class="bal"><svg class="i" style="width:21px;height:21px"><use href="#gem"/></svg><span id="topBalNum">0</span><svg class="i plus" style="width:21px;height:21px;cursor:pointer" onclick="openDeposit()"><use href="#plus"/></svg></div><div class="sp"></div>
+  <div class="ib" onclick="openMenu()"><svg class="i"><use href="#menu"/></svg></div></div>
+
+ <div class="tabrow"><div class="tab on"><svg class="i f" style="width:23px;height:23px"><use href="#gift"/></svg><span data-i18n="gifts">Подарки</span></div><div class="sp"></div><div class="cart" id="cartBtn" onclick="openCart()" style="position:relative"><svg class="i" style="width:21px;height:21px"><use href="#cart"/></svg><div id="cartBadge" class="cartBadge" style="display:none">0</div></div></div>
+ <div class="search"><div class="field"><svg class="i"><use href="#srch"/></svg><span data-i18n="search">Поиск по названию NFT / н</span></div><div class="feed" onclick="openFeed()"><svg class="i f"><use href="#feed"/></svg>Feed</div></div>
+ <div class="chips"><div class="chip sq" id="filterChipBtn" onclick="openFilters()"><svg class="i"><use href="#sl"/></svg></div><div class="chip" onclick="openFilters('nft')">NFT<svg class="i" style="width:17px"><use href="#chev"/></svg></div><div class="chip"><span data-i18n="model">Модель</span><svg class="i" style="width:17px"><use href="#chev"/></svg></div><div class="chip" id="bgChipBtn" onclick="openFilters('bg')"><span data-i18n="bg">Фон</span><svg class="i" style="width:17px"><use href="#chev"/></svg></div><div class="chip"><span data-i18n="sym">Симв</span><svg class="i" style="width:17px"><use href="#chev"/></svg></div></div>
+
+ <div class="subtabs" id="subtabs" style="display:none">
+  <div class="stab on" id="t-sale" onclick="sw('sale')"><span data-i18n="tabSale">На продаже (0)</span></div>
+  <div class="stab" id="t-vault" onclick="sw('vault')"><span data-i18n="tabVault">Хранилище (0)</span></div>
+  <div class="info" onclick="openGiftInfo()">i</div>
+ </div>
+
+ <div class="main" id="main"></div>
+
+ <div class="nav" id="mainNav"><div class="navind" id="navInd"></div><div class="on" id="nav-market" onclick="goMarket()"><svg class="i f"><use href="#grid"/></svg><span data-i18n="navMarket">Маркет</span></div><div onclick="comingSoon()"><svg class="i f"><use href="#rec"/></svg><span data-i18n="navOrders">Ордера</span></div><div onclick="comingSoon()"><svg class="i f"><use href="#pad"/></svg><span data-i18n="navHub">Игровой хаб</span></div><div id="nav-vault" onclick="goVault()"><svg class="i f"><use href="#box"/></svg><span data-i18n="navVault">Хранилище</span></div></div>
+</div>
+
+<div id="profile">
+ <div class="pbody">
+  <div class="row" style="padding-left:0;padding-right:0">
+   <div class="pback" onclick="closeProfile()" style="flex:1"><svg class="i"><use href="#arrowl"/></svg><span data-i18n="back">Назад</span></div>
+   <div class="ib" onclick="openMenu()"><svg class="i"><use href="#menu"/></svg></div>
+  </div>
+
+  <div class="stats">
+   <div class="stat"><div class="ic" style="background:rgba(47,179,255,.15)"><svg style="width:18px;height:18px"><use href="#mcoin"/></svg></div><div class="num">0</div><div class="lb">COOL Points</div></div>
+   <div class="stat" style="animation-delay:.04s"><div class="ic" style="background:rgba(47,179,255,.15)"><svg style="width:18px;height:18px"><use href="#clover"/></svg></div><div class="num">0</div><div class="lb">Lucky Cards</div></div>
+  </div>
+
+  <div class="ptabs">
+   <div class="ptab on"><svg class="i f" style="width:17px;height:17px"><use href="#gift"/></svg><span data-i18n="gifts">Подарки</span></div>
+  </div>
+
+  <div class="cardsr">
+   <div class="gramcard"><div class="ic"><svg class="i" style="width:20px;height:20px"><use href="#gem"/></svg></div><div class="num" id="gramBalNum">0</div><div class="lb" data-i18n="gramBal">Баланс GRAM</div></div>
+   <div class="smallr" style="flex:1">
+    <div class="smallcard"><svg class="f"><use href="#doc"/></svg><span data-i18n="orders">Ордера</span><b>0</b></div>
+    <div class="smallcard"><svg class="f"><use href="#offer"/></svg><span data-i18n="offers">Офферы</span><b>0</b></div>
+   </div>
+  </div>
+
+  <div class="sect">
+   <div class="secthead" data-i18n="quickActions">Быстрые действия</div>
+   <div class="qa">
+    <div onclick="openWithdraw()"><svg class="i"><use href="#down"/></svg><span data-i18n="qaWithdraw">Вывод</span></div>
+    <div onclick="openDeposit()"><svg class="f"><use href="#plus"/></svg><span data-i18n="qaDeposit">Ввод</span></div>
+    <div onclick="openGiftInfo()"><svg class="f"><use href="#gift"/></svg><span data-i18n="qaAdd">Добавить</span></div>
+   </div>
+  </div>
+
+  <div class="sect">
+   <div class="secthead"><span data-i18n="history">История</span><svg><use href="#chevr"/></svg></div>
+   <div id="histBox" class="histbox"><svg><use href="#clock"/></svg><h4 data-i18n="histTitle">Истории пока нет</h4><p data-i18n="histText">Вся история вашей активности<br>появится здесь</p></div>
+  </div>
+ </div>
+ <div class="nav"><div class="navind"></div><div class="on" onclick="closeProfile();goMarket()"><svg class="i f"><use href="#grid"/></svg><span data-i18n="navMarket">Маркет</span></div><div onclick="comingSoon()"><svg class="i f"><use href="#rec"/></svg><span data-i18n="navOrders">Ордера</span></div><div onclick="comingSoon()"><svg class="i f"><use href="#pad"/></svg><span data-i18n="navHub">Игровой хаб</span></div><div onclick="closeProfile();goVault()"><svg class="i f"><use href="#box"/></svg><span data-i18n="navVault">Хранилище</span></div></div>
+</div>
+
+<div id="menuPanel">
+ <div class="mbody">
+  <div class="mhead"><h2 data-i18n="menuTitle">Меню</h2><svg class="xc" viewBox="0 0 24 24" fill="none" stroke="currentColor" onclick="closeMenu()"><use href="#x2"/></svg></div>
+  <div class="mdiv"></div>
+  <div style="display:flex;align-items:center;gap:8px;padding:4px 16px 14px;color:#bbb;font-size:14px"><svg class="f" style="width:17px;height:17px;color:#ffd36e"><use href="#bulb"/></svg>Онлайн сейчас: <b id="onlineCount" style="color:#fff">0</b></div>
+
+  <div class="msec" data-i18n="menuCommunity">Сообщество</div>
+  <div class="mrow2"><div><svg><use href="#bolt"/></svg><span data-i18n="menuBoost">Буст канала</span></div><div onclick="copyGeneric(this,'@cooll')"><svg><use href="#planef"/></svg><span data-i18n="menuChannel">Канал COOL</span></div></div>
+
+  <div class="mlink"><svg class="f"><use href="#planef"/></svg>Peek.tg</div>
+  <div class="mlink" onclick="copyGeneric(this,'@cooll')"><div class="mbadge"><span>COOL</span></div><span data-i18n="menuOfficial">Официальные каналы</span><svg class="ch"><use href="#chevr"/></svg></div>
+
+  <div class="mdiv"></div>
+  <div class="msec" data-i18n="menuHelp">Помощь</div>
+  <div class="mlink"><svg><use href="#headset"/></svg><span data-i18n="menuSupport">Поддержка</span></div>
+
+  <div class="mdiv"></div>
+  <div class="msec" data-i18n="menuDocs">Документы</div>
+  <div class="mlink"><svg class="f"><use href="#doc2"/></svg><span data-i18n="menuTerms">Условия использования</span></div>
+
+  <div class="mdiv"></div>
+  <div class="msec" data-i18n="menuLang">Язык</div>
+  <div class="langs" id="langs">
+   <div class="lang" data-l="en"><svg class="fl" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#0a2a6b"/><path d="M0 8h20M0 12h20M8 0v20M12 0v20" stroke="#fff" stroke-width="2.4"/><path d="M0 9h20M0 11h20M9 0v20M11 0v20" stroke="#c8102e" stroke-width="1.2"/></svg>English</div>
+   <div class="lang" data-l="fa"><svg class="fl" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#fff"/><path d="M0 6.6h20v6.8H0z" fill="#fff"/><path d="M0 6.6h20v2.3H0z" fill="#239f40"/><path d="M0 11.1h20v2.3H0z" fill="#da0000"/></svg>فارسی</div>
+   <div class="lang" data-l="ko"><svg class="fl" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#fff"/><circle cx="10" cy="10" r="4" fill="#c60c30"/><path d="M10 6a4 4 0 000 8 2 2 0 010-4 2 2 0 000-4z" fill="#003478"/></svg>한국어</div>
+   <div class="lang on" data-l="ru"><svg class="fl" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#fff"/><path d="M0 13.3h20V20H0z" fill="#0039a6"/><path d="M0 16.6h20V20H0z" fill="#d52b1e"/></svg>Русский</div>
+   <div class="lang" data-l="tr"><svg class="fl" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#e30a17"/><circle cx="8.5" cy="10" r="4.6" fill="#fff"/><circle cx="9.8" cy="10" r="3.7" fill="#e30a17"/></svg>Türkçe</div>
+   <div class="lang" data-l="zh"><svg class="fl" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#de2910"/><path d="M6 5l.7 2.1H9l-1.8 1.3.7 2.1L6 9.2 4.1 10.5l.7-2.1L3 7.1h2.3z" fill="#ffde00"/></svg>中文</div>
+   <div class="lang" data-l="ja"><svg class="fl" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#fff"/><circle cx="10" cy="10" r="4.2" fill="#bc002d"/></svg>日本語</div>
+  </div>
+
+  <div class="mdiv" style="margin-top:14px"></div>
+  <div class="toggler" onclick="toggleAnim(event)"><div class="sw on" id="animsw"><b></b></div><span data-i18n="menuAnim">Показывать анимацию</span></div>
+  <div class="cdLink" id="cdLink" onclick="openLogin()">CD</div>
+  <div class="mlink" id="apMenuBtn" style="display:none" onclick="closeMenu();openAdminPanel()"><svg class="f"><use href="#offer"/></svg><span>Админ панель</span></div>
+ </div>
+</div>
+
+<div id="depositOverlay" class="sheetOverlay" onclick="closeDeposit()"></div>
+<div id="depositSheet" class="sheet">
+ <div class="sheetHead"><div class="xc2" onclick="closeDeposit()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><use href="#x2"/></svg></div></div>
+ <div class="purseWrap">
+  <svg class="fallgem g1" viewBox="0 0 24 24"><use href="#gem"/></svg>
+  <svg class="fallgem g2" viewBox="0 0 24 24"><use href="#gem"/></svg>
+  <svg class="fallgem g3" viewBox="0 0 24 24"><use href="#gem"/></svg>
+  <svg class="sparkle s1" viewBox="0 0 24 24"><path d="M12 2l2 7 7 2-7 2-2 7-2-7-7-2 7-2z" fill="#fff6b8"/></svg>
+  <svg class="sparkle s2" viewBox="0 0 24 24"><path d="M12 2l2 7 7 2-7 2-2 7-2-7-7-2 7-2z" fill="#9fe6ff"/></svg>
+  <svg class="sparkle s3" viewBox="0 0 24 24"><path d="M12 2l2 7 7 2-7 2-2 7-2-7-7-2 7-2z" fill="#ffd0ef"/></svg>
+  <svg class="purseIcon" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+   <defs>
+    <linearGradient id="purseBody" x1="0" y1="0" x2="0" y2="1">
+     <stop offset="0" stop-color="#ff8fc9"/>
+     <stop offset="1" stop-color="#df1c8e"/>
+    </linearGradient>
+    <linearGradient id="purseFlap" x1="0" y1="0" x2="1" y2="1">
+     <stop offset="0" stop-color="#ffd9ef"/>
+     <stop offset="1" stop-color="#ff8fc9"/>
+    </linearGradient>
+    <linearGradient id="purseMetal" x1="0" y1="0" x2="0" y2="1">
+     <stop offset="0" stop-color="#f3f3f6"/>
+     <stop offset="1" stop-color="#95959f"/>
+    </linearGradient>
+   </defs>
+   <g class="purseClasp">
+    <path d="M44 30l-7 8M76 30l7 8" stroke="url(#purseMetal)" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="35" cy="40" r="5" fill="url(#purseMetal)"/>
+    <circle cx="85" cy="40" r="5" fill="url(#purseMetal)"/>
+    <path d="M32 48c3-12 15-20 28-20s25 8 28 20" fill="none" stroke="url(#purseMetal)" stroke-width="7" stroke-linecap="round"/>
+   </g>
+   <path d="M22 54c0-10 17-18 38-18s38 8 38 18c0 26-18 50-38 50s-38-24-38-50z" fill="url(#purseBody)"/>
+   <path d="M66 46c14 4 24 16 26 32-9-1-20 1-25-9-4-8-3-16-1-23z" fill="url(#purseFlap)"/>
+   <ellipse cx="44" cy="66" rx="13" ry="22" fill="#fff" opacity=".22"/>
+  </svg>
+ </div>
+ <h2 class="sheetTitle" data-i18n="depositTitle">Ввод средств</h2>
+ <div class="userBox" id="depWalletBtn" onclick="connectWallet()" style="cursor:pointer;justify-content:center"><span>Подключить кошелёк</span></div>
+ <div class="amountBox"><input class="amountInput" id="depAmount" value="0.1" inputmode="decimal" oninput="updateDepTon()"><svg class="i" style="width:20px;height:20px"><use href="#gem"/></svg></div>
+ <div style="text-align:center;color:#8a8f98;font-size:13px;margin:-6px 0 8px" id="depTonHint">≈ 0.025 TON</div>
+ <div class="wdError" id="depErr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9.5"/><path d="M12 8v5M12 16h.01"/></svg><span>Подключите кошелёк и укажите сумму</span></div>
+ <div class="depBtn" data-i18n="depositBtn" onclick="doDeposit()">Пополнить баланс</div>
+</div>
+
+<div id="withdrawOverlay" class="sheetOverlay" onclick="closeWithdraw()"></div>
+<div id="withdrawSheet" class="sheet">
+ <div class="sheetHead"><div class="xc2" onclick="closeWithdraw()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><use href="#x2"/></svg></div></div>
+ <div class="purseWrap">
+  <svg class="risegem g1" viewBox="0 0 24 24"><use href="#gem"/></svg>
+  <svg class="risegem g2" viewBox="0 0 24 24"><use href="#gem"/></svg>
+  <svg class="risegem g3" viewBox="0 0 24 24"><use href="#gem"/></svg>
+  <svg class="sparkle s1" viewBox="0 0 24 24"><path d="M12 2l2 7 7 2-7 2-2 7-2-7-7-2 7-2z" fill="#fff6b8"/></svg>
+  <svg class="sparkle s2" viewBox="0 0 24 24"><path d="M12 2l2 7 7 2-7 2-2 7-2-7-7-2 7-2z" fill="#9fe6ff"/></svg>
+  <svg class="sparkle s3" viewBox="0 0 24 24"><path d="M12 2l2 7 7 2-7 2-2 7-2-7-7-2 7-2z" fill="#ffd0ef"/></svg>
+  <svg class="purseIcon" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+   <defs>
+    <linearGradient id="purseBodyW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8fc9"/><stop offset="1" stop-color="#df1c8e"/></linearGradient>
+    <linearGradient id="purseFlapW" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd9ef"/><stop offset="1" stop-color="#ff8fc9"/></linearGradient>
+    <linearGradient id="purseMetalW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3f3f6"/><stop offset="1" stop-color="#95959f"/></linearGradient>
+   </defs>
+   <g class="purseClasp">
+    <path d="M44 30l-7 8M76 30l7 8" stroke="url(#purseMetalW)" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="35" cy="40" r="5" fill="url(#purseMetalW)"/>
+    <circle cx="85" cy="40" r="5" fill="url(#purseMetalW)"/>
+    <path d="M32 48c3-12 15-20 28-20s25 8 28 20" fill="none" stroke="url(#purseMetalW)" stroke-width="7" stroke-linecap="round"/>
+   </g>
+   <path d="M22 54c0-10 17-18 38-18s38 8 38 18c0 26-18 50-38 50s-38-24-38-50z" fill="url(#purseBodyW)"/>
+   <path d="M66 46c14 4 24 16 26 32-9-1-20 1-25-9-4-8-3-16-1-23z" fill="url(#purseFlapW)"/>
+   <ellipse cx="44" cy="66" rx="13" ry="22" fill="#fff" opacity=".22"/>
+  </svg>
+ </div>
+ <h2 class="sheetTitle">Вывод средств</h2>
+ <div class="userBox" id="wdWalletBtn" onclick="connectWallet()" style="cursor:pointer;justify-content:center"><span>Подключить кошелёк</span></div>
+ <div class="amountBox"><input class="amountInput" id="wdAmount" value="0.1" inputmode="decimal" oninput="updateWdTon()"><svg class="i" style="width:20px;height:20px"><use href="#gem"/></svg></div>
+ <div style="text-align:center;color:#8a8f98;font-size:13px;margin:-6px 0 8px" id="wdTonHint">≈ 0.025 TON</div>
+ <div class="wdError" id="wdError"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9.5"/><path d="M12 8v5M12 16h.01"/></svg><span id="wdErrText">Недостаточно средств</span></div>
+ <div class="depBtn" onclick="doWithdraw()">Вывести</div>
+</div>
+
+<div id="loginOverlay" class="sheetOverlay" onclick="closeLogin()"></div>
+<div id="loginSheet" class="sheet loginSheet">
+ <div class="fHead" style="justify-content:space-between"><h2 style="font-size:22px">Вход</h2><div class="xc2" onclick="closeLogin()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><use href="#x2"/></svg></div></div>
+ <div class="loginField"><input id="loginUser" placeholder="Логин" autocomplete="off"></div>
+ <div class="loginField"><input id="loginPass" placeholder="Пароль" type="password" autocomplete="off"></div>
+ <div class="loginErr" id="loginErr">Неверный логин или пароль</div>
+ <div class="depBtn" onclick="doLogin()">Войти</div>
+</div>
+
+<div id="adminPanel">
+ <div class="apHead"><div class="pback" onclick="closeAdmin()"><svg class="i"><use href="#arrowl"/></svg><span>Назад</span></div></div>
+ <div class="apBody">
+  <h2 style="font-size:24px;font-weight:700;margin:4px 0 16px">Админ-панель</h2>
+  <div class="apStat"><span class="lb">Онлайн сейчас</span><span class="vl" id="apOnlineCount">0</span></div>
+  <div class="apStat"><span class="lb">Активных объявлений</span><span class="vl" id="apMarketCount">0</span></div>
+  <div class="secthead" style="padding-left:0">NFT</div>
+  <div class="apRow" onclick="openIssue()"><svg><use href="#gift"/></svg><span>Выдать NFT пользователю</span></div>
+  <div class="apRow" id="apCodesToggle" onclick="toggleApCodes()"><svg><use href="#tagbig"/></svg><span>Коды NFT для выдачи</span><svg class="i fChev" id="apCodesChev" style="margin-left:auto"><use href="#chev"/></svg></div>
+  <div id="apCodesList" style="display:none;padding:6px 2px 4px"></div>
+  <div class="secthead" style="padding-left:0;margin-top:10px">Заявки на вывод/пополнение</div>
+  <div id="reqList"></div>
+ </div>
+</div>
+
+<div id="reqDetailOverlay" class="sheetOverlay" onclick="closeReqDetail()"></div>
+<div id="reqDetailSheet" class="sheet filterSheet">
+ <div class="fHead" style="justify-content:space-between"><h2 style="font-size:22px">Заявка</h2><div class="xc2" onclick="closeReqDetail()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><use href="#x2"/></svg></div></div>
+ <div id="reqDetailBody"></div>
+</div>
+
+<div id="listOverlay" class="sheetOverlay" onclick="closeListSheet()"></div>
+<div id="listSheet" class="sheet">
+ <div class="sheetHead"><div class="xc2" onclick="closeListSheet()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><use href="#x2"/></svg></div></div>
+ <h2 class="sheetTitle" id="listSheetTitle">Выставить на продажу</h2>
+ <div class="amountBox"><input class="amountInput" id="listPriceInput" value="1" inputmode="decimal"><svg class="i" style="width:20px;height:20px"><use href="#gem"/></svg></div>
+ <div class="depBtn" id="listSheetBtn" onclick="confirmListNft()">Выставить</div>
+</div>
+
+<div id="issueOverlay" class="sheetOverlay" onclick="closeIssue()"></div>
+<div id="issueSheet" class="sheet filterSheet">
+ <div class="fHead" style="justify-content:space-between"><h2 style="font-size:22px">Выдать NFT</h2><div class="xc2" onclick="closeIssue()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><use href="#x2"/></svg></div></div>
+ <div class="secthead" style="padding-left:0">Кому (сейчас онлайн)</div>
+ <div id="issueUserList" style="max-height:150px;overflow:auto;margin-bottom:10px"></div>
+ <div class="userBox"><input id="issueCode" placeholder="Код NFT" autocomplete="off" oninput="onIssueCodeInput()" style="text-transform:uppercase"></div>
+ <div id="issueCodePreview" style="display:none;align-items:center;gap:10px;padding:2px 4px 14px">
+  <img id="issuePreview" style="width:44px;height:44px;border-radius:10px;object-fit:cover;flex:none;background:#1e1e1e">
+  <span id="issueCodeName" style="font-size:14.5px;color:#ddd;font-weight:500"></span>
+ </div>
+ <div class="userBox"><input id="issueModel" placeholder="Модель (необязательно)" autocomplete="off"></div>
+ <div class="userBox" id="issueBgRow" onclick="openIssueBgPicker()" style="cursor:pointer">
+  <div id="issueBgSwatch" style="width:24px;height:24px;border-radius:7px;background:#2a2a2a;flex:none;margin-right:10px;border:2px solid rgba(255,255,255,.3);box-shadow:inset 0 0 0 1px rgba(0,0,0,.25)"></div>
+  <span id="issueBgLabel" style="color:#777;flex:1">Фон (не выбран)</span>
+  <svg class="i" style="width:17px;flex:none;color:#666"><use href="#chev"/></svg>
+ </div>
+ <div class="userBox"><input id="issueSymbol" placeholder="Символ (необязательно)" autocomplete="off"></div>
+ <div class="loginErr" id="issueErr">Выберите пользователя и укажите верный код NFT</div>
+ <div class="depBtn" onclick="doIssue()">Выдать</div>
+</div>
+
+<div id="issueBgOverlay" class="sheetOverlay" onclick="closeIssueBgPicker()"></div>
+<div id="issueBgSheet" class="sheet filterSheet">
+ <div class="fHead"><h2>Выберите фон</h2><div class="xc2" onclick="closeIssueBgPicker()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><use href="#x2"/></svg></div></div>
+ <div class="collSearch" style="margin:0 0 10px"><svg class="i"><use href="#srch"/></svg><input id="issueBgSearch" placeholder="Поиск" oninput="populateIssueBgList()"></div>
+ <div id="issueBgList" style="max-height:420px;overflow:auto"></div>
+</div>
+
+<div id="feedOverlay" class="sheetOverlay" onclick="closeFeed()"></div>
+<div id="feedSheet" class="sheet filterSheet">
+ <div class="fHead"><h2>Активность</h2><div class="xc2" onclick="closeFeed()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><use href="#x2"/></svg></div></div>
+ <div id="feedList" style="max-height:65vh;overflow:auto"></div>
+</div>
+
+<div id="cartOverlay" class="sheetOverlay" onclick="closeCart()"></div>
+<div id="cartSheet" class="sheet filterSheet">
+ <div class="fHead"><h2>Корзина</h2><div class="xc2" onclick="closeCart()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><use href="#x2"/></svg></div></div>
+ <div id="cartList" style="max-height:50vh;overflow:auto"></div>
+ <div class="cartFoot" id="cartFoot">
+  <div style="display:flex;align-items:center;gap:6px;font-size:17px;font-weight:700;color:#fff"><svg class="i f"><use href="#gem"/></svg><span id="cartTotal">0</span></div>
+  <div class="showBtn" onclick="buyAllCart()">Купить всё</div>
+ </div>
+</div>
+
+<div id="filterOverlay" class="sheetOverlay" onclick="closeFilters()"></div>
+<div id="filterSheet" class="sheet filterSheet">
+ <div class="fHead"><h2>Фильтры</h2><div class="xc2" onclick="closeFilters()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><use href="#x2"/></svg></div></div>
+ <div class="frow" id="fPriceHead" onclick="toggleFRow('price')"><span>Цена</span><svg class="i fChev" id="fPriceChev" style="transform:rotate(180deg)"><use href="#chev"/></svg></div>
+ <div class="fBody" id="fPriceBody">
+  <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;width:100%">
+   <div class="amountBox" style="flex:1;min-width:0;height:auto;padding:10px 12px;margin-bottom:0"><input class="amountInput" id="fPriceMin" placeholder="От" inputmode="decimal" oninput="onPriceInputChange()" style="font-size:15px;width:100%"><svg class="i" style="width:15px;height:15px;flex:none"><use href="#gem"/></svg></div>
+   <span style="color:#555;flex:none">—</span>
+   <div class="amountBox" style="flex:1;min-width:0;height:auto;padding:10px 12px;margin-bottom:0"><input class="amountInput" id="fPriceMax" placeholder="До" inputmode="decimal" oninput="onPriceInputChange()" style="font-size:15px;width:100%"><svg class="i" style="width:15px;height:15px;flex:none"><use href="#gem"/></svg></div>
+  </div>
+  <div class="rangeSlider">
+   <div class="rangeTrackBg"></div>
+   <div class="rangeTrackFill" id="fRangeFill"></div>
+   <input type="range" id="fRangeMin" min="0" max="100" value="0" oninput="onRangeInput('min')">
+   <input type="range" id="fRangeMax" min="0" max="100" value="100" oninput="onRangeInput('max')">
+  </div>
+ </div>
+ <div class="frow" id="fBgHead" onclick="toggleFRow('bg')"><span>Фон</span><svg class="i fChev" id="fBgChev"><use href="#chev"/></svg></div>
+ <div class="fBody" id="fBgBody" style="display:none">
+  <div class="collSearch" style="margin:0 0 10px"><svg class="i"><use href="#srch"/></svg><input id="fBgSearch" placeholder="Поиск" oninput="populateBgFilterList()"></div>
+  <div class="collAllRow" style="padding:4px 2px 12px"><div class="chk" id="fBgAllChk" onclick="toggleAllBgFilter(this)"></div><span>Выбрать все</span></div>
+  <div id="fBgList" style="max-height:260px;overflow:auto"></div>
+ </div>
+ <div class="frow" id="fNftHead" onclick="toggleFRow('nft')"><span>NFT</span><svg class="i fChev" id="fNftChev"><use href="#chev"/></svg></div>
+ <div class="fBody" id="fNftBody" style="display:none">
+  <div class="collSearch" style="margin:0 0 10px"><svg class="i"><use href="#srch"/></svg><input id="fNftSearch" placeholder="Поиск" oninput="populateNftFilterList()"></div>
+  <div class="collAllRow" style="padding:4px 2px 12px"><div class="chk" id="fNftAllChk" onclick="toggleAllNftFilter(this)"></div><span>Выбрать все</span></div>
+  <div id="fNftList" style="max-height:260px;overflow:auto"></div>
+ </div>
+ <div class="fActions"><div class="resetBtn" onclick="resetMarketFilters()">Сбросить</div><div class="showBtn" onclick="applyMarketFilters()">Показать результаты</div></div>
+</div>
+
+<div id="giftInfoOverlay" class="sheetOverlay" onclick="closeGiftInfo()"></div>
+<div id="giftInfoSheet" class="sheet filterSheet">
+ <div class="fHead" style="justify-content:flex-end"><div class="xc2" onclick="closeGiftInfo()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><use href="#x2"/></svg></div></div>
+ <div class="giBadgeRow"><div class="giBadge cool2"><span>COOL</span></div><svg class="giSwap" fill="none" stroke="currentColor" stroke-width="2"><use href="#swap"/></svg><div class="giBadge gemB"><svg width="30" height="30"><use href="#gem2"/></svg></div></div>
+ <div class="giTitle">Как добавить подарок</div>
+ <div class="giDiv"></div>
+ <div class="giSec">Обычные подарки</div>
+ <div class="giItem"><div class="giNum">1</div><div>Отправьте «Hi» и свой подарок в <span class="giLink">@Coolbank</span>, чтобы начать размещение.</div></div>
+ <div class="giItem"><div class="giNum">2</div><div>Выберите цену и опубликуйте объявление на Cool.</div></div>
+ <div class="giDiv"></div>
+ <div class="giSec">Пре-маркет</div>
+ <div class="giItem"><div class="giNum">1</div><div>Сделайте подарок публичным.</div></div>
+ <div class="giItem"><div class="giNum">2</div><div>Передайте подарок в <span class="giLink">@Coolbank</span> в течение 22 дней после продажи, иначе может быть удержано 20% залога.</div></div>
+ <div class="giItem"><div class="giNum">3</div><div>Отправьте ссылку на свой профиль в <span class="giLink">@Cool</span>. Пока объявление активно, удерживается залог 20%.</div></div>
+ <div class="giDiv"></div>
+ <div class="giSec">Неподдерживаемые подарки</div>
+ <div class="giItem"><div class="giDot"></div><div>Открытки и подарки без возможности улучшения не поддерживаются. Если вы их отправите, они не будут добавлены.</div></div>
+ <div class="giBtn" id="giCopyBtn" onclick="copyCoolbank(this)">Скопировать @Coolbank</div>
+</div>
+
+<div id="collPanel" class="collPanel">
+ <div class="collTop"><div class="back" onclick="closeCollection()"><svg class="i"><use href="#arrowl"/></svg><span>Назад</span></div></div>
+ <div class="collHead2"><h2>Коллекция</h2><div class="xc2" onclick="closeCollection()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><use href="#x2"/></svg></div></div>
+ <div class="collSearch"><svg class="i"><use href="#srch"/></svg><input id="collSearchInput" placeholder="Поиск" oninput="collSearch(this.value)"></div>
+ <div class="collAllRow"><div class="chk" id="collAllChk" onclick="collToggleAll(this)"></div><span style="flex:1">Выбрать все</span><div class="colh colFloor">Флор<svg class="i f"><use href="#chev"/></svg></div><div class="colh colVol">Оборот<svg class="i f"><use href="#chev"/></svg></div></div>
+ <div class="collList" id="collList"></div>
+ <div class="collActions"><div class="resetBtn" onclick="collReset()">Сбросить</div><div class="showBtn" onclick="closeCollection()">Показать результаты</div></div>
+</div>
+
+<div id="splash">
+ <div class="half l"><div class="in"><div class="badge"><span>COOL</span></div></div></div>
+ <div class="half r"><div class="in"><div class="badge"><span>COOL</span></div></div></div>
+</div>
+<script>
+function comingSoon(){showToast('Скоро: в разработке','info')}
+function showToast(msg,kind){
+ var wrap=document.getElementById('toastWrap');
+ if(!wrap){wrap=document.createElement('div');wrap.id='toastWrap';wrap.className='toastWrap';document.body.appendChild(wrap)}
+ var el=document.createElement('div');
+ el.className='toastMsg'+(kind?' '+kind:'');
+ el.textContent=msg;
+ wrap.appendChild(el);
+ requestAnimationFrame(function(){el.classList.add('show')});
+ setTimeout(function(){
+  el.classList.remove('show');
+  setTimeout(function(){el.remove()},300);
+ },3200);
+}
+// If this page is opened as a Telegram Mini App (via a bot's web_app button),
+// Telegram injects window.Telegram.WebApp with the real visitor's profile —
+// regardless of which domain actually hosts this page. We use that real
+// username/name instead of a random "playerXXXX" whenever it's available.
+function tgRealUser(){
+ try{
+  var tg=window.Telegram&&window.Telegram.WebApp;
+  if(tg&&tg.initDataUnsafe&&tg.initDataUnsafe.user){
+   var u=tg.initDataUnsafe.user;
+   if(u.username)return '@'+u.username;
+   var full=((u.first_name||'')+' '+(u.last_name||'')).trim();
+   if(full)return full;
+  }
+ }catch(e){}
+ return null;
+}
+try{if(window.Telegram&&window.Telegram.WebApp){window.Telegram.WebApp.ready();window.Telegram.WebApp.expand()}}catch(e){}
+var MY_ID=null,MY_NAME=null;
+try{MY_ID=localStorage.getItem('coolUserId');MY_NAME=localStorage.getItem('coolUserName')}catch(e){}
+if(!MY_ID){MY_ID='u'+Date.now().toString(36)+Math.random().toString(36).slice(2,8);try{localStorage.setItem('coolUserId',MY_ID)}catch(e){}}
+var tgName=tgRealUser();
+if(!MY_NAME||(tgName&&/^player\d+$/.test(MY_NAME))){
+ MY_NAME=tgName||MY_NAME||('player'+Math.floor(1000+Math.random()*9000));
+ try{localStorage.setItem('coolUserName',MY_NAME)}catch(e){}
+}
+function sendPresence(){
+ fetch('/api/presence',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:MY_ID,name:MY_NAME})}).catch(function(){});
+}
+function refreshOnlineCount(){
+ fetch('/api/presence').then(function(r){return r.json()}).then(function(d){
+  var n=(d&&d.count)||0;
+  var el1=document.getElementById('onlineCount');if(el1)el1.textContent=n;
+  var el2=document.getElementById('apOnlineCount');if(el2)el2.textContent=n;
+ }).catch(function(){});
+}
+sendPresence();
+refreshOnlineCount();
+setInterval(sendPresence,15000);
+setInterval(refreshOnlineCount,10000);
+function checkNotifications(){
+ fetch('/api/notify?user='+encodeURIComponent(MY_ID)).then(function(r){return r.json()}).then(function(d){
+  var list=(d&&d.notifications)||[];
+  list.forEach(function(n){showToast(n.text,n.kind)});
+ }).catch(function(){});
+}
+checkNotifications();
+setInterval(checkNotifications,6000);
+function resizeImageFile(file,maxSize,cb){
+ var reader=new FileReader();
+ reader.onload=function(e){
+  var img=new Image();
+  img.onload=function(){
+   var w=img.width,h=img.height;
+   var scale=Math.min(1,maxSize/Math.max(w,h));
+   var cw=Math.max(1,Math.round(w*scale)),ch=Math.max(1,Math.round(h*scale));
+   var canvas=document.createElement('canvas');
+   canvas.width=cw;canvas.height=ch;
+   canvas.getContext('2d').drawImage(img,0,0,cw,ch);
+   cb(canvas.toDataURL('image/jpeg',0.82));
+  };
+  img.src=e.target.result;
+ };
+ reader.readAsDataURL(file);
+}
+var issueTargetId=null,issueTargetName=null,issueImg=null,issueResolvedName=null;
+function onIssueCodeInput(){
+ var code=document.getElementById('issueCode').value.trim().toUpperCase();
+ var entry=NFT_CATALOG[code];
+ var prevBox=document.getElementById('issueCodePreview');
+ if(entry){
+  issueImg=glyphImgSrc(entry.glyph);
+  issueResolvedName=entry.name;
+  document.getElementById('issuePreview').src=issueImg;
+  document.getElementById('issueCodeName').textContent=entry.name;
+  prevBox.style.display='flex';
+ }else{
+  issueImg=null;issueResolvedName=null;
+  prevBox.style.display='none';
+ }
+}
+function openIssue(){
+ document.getElementById('issueErr').classList.remove('show');
+ document.getElementById('issueCode').value='';
+ document.getElementById('issueModel').value='';
+ resetIssueBgChoice();
+ document.getElementById('issueSymbol').value='';
+ document.getElementById('issueCodePreview').style.display='none';
+ issueImg=null;issueTargetId=null;issueTargetName=null;issueResolvedName=null;
+ var listEl=document.getElementById('issueUserList');
+ listEl.innerHTML="<div style='color:#777;font-size:14px;padding:8px 0'>Загрузка...</div>";
+ var selfRow="<div class='apRow' style='cursor:pointer' data-uid='"+MY_ID+"' data-uname=\""+String(MY_NAME||'Вы').replace(/"/g,'&quot;')+"\"><svg><use href='#bulb'/></svg><span style='flex:1'>"+(MY_NAME||'Вы')+"</span><div class='mbadge' style='width:auto;padding:0 8px'><span style='font-size:11px'>Админ</span></div></div>";
+ fetch('/api/presence').then(function(r){return r.json()}).then(function(d){
+  var others=(d.users||[]).filter(function(u){return u.id!==MY_ID});
+  if(!others.length){listEl.innerHTML=selfRow+"<div style='color:#777;font-size:14px;padding:8px 0'>Больше никого нет в сети</div>";return;}
+  listEl.innerHTML=selfRow+others.map(function(u){
+   return "<div class='apRow' style='cursor:pointer' data-uid='"+u.id+"' data-uname=\""+String(u.name).replace(/"/g,'&quot;')+"\"><svg><use href='#bulb'/></svg><span>"+u.name+"</span></div>";
+  }).join('');
+ }).catch(function(){listEl.innerHTML=selfRow;});
+ document.getElementById('issueOverlay').classList.add('show');
+ document.getElementById('issueSheet').classList.add('show');
+}
+function closeIssue(){document.getElementById('issueOverlay').classList.remove('show');document.getElementById('issueSheet').classList.remove('show')}
+var issueBgChoice=null;
+function darkenHex(hex,f){
+ var h=String(hex||'').replace('#','');var n=parseInt(h,16)||0;
+ var r=Math.round(((n>>16)&255)*f),g=Math.round(((n>>8)&255)*f),bl=Math.round((n&255)*f);
+ return '#'+[r,g,bl].map(function(v){return (v<16?'0':'')+v.toString(16)}).join('');
+}
+function resetIssueBgChoice(){
+ issueBgChoice=null;
+ var sw=document.getElementById('issueBgSwatch'),lb=document.getElementById('issueBgLabel');
+ if(sw)sw.style.background='#2a2a2a';
+ if(lb){lb.textContent='Фон (не выбран)';lb.style.color='#777';}
+}
+function openIssueBgPicker(){
+ document.getElementById('issueBgSearch').value='';
+ populateIssueBgList();
+ document.getElementById('issueBgOverlay').classList.add('show');
+ document.getElementById('issueBgSheet').classList.add('show');
+}
+function closeIssueBgPicker(){
+ document.getElementById('issueBgOverlay').classList.remove('show');
+ document.getElementById('issueBgSheet').classList.remove('show');
+}
+function populateIssueBgList(){
+ var box=document.getElementById('issueBgList');
+ if(!box)return;
+ var q=(document.getElementById('issueBgSearch')||{}).value||'';
+ q=q.toLowerCase();
+ var items=BG_CATALOG.filter(function(b){return !q||b.name.toLowerCase().indexOf(q)!==-1});
+ box.innerHTML=items.map(function(b){
+  return "<div class='collRow' style='cursor:pointer' onclick='pickIssueBg(\""+b.name.replace(/"/g,'&quot;')+"\")'><div style='width:28px;height:28px;border-radius:9px;background:"+b.hex+";flex:none;border:2px solid rgba(255,255,255,.3);box-shadow:inset 0 0 0 1px rgba(0,0,0,.25)'></div><div class='collName'>"+b.name+"</div></div>";
+ }).join('')||"<div style='padding:40px 20px;color:#777;text-align:center;font-size:14px'>Ничего не найдено</div>";
+}
+function pickIssueBg(name){
+ var b=BG_CATALOG.find(function(x){return x.name===name});
+ if(!b)return;
+ issueBgChoice=b;
+ document.getElementById('issueBgSwatch').style.background=b.hex;
+ var lb=document.getElementById('issueBgLabel');
+ lb.textContent=b.name;lb.style.color='#fff';
+ closeIssueBgPicker();
+}
+function doIssue(){
+ var name=issueResolvedName;
+ var model=document.getElementById('issueModel').value.trim();
+ var bg=issueBgChoice?('linear-gradient(160deg,'+issueBgChoice.hex+','+darkenHex(issueBgChoice.hex,.62)+')'):'';
+ var symbol=document.getElementById('issueSymbol').value.trim();
+ var err=document.getElementById('issueErr');
+ if(!issueTargetId||!name||!issueImg){
+  err.classList.remove('show');void err.offsetWidth;err.classList.add('show');
+  return;
+ }
+ fetch('/api/admin/issue',{method:'POST',headers:{'Content-Type':'application/json','x-admin-key':ADMIN_KEY||''},body:JSON.stringify({targetId:issueTargetId,nft:{name:name,img:issueImg,model:model,bg:bg,symbol:symbol}})})
+  .then(function(r){return r.json()})
+  .then(function(d){
+   if(d&&d.ok){closeIssue();showToast('Подарок отправлен: '+(issueTargetName||'пользователю'),'ok');}
+   else{err.classList.remove('show');void err.offsetWidth;err.classList.add('show');}
+  }).catch(function(){err.classList.remove('show');void err.offsetWidth;err.classList.add('show');});
+}
+document.addEventListener('DOMContentLoaded',function(){
+ var listEl=document.getElementById('issueUserList');
+ if(listEl)listEl.addEventListener('click',function(e){
+  var row=e.target.closest('[data-uid]');
+  if(!row)return;
+  Array.prototype.forEach.call(listEl.querySelectorAll('.apRow'),function(r){r.style.background=''});
+  row.style.background='#242424';
+  issueTargetId=row.getAttribute('data-uid');
+  issueTargetName=row.getAttribute('data-uname');
+ });
+});
+var I18N={
+ ru:{gifts:"Подарки",search:"Поиск по названию NFT / н",model:"Модель",bg:"Фон",sym:"Симв",
+  tabSale:"На продаже (0)",tabVault:"Хранилище (0)",navMarket:"Маркет",navOrders:"Ордера",navHub:"Игровой хаб",navVault:"Хранилище",
+  back:"Назад",gramBal:"Баланс GRAM",orders:"Ордера",offers:"Офферы",quickActions:"Быстрые действия",history:"История",
+  qaWithdraw:"Вывод",qaDeposit:"Ввод",qaAdd:"Добавить",histTitle:"Историй пока нет",histText:"Вся история вашей активности<br>появится здесь",
+  menuTitle:"Меню",menuCommunity:"Сообщество",menuBoost:"Буст канала",menuChannel:"Канал COOL",menuOfficial:"Официальные каналы",
+  menuHelp:"Помощь",menuSupport:"Поддержка",menuDocs:"Документы",menuTerms:"Условия использования",menuLang:"Язык",menuAnim:"Показывать анимацию",
+  saleTitle:"Нет подарков в продаже",saleText:"Выставьте предметы на продажу — они появятся здесь.",saleBtn:"Посмотреть подарки",
+  vaultTitle:"Нет доступных подарков",vaultText:"Выберите самый удобный способ получить подарок.",vaultMore:"Подробнее",vaultHere:"здесь.",
+  btnWin:"Выиграть",btnBuy:"Купить",btnLoad:"Загрузить",depositTitle:"Ввод средств",depositBtn:"Пополнить баланс"},
+ en:{gifts:"Gifts",search:"Search by NFT name / n",model:"Model",bg:"Background",sym:"Symbol",
+  tabSale:"For sale (0)",tabVault:"Vault (0)",navMarket:"Market",navOrders:"Orders",navHub:"Game Hub",navVault:"Vault",
+  back:"Back",gramBal:"GRAM Balance",orders:"Orders",offers:"Offers",quickActions:"Quick actions",history:"History",
+  qaWithdraw:"Withdraw",qaDeposit:"Deposit",qaAdd:"Add",histTitle:"No history yet",histText:"All your activity history<br>will appear here",
+  menuTitle:"Menu",menuCommunity:"Community",menuBoost:"Boost channel",menuChannel:"COOL Channel",menuOfficial:"Official channels",
+  menuHelp:"Help",menuSupport:"Support",menuDocs:"Documents",menuTerms:"Terms of use",menuLang:"Language",menuAnim:"Show animations",
+  saleTitle:"No gifts for sale",saleText:"List items for sale — they will appear here.",saleBtn:"View gifts",
+  vaultTitle:"No gifts available",vaultText:"Choose the easiest way to get a gift.",vaultMore:"More",vaultHere:"here.",
+  btnWin:"Win",btnBuy:"Buy",btnLoad:"Upload",depositTitle:"Deposit funds",depositBtn:"Top up balance"},
+ fa:{gifts:"هدایا",search:"جستجو بر اساس نام NFT / ن",model:"مدل",bg:"پس‌زمینه",sym:"نماد",
+  tabSale:"برای فروش (۰)",tabVault:"گاوصندوق (۰)",navMarket:"بازار",navOrders:"سفارش‌ها",navHub:"مرکز بازی",navVault:"گاوصندوق",
+  back:"بازگشت",gramBal:"موجودی GRAM",orders:"سفارش‌ها",offers:"پیشنهادها",quickActions:"اقدامات سریع",history:"تاریخچه",
+  qaWithdraw:"برداشت",qaDeposit:"واریز",qaAdd:"افزودن",histTitle:"هنوز تاریخچه‌ای نیست",histText:"کل تاریخچه فعالیت شما<br>اینجا نمایش داده می‌شود",
+  menuTitle:"منو",menuCommunity:"انجمن",menuBoost:"تقویت کانال",menuChannel:"کانال COOL",menuOfficial:"کانال‌های رسمی",
+  menuHelp:"راهنما",menuSupport:"پشتیبانی",menuDocs:"اسناد",menuTerms:"شرایط استفاده",menuLang:"زبان",menuAnim:"نمایش انیمیشن",
+  saleTitle:"هدیه‌ای برای فروش نیست",saleText:"اقلام را برای فروش قرار دهید — اینجا نمایش داده می‌شوند.",saleBtn:"مشاهده هدایا",
+  vaultTitle:"هدیه‌ای در دسترس نیست",vaultText:"راحت‌ترین راه دریافت هدیه را انتخاب کنید.",vaultMore:"بیشتر",vaultHere:"اینجا.",
+  btnWin:"بردن",btnBuy:"خرید",btnLoad:"بارگذاری",depositTitle:"واریز وجه",depositBtn:"شارژ موجودی"},
+ ko:{gifts:"선물",search:"NFT 이름으로 검색 / n",model:"모델",bg:"배경",sym:"심볼",
+  tabSale:"판매 중 (0)",tabVault:"보관함 (0)",navMarket:"마켓",navOrders:"주문",navHub:"게임 허브",navVault:"보관함",
+  back:"뒤로",gramBal:"GRAM 잔액",orders:"주문",offers:"오퍼",quickActions:"빠른 작업",history:"기록",
+  qaWithdraw:"출금",qaDeposit:"입금",qaAdd:"추가",histTitle:"아직 기록이 없습니다",histText:"모든 활동 기록이<br>여기에 표시됩니다",
+  menuTitle:"메뉴",menuCommunity:"커뮤니티",menuBoost:"채널 부스트",menuChannel:"COOL 채널",menuOfficial:"공식 채널",
+  menuHelp:"도움말",menuSupport:"지원",menuDocs:"문서",menuTerms:"이용 약관",menuLang:"언어",menuAnim:"애니메이션 표시",
+  saleTitle:"판매 중인 선물이 없습니다",saleText:"판매할 아이템을 등록하면 여기에 표시됩니다.",saleBtn:"선물 보기",
+  vaultTitle:"사용 가능한 선물이 없습니다",vaultText:"선물을 받는 가장 편한 방법을 선택하세요.",vaultMore:"더 보기",vaultHere:"여기.",
+  btnWin:"승리",btnBuy:"구매",btnLoad:"업로드",depositTitle:"입금",depositBtn:"잔액 충전"},
+ tr:{gifts:"Hediyeler",search:"NFT adına göre ara / n",model:"Model",bg:"Arka plan",sym:"Sembol",
+  tabSale:"Satışta (0)",tabVault:"Kasa (0)",navMarket:"Market",navOrders:"Siparişler",navHub:"Oyun Merkezi",navVault:"Kasa",
+  back:"Geri",gramBal:"GRAM Bakiyesi",orders:"Siparişler",offers:"Teklifler",quickActions:"Hızlı işlemler",history:"Geçmiş",
+  qaWithdraw:"Çekim",qaDeposit:"Yatırma",qaAdd:"Ekle",histTitle:"Henüz geçmiş yok",histText:"Tüm etkinlik geçmişiniz<br>burada görünecek",
+  menuTitle:"Menü",menuCommunity:"Topluluk",menuBoost:"Kanalı güçlendir",menuChannel:"COOL Kanalı",menuOfficial:"Resmi kanallar",
+  menuHelp:"Yardım",menuSupport:"Destek",menuDocs:"Belgeler",menuTerms:"Kullanım koşulları",menuLang:"Dil",menuAnim:"Animasyonları göster",
+  saleTitle:"Satışta hediye yok",saleText:"Satışa çıkardığınız ürünler burada görünür.",saleBtn:"Hediyeleri görüntüle",
+  vaultTitle:"Kullanılabilir hediye yok",vaultText:"Hediye almanın en kolay yolunu seçin.",vaultMore:"Daha fazla",vaultHere:"burada.",
+  btnWin:"Kazan",btnBuy:"Satın al",btnLoad:"Yükle",depositTitle:"Para yatırma",depositBtn:"Bakiyeyi yükle"},
+ zh:{gifts:"礼物",search:"按NFT名称搜索 / 符",model:"型号",bg:"背景",sym:"符号",
+  tabSale:"出售中 (0)",tabVault:"保险库 (0)",navMarket:"市场",navOrders:"订单",navHub:"游戏中心",navVault:"保险库",
+  back:"返回",gramBal:"GRAM余额",orders:"订单",offers:"报价",quickActions:"快捷操作",history:"历史",
+  qaWithdraw:"提现",qaDeposit:"充值",qaAdd:"添加",histTitle:"暂无历史记录",histText:"您的所有活动记录<br>将显示在这里",
+  menuTitle:"菜单",menuCommunity:"社区",menuBoost:"频道助力",menuChannel:"COOL频道",menuOfficial:"官方频道",
+  menuHelp:"帮助",menuSupport:"客服支持",menuDocs:"文档",menuTerms:"使用条款",menuLang:"语言",menuAnim:"显示动画",
+  saleTitle:"没有出售中的礼物",saleText:"上架出售的物品将显示在这里。",saleBtn:"查看礼物",
+  vaultTitle:"没有可用的礼物",vaultText:"选择获得礼物的最便捷方式。",vaultMore:"了解更多",vaultHere:"这里。",
+  btnWin:"赢取",btnBuy:"购买",btnLoad:"上传",depositTitle:"充值",depositBtn:"充值余额"},
+ ja:{gifts:"ギフト",search:"NFT名で検索 / 記",model:"モデル",bg:"背景",sym:"シンボル",
+  tabSale:"販売中 (0)",tabVault:"保管庫 (0)",navMarket:"マーケット",navOrders:"注文",navHub:"ゲームハブ",navVault:"保管庫",
+  back:"戻る",gramBal:"GRAM残高",orders:"注文",offers:"オファー",quickActions:"クイックアクション",history:"履歴",
+  qaWithdraw:"出金",qaDeposit:"入金",qaAdd:"追加",histTitle:"まだ履歴はありません",histText:"すべてのアクティビティ履歴が<br>ここに表示されます",
+  menuTitle:"メニュー",menuCommunity:"コミュニティ",menuBoost:"チャンネルブースト",menuChannel:"COOLチャンネル",menuOfficial:"公式チャンネル",
+  menuHelp:"ヘルプ",menuSupport:"サポート",menuDocs:"ドキュメント",menuTerms:"利用規約",menuLang:"言語",menuAnim:"アニメーションを表示",
+  saleTitle:"販売中のギフトはありません",saleText:"販売に出した商品はここに表示されます。",saleBtn:"ギフトを見る",
+  vaultTitle:"利用可能なギフトはありません",vaultText:"ギフトを受け取る一番簡単な方法を選んでください。",vaultMore:"詳しくは",vaultHere:"こちら。",
+  btnWin:"獲得する",btnBuy:"購入",btnLoad:"アップロード",depositTitle:"入金",depositBtn:"残高をチャージ"}
+};
+var currentLang='ru';
+function t(k){return (I18N[currentLang]&&I18N[currentLang][k])||I18N.ru[k]}
+function applyLang(lang){
+ currentLang=lang;
+ document.documentElement.lang=lang;
+ document.documentElement.dir=(lang=='fa'||lang=='ar')?'rtl':'ltr';
+ document.querySelectorAll('[data-i18n]').forEach(function(el){
+  el.innerHTML=t(el.getAttribute('data-i18n'));
+ });
+ var active=document.getElementById('t-sale').classList.contains('on')?'sale':'vault';
+ if(document.getElementById('main').innerHTML.trim()!=='') sw(active);
+}
+function saleHtml(){return "<div class='spin' style='margin:50px auto'></div>"}
+function vaultHtml(){return "<div class='spin' style='margin:50px auto'></div>"}
+function sw(tt){
+ document.getElementById('t-sale').classList.toggle('on',tt=='sale');
+ document.getElementById('t-vault').classList.toggle('on',tt=='vault');
+ var m=document.getElementById('main');m.classList.remove('load');
+ m.innerHTML=tt=='sale'?saleHtml():vaultHtml();
+ if(tt=='sale')loadMine();else loadVault();
+}
+function nftCardHtml(n,mode){
+ var sub=[n.model,n.bg?bgNameFor(n):'',n.symbol].filter(Boolean).join(' • ');
+ var imgHtml=n.img?("<img src='"+n.img+"' style='width:100%;height:100%;object-fit:cover'>"):"<svg class='art' viewBox='0 0 24 24' fill='none' stroke='#444'><use href='#tagbig'/></svg>";
+ var actionHtml;
+ if(mode==='market'){
+  var inCart=cartIds.indexOf(n.id)!==-1;
+  actionHtml="<div class='gprice'><svg class='i' style='width:15px;height:15px'><use href='#gem'/></svg>"+n.price+"</div><div class='gcart"+(inCart?' inCart':'')+"' onclick='toggleCart(\""+n.id+"\",this)'><svg class='i'><use href='#"+(inCart?'check':'cart')+"'/></svg></div>";
+ }else if(mode==='mine'){
+  actionHtml="<div class='gprice' style='cursor:pointer' onclick='promptReprice(\""+n.id+"\","+n.price+")'><svg class='i' style='width:15px;height:15px'><use href='#gem'/></svg>"+n.price+"</div><div class='gcart' onclick='unlistNft(\""+n.id+"\")'><svg class='i'><use href='#x2'/></svg></div>";
+ }else{
+  actionHtml="<div class='gprice' style='cursor:pointer' onclick='promptListNft(\""+n.id+"\")'>Выставить</div>";
+ }
+ var tileStyle=n.bg?(" style=\"background:"+n.bg+"\""):"";
+ return "<div class='gcard'><div class='gtile'"+tileStyle+"><div class='gpat'></div>"+imgHtml+"</div><div class='gmeta'><div class='gname'>"+(n.name||'NFT')+"</div><div class='gid'>"+sub+"</div></div><div class='gbuy'>"+actionHtml+"</div></div>";
+}
+function renderGrid(list,mode){
+ if(!list||!list.length){
+  var txt=mode==='market'?'Доступные подарки появятся здесь, когда их выставят на продажу.':mode==='mine'?'Вы ещё ничего не выставили на продажу.':'Здесь появятся подарки, которые вам подарят.';
+  return "<div class='empty'><svg class='big' viewBox='0 0 24 24' fill='none' stroke='#444' stroke-width='1.6'><use href='#tagbig'/></svg><h3>Пока ничего нет</h3><p>"+txt+"</p></div>";
+ }
+ return "<div class='grid'>"+list.map(function(n){return nftCardHtml(n,mode)}).join('')+"</div>";
+}
+function loadMarket(){
+ var m=document.getElementById('main');
+ fetch('/api/market').then(function(r){return r.json()}).then(function(list){
+  marketFullCache=list||[];
+  if(currentNav!=='market')return;
+  m.innerHTML=renderGrid(filteredMarket(marketFullCache),'market');
+ }).catch(function(){if(currentNav==='market')m.innerHTML=renderGrid([],'market')});
+}
+function rerenderMarket(){
+ if(currentNav!=='market')return;
+ var m=document.getElementById('main');
+ if(m)m.innerHTML=renderGrid(filteredMarket(marketFullCache),'market');
+}
+function loadMine(){
+ var m=document.getElementById('main');
+ fetch('/api/market').then(function(r){return r.json()}).then(function(list){
+  var mine=(list||[]).filter(function(x){return x.ownerId===MY_ID});
+  m.innerHTML=renderGrid(mine,'mine');
+ }).catch(function(){m.innerHTML=renderGrid([],'mine')});
+}
+function loadVault(){
+ var m=document.getElementById('main');
+ fetch('/api/vault?user='+encodeURIComponent(MY_ID)).then(function(r){return r.json()}).then(function(list){
+  m.innerHTML=renderGrid(list,'vault');
+ }).catch(function(){m.innerHTML=renderGrid([],'vault')});
+}
+function buyNft(id){
+ fetch('/api/market',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'buy',nftId:id,buyerId:MY_ID,buyerName:MY_NAME})})
+  .then(function(){loadMarket()}).catch(function(){});
+}
+var cartIds=[];
+try{cartIds=JSON.parse(localStorage.getItem('coolCart')||'[]')}catch(e){cartIds=[]}
+function saveCart(){
+ try{localStorage.setItem('coolCart',JSON.stringify(cartIds))}catch(e){}
+ updateCartBadge();
+}
+function updateCartBadge(){
+ var b=document.getElementById('cartBadge');
+ if(!b)return;
+ if(cartIds.length>0){b.textContent=cartIds.length;b.style.display='flex';}
+ else{b.style.display='none';}
+}
+function toggleCart(id,el){
+ var idx=cartIds.indexOf(id);
+ if(idx===-1){cartIds.push(id);showToast('Добавлено в корзину','ok');}
+ else{cartIds.splice(idx,1);}
+ saveCart();
+ if(el){
+  var inCart=cartIds.indexOf(id)!==-1;
+  el.classList.toggle('inCart',inCart);
+  el.innerHTML="<svg class='i'><use href='#"+(inCart?'check':'cart')+"'/></svg>";
+ }
+ if(document.getElementById('cartSheet')&&document.getElementById('cartSheet').classList.contains('show'))renderCart();
+}
+function cartItemsData(){
+ return cartIds.map(function(id){return marketFullCache.find(function(x){return x.id===id})}).filter(Boolean);
+}
+function openCart(){
+ renderCart();
+ document.getElementById('cartOverlay').classList.add('show');
+ document.getElementById('cartSheet').classList.add('show');
+}
+function closeCart(){
+ document.getElementById('cartOverlay').classList.remove('show');
+ document.getElementById('cartSheet').classList.remove('show');
+}
+function removeFromCart(id){
+ var idx=cartIds.indexOf(id);
+ if(idx!==-1)cartIds.splice(idx,1);
+ saveCart();
+ renderCart();
+ rerenderMarket();
+}
+function buyCartItem(id){
+ buyNft(id);
+ removeFromCart(id);
+}
+function buyAllCart(){
+ var items=cartItemsData();
+ if(!items.length)return;
+ items.forEach(function(it){buyNft(it.id)});
+ cartIds=[];
+ saveCart();
+ renderCart();
+}
+function renderCart(){
+ var box=document.getElementById('cartList');
+ var items=cartItemsData();
+ var totalEl=document.getElementById('cartTotal');
+ var foot=document.getElementById('cartFoot');
+ if(!items.length){
+  box.innerHTML="<div class='empty'><svg class='big' viewBox='0 0 24 24' fill='none' stroke='#444' stroke-width='1.6'><use href='#cart'/></svg><h3>Корзина пуста</h3><p>Добавьте подарки с маркета,<br>чтобы купить их здесь.</p></div>";
+  if(foot)foot.style.display='none';
+  return;
+ }
+ if(foot)foot.style.display='flex';
+ var total=items.reduce(function(s,n){return s+(Number(n.price)||0)},0);
+ if(totalEl)totalEl.textContent=total.toFixed(2);
+ box.innerHTML=items.map(function(n){
+  var imgHtml=n.img?("<img src='"+n.img+"' style='width:100%;height:100%;object-fit:cover'>"):"";
+  var tileStyle=n.bg?(" style=\"background:"+n.bg+"\""):"";
+  return "<div class='cartRow'><div class='cartThumb'"+tileStyle+">"+imgHtml+"</div><div style='flex:1;min-width:0'><div class='collName' style='margin-bottom:3px'>"+(n.name||'NFT')+"</div><div style='display:flex;align-items:center;gap:5px;font-size:15px;color:#fff'><svg class='i f' style='width:14px;height:14px'><use href='#gem'/></svg>"+n.price+"</div></div><div class='cartBuyBtn' onclick='buyCartItem(\""+n.id+"\")'>Купить</div><div class='cartRmBtn' onclick='removeFromCart(\""+n.id+"\")'><svg class='i' style='width:16px;height:16px'><use href='#x2'/></svg></div></div>";
+ }).join('');
+}
+function unlistNft(id){
+ fetch('/api/market',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'unlist',nftId:id,ownerId:MY_ID})})
+  .then(function(){loadMine()}).catch(function(){});
+}
+var listingNftId=null;
+function promptListNft(id){
+ listingNftId=id;repricingNftId=null;
+ document.getElementById('listPriceInput').value='1';
+ document.getElementById('listSheetTitle').textContent='Выставить на продажу';
+ document.getElementById('listSheetBtn').textContent='Выставить';
+ document.getElementById('listOverlay').classList.add('show');
+ document.getElementById('listSheet').classList.add('show');
+}
+function closeListSheet(){document.getElementById('listOverlay').classList.remove('show');document.getElementById('listSheet').classList.remove('show');repricingNftId=null}
+function confirmListNft(){
+ var price=parseFloat((document.getElementById('listPriceInput').value||'0').replace(',','.'))||0;
+ if(price<=0)return;
+ if(repricingNftId){
+  var id=repricingNftId;
+  fetch('/api/market',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'reprice',nftId:id,price:price,ownerId:MY_ID,ownerName:MY_NAME})})
+   .then(function(){closeListSheet();loadMine();showToast('Цена обновлена','ok')});
+  return;
+ }
+ if(!listingNftId)return;
+ fetch('/api/market',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'list',nftId:listingNftId,price:price,ownerId:MY_ID,ownerName:MY_NAME})})
+  .then(function(){closeListSheet();loadVault()});
+}
+function positionIndicator(el){
+ var ind=document.getElementById('navInd');
+ var nav=document.getElementById('mainNav');
+ if(!ind||!nav||!el) return;
+ var r=el.getBoundingClientRect(), nr=nav.getBoundingClientRect();
+ ind.style.left=(r.left-nr.left+r.width/2-42)+'px';
+}
+var marketFullCache=[];
+var activeFilters={min:null,max:null,nft:{},bg:{}};
+function hexToRgb3(h){h=String(h||'888888').replace('#','');if(h.length===3)h=h.split('').map(function(c){return c+c}).join('');var n=parseInt(h,16)||0x888888;return [(n>>16)&255,(n>>8)&255,n&255];}
+function extractFirstHex(bg){var m=String(bg||'').match(/#([0-9a-fA-F]{3,6})/);return m?('#'+m[1]):'#888888';}
+function bgNameFor(n){
+ if(n._bgName)return n._bgName;
+ var rgb=hexToRgb3(extractFirstHex(n.bg));
+ var best=null,bestD=Infinity;
+ for(var i=0;i<BG_CATALOG.length;i++){
+  var c=BG_CATALOG[i],crgb=hexToRgb3(c.hex);
+  var d=(rgb[0]-crgb[0])*(rgb[0]-crgb[0])+(rgb[1]-crgb[1])*(rgb[1]-crgb[1])+(rgb[2]-crgb[2])*(rgb[2]-crgb[2]);
+  if(d<bestD){bestD=d;best=c.name;}
+ }
+ n._bgName=best;
+ return best;
+}
+function filteredMarket(list){
+ var hasNftFilter=Object.keys(activeFilters.nft).some(function(k){return activeFilters.nft[k]});
+ var hasBgFilter=Object.keys(activeFilters.bg).some(function(k){return activeFilters.bg[k]});
+ return (list||[]).filter(function(n){
+  if(activeFilters.min!=null && Number(n.price)<activeFilters.min)return false;
+  if(activeFilters.max!=null && Number(n.price)>activeFilters.max)return false;
+  if(hasNftFilter && !activeFilters.nft[n.name])return false;
+  if(hasBgFilter && !activeFilters.bg[bgNameFor(n)])return false;
+  return true;
+ });
+}
+function countActiveFilters(){
+ var n=0;
+ if(activeFilters.min!=null||activeFilters.max!=null)n++;
+ if(Object.keys(activeFilters.nft).some(function(k){return activeFilters.nft[k]}))n++;
+ if(Object.keys(activeFilters.bg).some(function(k){return activeFilters.bg[k]}))n++;
+ return n;
+}
+var currentNav='market';
+var CLOVER="<svg viewBox='0 0 24 24' fill='currentColor'><path d='M12 3c-1.6 0-2.4 1.9-1.3 3.1C9.5 5 7.6 5.8 7.6 7.4c0 1.6 1.9 2.4 3.1 1.3C9.6 9.9 10.4 11.8 12 11.8s2.4-1.9 1.3-3.1c1.2 1.1 3.1.3 3.1-1.3 0-1.6-1.9-2.4-3.1-1.3C14.4 4.9 13.6 3 12 3z'/><rect x='11' y='11' width='2' height='8' rx='1'/></svg>";
+var BAG="<svg viewBox='0 0 24 24' fill='currentColor'><path d='M8.5 6.5L7 3.5h10l-1.5 3c3 1.2 5.5 4 5.5 8.5a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4c0-4.5 2.5-7.3 5.5-8.5z'/></svg>";
+var gifts=[
+{name:"Chill Flame",id:"#340034",price:"5.87",bg:"linear-gradient(160deg,#e8a93a,#c08020)",art:"<svg viewBox='0 0 64 64' class='art'><ellipse cx='32' cy='58' rx='13' ry='3.2' fill='#000' opacity='.22'/><path d='M32 4c3 11 15 15 15 30 0 11-7 20-15 20s-15-9-15-20c0-9 6-12 9-18 1 5 3 7 6 9-1-8 0-15 0-21z' fill='#ff9a2e' stroke='#5c2b0a' stroke-width='2.5' stroke-linejoin='round'/><path d='M32 30c2 4 6 6 6 12 0 5-3 8-6 8s-6-3-6-8c0-4 3-6 4-9 0 3 1 4 2 5z' fill='#ffe066' stroke='#5c2b0a' stroke-width='1.6' stroke-linejoin='round'/><ellipse cx='25' cy='17' rx='4.2' ry='7' fill='#fff' opacity='.3' transform='rotate(-18 25 17)'/></svg>"},
+{name:"Star Amulet",id:"#139619",price:"7.35",bg:"linear-gradient(160deg,#6f8f5e,#52704a)",art:"<svg viewBox='0 0 64 64' class='art'><ellipse cx='32' cy='58' rx='13' ry='3.2' fill='#000' opacity='.22'/><path d='M24 8h16v6a8 8 0 0 1-16 0z' fill='#f3c04a' stroke='#8a5a10' stroke-width='2.3' stroke-linejoin='round'/><circle cx='32' cy='38' r='22' fill='#f6cd5e' stroke='#8a5a10' stroke-width='2.8'/><circle cx='32' cy='38' r='22' fill='none' stroke='#fff' stroke-opacity='.25' stroke-width='3'/><path d='M32 24l4.5 9.2 10.2 1.5-7.4 7.2 1.7 10.1L32 47.4l-9 4.6 1.7-10.1-7.4-7.2 10.2-1.5z' fill='#fff4cf' stroke='#8a5a10' stroke-width='2'/><ellipse cx='23' cy='27' rx='5' ry='8' fill='#fff' opacity='.28' transform='rotate(-18 23 27)'/></svg>"},
+{name:"Sweet Cone",id:"#082210",price:"2.14",bg:"linear-gradient(160deg,#5fa06a,#42754c)",art:"<svg viewBox='0 0 64 64' class='art'><ellipse cx='32' cy='58' rx='13' ry='3.2' fill='#000' opacity='.22'/><path d='M22 42h20l-7.5 18a2.5 2.5 0 0 1-5 0z' fill='#c98a44' stroke='#6b3f17' stroke-width='2.4' stroke-linejoin='round'/><path d='M24 46l16 0M23 51l18 0M25 56l14 0' stroke='#6b3f17' stroke-width='1.6' stroke-linecap='round' opacity='.6'/><path d='M19 29c0-9 26-9 26 0 0 3.5-2.5 5.6-5 6.6 2 1.2 3.5 3.2 3.5 5.4 0 7.5-23 7.5-23 0 0-2.2 1.5-4.2 3.5-5.4-2.5-1-5-3.1-5-6.6z' fill='#fff2d8' stroke='#6b3f17' stroke-width='2.4' stroke-linejoin='round'/><circle cx='32' cy='17' r='4' fill='#e0463f' stroke='#6b3f17' stroke-width='2'/><ellipse cx='24' cy='27' rx='4.5' ry='7' fill='#fff' opacity='.35' transform='rotate(-15 24 27)'/></svg>"},
+{name:"Dusk Crystal",id:"#410077",price:"9.12",bg:"linear-gradient(160deg,#cf6a33,#9e4420)",art:"<svg viewBox='0 0 64 64' class='art'><ellipse cx='32' cy='58' rx='12' ry='3.2' fill='#000' opacity='.22'/><path d='M32 5l16 15-8 37-8 2-8-2-8-37z' fill='#b07cf0' stroke='#4a2a9e' stroke-width='2.4' stroke-linejoin='round'/><path d='M32 5l16 15-16 4z' fill='#d9b6ff'/><path d='M32 5l-16 15 16 4z' fill='#9a5fe0'/><path d='M16 20l16 4 16-4-4.5 32-11.5 4-11.5-4z' fill='#8a52d6'/><path d='M32 24v33M16 20l16 4 16-4' stroke='#4a2a9e' stroke-width='1.6' stroke-linejoin='round'/><ellipse cx='26' cy='15' rx='4' ry='7' fill='#fff' opacity='.4' transform='rotate(-20 26 15)'/></svg>"},
+{name:"Aqua Gem",id:"#220145",price:"4.60",bg:"linear-gradient(160deg,#3b7fd6,#285aa0)",art:"<svg viewBox='0 0 64 64' class='art'><ellipse cx='32' cy='58' rx='13' ry='3.2' fill='#000' opacity='.22'/><path d='M20 14h24l10 12-22 26L10 26z' fill='#4fb4ec' stroke='#1f5e9e' stroke-width='2.4' stroke-linejoin='round'/><path d='M20 14h24l5 12H15z' fill='#8adcff'/><path d='M15 26h9l8 26z' fill='#2a8fd0'/><path d='M49 26h-9l-8 26z' fill='#3fa0e0'/><path d='M10 26h44M24 14l8 38 8-38' stroke='#1f5e9e' stroke-width='1.6'/><ellipse cx='26' cy='20' rx='3.6' ry='6' fill='#fff' opacity='.45' transform='rotate(-18 26 20)'/></svg>"},
+{name:"Royal Crown",id:"#905512",price:"12.0",bg:"linear-gradient(160deg,#8a5cff,#6236cc)",art:"<svg viewBox='0 0 64 64' class='art'><ellipse cx='32' cy='58' rx='15' ry='3.2' fill='#000' opacity='.22'/><path d='M9 46L6 20l13 9 13-19 13 19 13-9-3 26z' fill='#ffd45e' stroke='#8a5a10' stroke-width='2.4' stroke-linejoin='round'/><path d='M9 46L6 20l13 9 6-9 7 18 7-18 6 9 13-9-3 26z' fill='#fff0b0' opacity='.45'/><rect x='9' y='46' width='46' height='9' rx='2.5' fill='#ffd45e' stroke='#8a5a10' stroke-width='2.4'/><circle cx='19' cy='29' r='3.2' fill='#3fa0e0' stroke='#8a5a10' stroke-width='1.4'/><circle cx='45' cy='29' r='3.2' fill='#3fa0e0' stroke='#8a5a10' stroke-width='1.4'/><circle cx='32' cy='19' r='4' fill='#e0463f' stroke='#8a5a10' stroke-width='1.6'/><ellipse cx='22' cy='46' rx='6' ry='2.2' fill='#fff' opacity='.3'/></svg>"}
+];
+function marketHtml(){
+ return "<div class='spin' style='margin:50px auto'></div>";
+}
+function goMarket(){
+ currentNav='market';
+ document.getElementById('nav-market').classList.add('on');
+ document.getElementById('nav-vault').classList.remove('on');
+ document.getElementById('subtabs').style.display='none';
+ var m=document.getElementById('main');m.classList.remove('load');m.innerHTML=marketHtml();
+ positionIndicator(document.getElementById('nav-market'));
+ loadMarket();
+}
+function goVault(){
+ currentNav='vault';
+ document.getElementById('nav-vault').classList.add('on');
+ document.getElementById('nav-market').classList.remove('on');
+ document.getElementById('subtabs').style.display='flex';
+ sw('vault');
+ positionIndicator(document.getElementById('nav-vault'));
+}
+window.addEventListener('resize',function(){
+ positionIndicator(document.getElementById(currentNav==='market'?'nav-market':'nav-vault'));
+});
+function refreshBalance(){
+ fetch('/api/balance?user='+encodeURIComponent(MY_ID)).then(function(r){return r.json()}).then(function(d){
+  userBalance=(d&&d.balance)||0;
+  var el=document.getElementById('gramBalNum');
+  if(el)el.textContent=userBalance;
+  var top=document.getElementById('topBalNum');
+  if(top)top.textContent=userBalance;
+ }).catch(function(){});
+}
+refreshBalance();
+setInterval(refreshBalance,12000);
+// Shared look for every kind of history/activity entry: deposits, withdrawals,
+// and now market activity (buy/sale/list/unlist) all come out of the same
+// coolRequests log (see lib/kv.js pushHistory), so one place decides how
+// each type is shown.
+function histMeta(type){
+ switch(type){
+  case 'withdraw': return {icon:'down',color:'#ff5a5a',label:'Вывод'};
+  case 'buy': return {icon:'cart',color:'#38d17a',label:'Покупка'};
+  case 'sale': return {icon:'tagbig',color:'#38d17a',label:'Продажа'};
+  case 'list': return {icon:'tagheart',color:'#2fb3ff',label:'Выставлено'};
+  case 'unlist': return {icon:'x2',color:'#ff5a5a',label:'Снято с продажи'};
+  case 'reprice': return {icon:'gem',color:'#f0a830',label:'Изменение цены'};
+  default: return {icon:'plus',color:'#38d17a',label:'Пополнение'};
+ }
+}
+function loadHistory(){
+ var box=document.getElementById('histBox');
+ if(!box)return;
+ fetch('/api/requests?mine='+encodeURIComponent(MY_ID)).then(function(r){return r.ok?r.json():[]}).then(function(list){
+  if(!list||!list.length)return;
+  box.classList.add('filled');
+  box.innerHTML=list.map(function(r){
+   var m=histMeta(r.type);
+   var d=new Date(r.time);
+   var dt=('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).slice(-2)+' '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);
+   var statusCls=r.status==='approved'?'ok':r.status==='rejected'?'bad':'pend';
+   var statusTxt=r.status==='approved'?'Принято':r.status==='rejected'?'Отклонено':'Ожидает';
+   var title=m.label+(r.nftName?' · '+r.nftName:'');
+   return "<div class='histRow'><svg class='f' style='color:"+m.color+"'><use href='#"+m.icon+"'/></svg><div><div class='hName'>"+title+"</div><div class='hTime'>"+dt+"</div></div><div style='margin-left:auto;text-align:right'><div class='hAmt'><svg class='i' style='width:13px;height:13px'><use href='#gem'/></svg>"+r.amount+"</div><div class='hStatus "+statusCls+"'>"+statusTxt+"</div></div></div>";
+  }).join('');
+ }).catch(function(){});
+}
+var feedTimer=null;
+function openFeed(){
+ document.getElementById('feedOverlay').classList.add('show');
+ document.getElementById('feedSheet').classList.add('show');
+ loadFeed();
+ if(feedTimer)clearInterval(feedTimer);
+ feedTimer=setInterval(loadFeed,8000);
+}
+function closeFeed(){
+ document.getElementById('feedOverlay').classList.remove('show');
+ document.getElementById('feedSheet').classList.remove('show');
+ if(feedTimer){clearInterval(feedTimer);feedTimer=null;}
+}
+function loadFeed(){
+ var box=document.getElementById('feedList');
+ if(!box)return;
+ fetch('/api/requests?feed=market').then(function(r){return r.ok?r.json():[]}).then(function(list){
+  if(!list||!list.length){box.innerHTML="<div class='empty'><svg class='big' viewBox='0 0 24 24' fill='none' stroke='#444' stroke-width='1.6'><use href='#feed'/></svg><h3>Пока тихо</h3><p>Здесь появится вся активность рынка:<br>листинги, продажи, покупки.</p></div>";return;}
+  box.innerHTML=list.map(function(r){
+   var m=histMeta(r.type);
+   var d=new Date(r.time);
+   var dt=('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).slice(-2)+' '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);
+   var title=(r.nftName?r.nftName:'NFT')+(r.user?' · '+r.user:'');
+   return "<div class='histRow'><svg class='f' style='color:"+m.color+"'><use href='#"+m.icon+"'/></svg><div style='min-width:0'><div class='hName'>"+title+"</div><div class='hTime'>"+m.label+" · "+dt+"</div></div><div style='margin-left:auto;text-align:right'><div class='hAmt'><svg class='i' style='width:13px;height:13px'><use href='#gem'/></svg>"+r.amount+"</div></div></div>";
+  }).join('');
+ }).catch(function(){});
+}
+var repricingNftId=null;
+function promptReprice(id,currentPrice){
+ repricingNftId=id;listingNftId=null;
+ document.getElementById('listPriceInput').value=currentPrice;
+ document.getElementById('listSheetTitle').textContent='Изменить цену';
+ document.getElementById('listSheetBtn').textContent='Сохранить';
+ document.getElementById('listOverlay').classList.add('show');
+ document.getElementById('listSheet').classList.add('show');
+}
+function openProfile(){document.getElementById('profile').classList.add('show');refreshBalance();loadHistory()}
+function closeProfile(){document.getElementById('profile').classList.remove('show')}
+function openDeposit(){document.getElementById('depositOverlay').classList.add('show');document.getElementById('depositSheet').classList.add('show');updateDepTon();updateWalletUI(tonConnectUI&&tonConnectUI.connected?tonConnectUI.wallet:null)}
+function closeDeposit(){document.getElementById('depositOverlay').classList.remove('show');document.getElementById('depositSheet').classList.remove('show')}
+var userBalance=0;
+var ADMIN_KEY=null;
+try{ADMIN_KEY=localStorage.getItem('coolAdminKey')}catch(e){}
+var reqPollTimer=null;
+var currentReqId=null;
+function authHeaders(){return ADMIN_KEY?{'x-admin-key':ADMIN_KEY}:{}}
+function loadRequests(){
+ return fetch('/api/requests',{headers:authHeaders()}).then(function(r){return r.ok?r.json():[]}).catch(function(){return []});
+}
+function addRequest(type,user,amount){
+ return fetch('/api/requests',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:type,user:user,amount:amount,requesterId:MY_ID})}).then(function(r){return r.json()}).then(function(d){renderRequests();return d}).catch(function(){});
+}
+function renderRequests(){
+ var el=document.getElementById('reqList');
+ if(!el)return;
+ loadRequests().then(function(list){
+  if(!list||!list.length){el.innerHTML="<div style='padding:16px 2px;color:#777;font-size:14px'>Заявок пока нет</div>";return;}
+  el.innerHTML=list.map(function(r){
+   var m=histMeta(r.type);
+   var label=m.label+(r.nftName?' · '+r.nftName:'');
+   var d=new Date(r.time);
+   var ts=('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);
+   var statusHtml='';
+   if(r.status==='approved')statusHtml="<svg class='f' style='width:16px;height:16px;color:#38d17a;margin-left:6px'><use href='#check'/></svg>";
+   else if(r.status==='rejected')statusHtml="<svg viewBox='0 0 24 24' fill='none' stroke='#ff5a5a' stroke-width='2.6' stroke-linecap='round' style='width:14px;height:14px;margin-left:6px'><use href='#x2'/></svg>";
+   return "<div class='apRow' style='cursor:pointer' data-id='"+r.id+"'><svg class='f' style='color:"+m.color+"'><use href='#"+m.icon+"'/></svg><span>"+label+" • @"+r.user+statusHtml+"</span><span style='margin-left:auto;display:flex;align-items:center;gap:4px;color:#ddd;font-size:14px;font-weight:600'><svg class='i' style='width:14px;height:14px'><use href='#gem'/></svg>"+r.amount+"</span><span style='margin-left:10px;color:#999;font-size:13px'>"+ts+"</span></div>";
+  }).join('');
+ });
+}
+(function(){
+ var el=document.getElementById('reqList');
+ if(el)el.addEventListener('click',function(e){
+  var row=e.target.closest('[data-id]');
+  if(row)openReqDetail(row.getAttribute('data-id'));
+ });
+})();
+function openReqDetail(id){
+ currentReqId=id;
+ loadRequests().then(function(list){
+  var r=(list||[]).find(function(x){return String(x.id)===String(id)});
+  if(!r)return;
+  var d=new Date(r.time);
+  var dateStr=d.toLocaleString();
+  var statusRow;
+  if(r.status==='approved'){
+   statusRow="<div class='apStat'><span class='lb'>Статус</span><span class='vl' style='color:#38d17a;font-size:16px'>Принято</span></div>";
+  }else if(r.status==='rejected'){
+   statusRow="<div class='apStat'><span class='lb'>Статус</span><span class='vl' style='color:#ff5a5a;font-size:16px'>Отклонено</span></div>";
+  }else{
+   statusRow="<div class='apBtnRow'><div class='depBtn' onclick=\"decideRequest('approved')\">Принять</div><div class='depBtn apBtnReject' onclick=\"decideRequest('rejected')\">Отклонить</div></div>";
+  }
+  var m=histMeta(r.type);
+  document.getElementById('reqDetailBody').innerHTML=
+   "<div class='apStat'><span class='lb'>Тип</span><span class='vl'>"+m.label+"</span></div>"+
+   (r.nftName?"<div class='apStat'><span class='lb'>Подарок</span><span class='vl'>"+r.nftName+"</span></div>":"")+
+   "<div class='apStat'><span class='lb'>Username</span><span class='vl'>@"+r.user+"</span></div>"+
+   "<div class='apStat'><span class='lb'>Сумма</span><span class='vl'>"+r.amount+" GRAM</span></div>"+
+   "<div class='apStat'><span class='lb'>Время</span><span class='vl' style='font-size:14px'>"+dateStr+"</span></div>"+
+   statusRow;
+  document.getElementById('reqDetailOverlay').classList.add('show');
+  document.getElementById('reqDetailSheet').classList.add('show');
+ });
+}
+function decideRequest(status){
+ if(!currentReqId)return;
+ fetch('/api/requests',{method:'PATCH',headers:{'Content-Type':'application/json','x-admin-key':ADMIN_KEY||''},body:JSON.stringify({id:currentReqId,status:status})}).then(function(){
+  renderRequests();
+  openReqDetail(currentReqId);
+ });
+}
+function closeReqDetail(){document.getElementById('reqDetailOverlay').classList.remove('show');document.getElementById('reqDetailSheet').classList.remove('show')}
+function refreshMarketCount(){
+ fetch('/api/market').then(function(r){return r.json()}).then(function(d){
+  var el=document.getElementById('apMarketCount');
+  if(el)el.textContent=(d&&d.length)||0;
+ }).catch(function(){});
+}
+function renderApCodesList(){
+ var box=document.getElementById('apCodesList');
+ if(!box)return;
+ var codes=Object.keys(NFT_CATALOG).sort();
+ box.innerHTML=codes.map(function(code){
+  var e=NFT_CATALOG[code];
+  return "<div class='apRow' style='cursor:default'><img src='"+glyphImgSrc(e.glyph)+"' style='width:30px;height:30px;border-radius:8px;flex:none'><span style='flex:1'>"+e.name+"</span><span style='color:#2fb3ff;font-weight:700;font-size:13.5px;letter-spacing:.3px'>"+code+"</span></div>";
+ }).join('');
+}
+function toggleApCodes(){
+ var box=document.getElementById('apCodesList');
+ var chev=document.getElementById('apCodesChev');
+ var open=box.style.display!=='none';
+ if(!open)renderApCodesList();
+ box.style.display=open?'none':'block';
+ chev.style.transform=open?'':'rotate(180deg)';
+}
+function openAdminPanel(){
+ renderRequests();
+ refreshMarketCount();
+ document.getElementById('adminPanel').classList.add('show');
+ if(reqPollTimer)clearInterval(reqPollTimer);
+ reqPollTimer=setInterval(function(){renderRequests();refreshMarketCount();},4000);
+}
+function openWithdraw(){document.getElementById('wdError').classList.remove('show');document.getElementById('withdrawOverlay').classList.add('show');document.getElementById('withdrawSheet').classList.add('show');updateWdTon();updateWalletUI(tonConnectUI&&tonConnectUI.connected?tonConnectUI.wallet:null)}
+function closeWithdraw(){document.getElementById('withdrawOverlay').classList.remove('show');document.getElementById('withdrawSheet').classList.remove('show')}
+
+// ---- Real TON payments (TonConnect) ----
+// GRAM is bought/sold for real TON on-chain. Deposits are credited only once
+// the server itself sees a matching payment in the blockchain; withdrawals
+// are sent by the server itself. No admin click is involved in either.
+var TON_GRAM_PER_TON=4; // keep in sync with lib/ton.js GRAM_PER_TON
+var tonConnectUI=null;
+function initTonConnect(){
+ if(tonConnectUI||!window.TON_CONNECT_UI)return;
+ try{
+  tonConnectUI=new TON_CONNECT_UI.TonConnectUI({
+   manifestUrl:'https://coolmarket-one.vercel.app/tonconnect-manifest.json'
+  });
+  tonConnectUI.onStatusChange(function(wallet){updateWalletUI(wallet)});
+ }catch(e){}
+}
+function updateWalletUI(wallet){
+ var addr=wallet&&wallet.account?wallet.account.address:null;
+ var label=addr?('Кошелёк: '+addr.slice(0,4)+'…'+addr.slice(-4)+' (отключить)'):'Подключить кошелёк';
+ ['depWalletBtn','wdWalletBtn'].forEach(function(id){
+  var el=document.getElementById(id);
+  if(el)el.innerHTML='<span>'+label+'</span>';
+ });
+}
+function connectWallet(){
+ if(!tonConnectUI){showToast('Кошелёк ещё загружается, подождите секунду','bad');return}
+ if(tonConnectUI.connected)tonConnectUI.disconnect();
+ else tonConnectUI.openModal();
+}
+function updateDepTon(){
+ var amt=parseFloat((document.getElementById('depAmount').value||'0').replace(',','.'))||0;
+ var hint=document.getElementById('depTonHint');
+ if(hint)hint.textContent='≈ '+(amt/TON_GRAM_PER_TON).toFixed(4).replace(/0+$/,'').replace(/\.$/,'')+' TON';
+}
+function updateWdTon(){
+ var amt=parseFloat((document.getElementById('wdAmount').value||'0').replace(',','.'))||0;
+ var hint=document.getElementById('wdTonHint');
+ if(hint)hint.textContent='≈ '+(amt/TON_GRAM_PER_TON).toFixed(4).replace(/0+$/,'').replace(/\.$/,'')+' TON';
+}
+function doDeposit(){
+ var err=document.getElementById('depErr');
+ if(!tonConnectUI||!tonConnectUI.connected){
+  err.querySelector('span').textContent='Сначала подключите кошелёк';
+  err.classList.remove('show');void err.offsetWidth;err.classList.add('show');
+  return;
+ }
+ var amt=parseFloat((document.getElementById('depAmount').value||'0').replace(',','.'))||0;
+ if(amt<=0){
+  err.querySelector('span').textContent='Укажите сумму';
+  err.classList.remove('show');void err.offsetWidth;err.classList.add('show');
+  return;
+ }
+ var btn=document.querySelector('#depositSheet .depBtn');
+ if(btn){btn.textContent='Ждём подтверждение...';btn.style.pointerEvents='none'}
+ fetch('/api/ton/deposit-create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:MY_ID,gramAmount:amt})})
+  .then(function(r){return r.json()})
+  .then(function(d){
+   if(d.error){showToast(d.error,'bad');resetDepBtn();return}
+   return tonConnectUI.sendTransaction({
+    validUntil:Math.floor(Date.now()/1000)+600,
+    messages:[{address:d.address,amount:d.amountNano,payload:d.payload}]
+   }).then(function(){pollDeposit(d.memo)},function(){showToast('Платёж отменён в кошельке','bad');resetDepBtn()});
+  })
+  .catch(function(){showToast('Ошибка сети, попробуйте снова','bad');resetDepBtn()});
+}
+function resetDepBtn(){
+ var btn=document.querySelector('#depositSheet .depBtn');
+ if(btn){btn.textContent='Пополнить баланс';btn.style.pointerEvents=''}
+}
+function pollDeposit(memo){
+ var tries=0;
+ var iv=setInterval(function(){
+  tries++;
+  fetch('/api/ton/deposit-check?memo='+encodeURIComponent(memo)).then(function(r){return r.json()}).then(function(d){
+   if(d.status==='confirmed'){
+    clearInterval(iv);resetDepBtn();closeDeposit();
+    showToast('Зачислено '+d.gramAmount+' GRAM','ok');
+    refreshBalance();loadHistory();
+   }else if(tries>50){
+    clearInterval(iv);resetDepBtn();
+    showToast('Платёж пока не виден в блокчейне. Если деньги списались — подождите и откройте "История"','bad');
+   }
+  }).catch(function(){});
+ },6000);
+}
+function doWithdraw(){
+ var err=document.getElementById('wdError'),txt=document.getElementById('wdErrText');
+ if(!tonConnectUI||!tonConnectUI.connected){
+  txt.textContent='Сначала подключите кошелёк';
+  err.classList.remove('show');void err.offsetWidth;err.classList.add('show');
+  return;
+ }
+ var amt=parseFloat((document.getElementById('wdAmount').value||'0').replace(',','.'))||0;
+ if(amt<=0||amt>userBalance){
+  txt.textContent='Недостаточно средств';
+  err.classList.remove('show');void err.offsetWidth;err.classList.add('show');
+  return;
+ }
+ var toAddress=tonConnectUI.wallet.account.address;
+ var btn=document.querySelector('#withdrawSheet .depBtn');
+ if(btn){btn.textContent='Отправляем...';btn.style.pointerEvents='none'}
+ fetch('/api/ton/withdraw',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:MY_ID,toAddress:toAddress,gramAmount:amt})})
+  .then(function(r){return r.json()})
+  .then(function(d){
+   if(btn){btn.textContent='Вывести';btn.style.pointerEvents=''}
+   if(d.error){
+    txt.textContent=d.error;
+    err.classList.remove('show');void err.offsetWidth;err.classList.add('show');
+    return;
+   }
+   closeWithdraw();
+   showToast('Выведено '+amt+' GRAM ('+d.tonAmount+' TON)','ok');
+   refreshBalance();loadHistory();
+  })
+  .catch(function(){
+   if(btn){btn.textContent='Вывести';btn.style.pointerEvents=''}
+   txt.textContent='Ошибка сети, попробуйте снова';
+   err.classList.remove('show');void err.offsetWidth;err.classList.add('show');
+  });
+}
+initTonConnect();
+setTimeout(initTonConnect,1200);
+function openLogin(){
+ document.getElementById('loginErr').classList.remove('show');
+ document.getElementById('loginUser').value='';
+ document.getElementById('loginPass').value='';
+ document.getElementById('loginOverlay').classList.add('show');
+ document.getElementById('loginSheet').classList.add('show');
+}
+function closeLogin(){document.getElementById('loginOverlay').classList.remove('show');document.getElementById('loginSheet').classList.remove('show')}
+function doLogin(){
+ var u=document.getElementById('loginUser').value.trim();
+ var p=document.getElementById('loginPass').value.trim();
+ var err=document.getElementById('loginErr');
+ if(u==='Cool'&&p==='92hbwf9'){
+  ADMIN_KEY=p;
+  try{localStorage.setItem('coolAdmin','1');localStorage.setItem('coolAdminKey',p)}catch(e){}
+  refreshAdminUI();
+  closeLogin();closeMenu();
+  openAdminPanel();
+ }else{
+  err.classList.remove('show');void err.offsetWidth;err.classList.add('show');
+ }
+}
+function closeAdmin(){
+ document.getElementById('adminPanel').classList.remove('show');
+ if(reqPollTimer){clearInterval(reqPollTimer);reqPollTimer=null;}
+}
+function refreshAdminUI(){
+ var logged=false;
+ try{logged=localStorage.getItem('coolAdmin')==='1'}catch(e){}
+ var cd=document.getElementById('cdLink'),ap=document.getElementById('apMenuBtn');
+ if(cd)cd.style.display=logged?'none':'';
+ if(ap)ap.style.display=logged?'':'none';
+}
+refreshAdminUI();
+updateCartBadge();
+function toggleFRow(which){
+ var ids={price:['fPriceBody','fPriceChev'],bg:['fBgBody','fBgChev'],nft:['fNftBody','fNftChev']}[which];
+ var body=document.getElementById(ids[0]);
+ var chev=document.getElementById(ids[1]);
+ var open=body.style.display!=='none';
+ body.style.display=open?'none':'block';
+ chev.style.transform=open?'':'rotate(180deg)';
+}
+function priceBounds(){
+ var prices=marketFullCache.map(function(n){return Number(n.price)||0});
+ var lo=prices.length?Math.min.apply(null,prices):0;
+ var hi=prices.length?Math.max.apply(null,prices):100;
+ if(hi<=lo)hi=lo+10;
+ return {lo:lo,hi:hi};
+}
+function updateRangeFill(){
+ var rMin=document.getElementById('fRangeMin'),rMax=document.getElementById('fRangeMax');
+ var fill=document.getElementById('fRangeFill');
+ if(!rMin||!rMax||!fill)return;
+ var min=Number(rMin.min),max=Number(rMin.max);
+ var span=max-min||1;
+ var a=(Number(rMin.value)-min)/span*100;
+ var b=(Number(rMax.value)-min)/span*100;
+ fill.style.left=a+'%';
+ fill.style.width=Math.max(0,b-a)+'%';
+}
+function onRangeInput(which){
+ var rMin=document.getElementById('fRangeMin'),rMax=document.getElementById('fRangeMax');
+ if(which==='min'&&Number(rMin.value)>Number(rMax.value))rMin.value=rMax.value;
+ if(which==='max'&&Number(rMax.value)<Number(rMin.value))rMax.value=rMin.value;
+ document.getElementById('fPriceMin').value=rMin.value;
+ document.getElementById('fPriceMax').value=rMax.value;
+ updateRangeFill();
+}
+function onPriceInputChange(){
+ var rMin=document.getElementById('fRangeMin'),rMax=document.getElementById('fRangeMax');
+ var minV=parseFloat((document.getElementById('fPriceMin').value||'').replace(',','.'));
+ var maxV=parseFloat((document.getElementById('fPriceMax').value||'').replace(',','.'));
+ if(!isNaN(minV))rMin.value=Math.min(Math.max(minV,Number(rMin.min)),Number(rMin.max));
+ if(!isNaN(maxV))rMax.value=Math.min(Math.max(maxV,Number(rMax.min)),Number(rMax.max));
+ updateRangeFill();
+}
+function populateNftFilterList(){
+ var box=document.getElementById('fNftList');
+ if(!box)return;
+ var q=(document.getElementById('fNftSearch')||{}).value||'';
+ q=q.toLowerCase();
+ var items=Object.keys(NFT_CATALOG).map(function(code){
+  var e=NFT_CATALOG[code];
+  var cnt=marketFullCache.filter(function(n){return n.name===e.name}).length;
+  return {name:e.name,glyph:e.glyph,count:cnt};
+ });
+ if(q)items=items.filter(function(n){return n.name.toLowerCase().indexOf(q)!==-1});
+ items.sort(function(a,b){return a.name.localeCompare(b.name)});
+ if(!items.length){box.innerHTML="<div style='padding:20px 2px;color:#777;font-size:14px;text-align:center'>Ничего не найдено</div>";return;}
+ box.innerHTML=items.map(function(n){
+  var on=activeFilters.nft[n.name]?' on':'';
+  var img="<img class='nftFilterImg' src='"+glyphImgSrc(n.glyph)+"'>";
+  var countTxt=n.count>0?("<span style='color:#777;font-size:12.5px'>"+n.count+" на продаже</span>"):"<span style='color:#555;font-size:12.5px'>нет в продаже</span>";
+  return "<div class='collRow' data-nm=\""+n.name.replace(/"/g,'&quot;')+"\" onclick='toggleNftFilterRow(this)' style='cursor:pointer'><div class='chk"+on+"'></div>"+img+"<div class='collName' style='white-space:normal;line-height:1.4'>"+n.name+"<br>"+countTxt+"</div></div>";
+ }).join('');
+ syncNftAllCheckbox();
+}
+function toggleNftFilterRow(el){
+ var nm=el.getAttribute('data-nm');
+ activeFilters.nft[nm]=!activeFilters.nft[nm];
+ el.querySelector('.chk').classList.toggle('on',!!activeFilters.nft[nm]);
+ syncNftAllCheckbox();
+}
+function syncNftAllCheckbox(){
+ var allChk=document.getElementById('fNftAllChk');
+ if(!allChk)return;
+ var rows=document.querySelectorAll('#fNftList .collRow');
+ var allOn=rows.length>0 && Array.prototype.every.call(rows,function(r){return activeFilters.nft[r.getAttribute('data-nm')]});
+ allChk.classList.toggle('on',allOn);
+}
+function toggleAllNftFilter(el){
+ var on=!el.classList.contains('on');
+ el.classList.toggle('on',on);
+ var rows=document.querySelectorAll('#fNftList .collRow');
+ Array.prototype.forEach.call(rows,function(r){
+  activeFilters.nft[r.getAttribute('data-nm')]=on;
+  r.querySelector('.chk').classList.toggle('on',on);
+ });
+}
+// Backdrop ("Фон") colors a gift can be issued with. Purely descriptive
+// color names + our own invented rarity percentages -- not tied to any
+// outside catalog, just a palette for sorting/filtering the market.
+var BG_CATALOG=[
+ {name:'Black',hex:'#1c1c1e',pct:'2%'},{name:'Onyx Black',hex:'#2b2b30',pct:'1.5%'},
+ {name:'Battleship Grey',hex:'#8a8d91',pct:'1%'},{name:'Steel Grey',hex:'#9aa0a6',pct:'1.5%'},
+ {name:'Silver Blue',hex:'#7fa6c4',pct:'1%'},{name:'Ivory White',hex:'#e9e6df',pct:'1.5%'},
+ {name:'Platinum',hex:'#cfd3d6',pct:'1%'},{name:'Amber',hex:'#e0a92d',pct:'1%'},
+ {name:'Mustard',hex:'#d9a52c',pct:'1.5%'},{name:'Old Gold',hex:'#c79a2e',pct:'1.2%'},
+ {name:'Pure Gold',hex:'#e8c23a',pct:'2%'},{name:'Satin Gold',hex:'#d8b24a',pct:'1.5%'},
+ {name:'Caramel',hex:'#c88a3a',pct:'1.5%'},{name:'Copper',hex:'#b5712f',pct:'2%'},
+ {name:'Chocolate',hex:'#6b4a35',pct:'1.5%'},{name:'Cappuccino',hex:'#9c7c6a',pct:'2%'},
+ {name:'Burnt Sienna',hex:'#d2602f',pct:'1.5%'},{name:'Persimmon',hex:'#e0783a',pct:'2%'},
+ {name:'Orange',hex:'#e08a2e',pct:'1.5%'},{name:'Carrot Juice',hex:'#e2884f',pct:'2%'},
+ {name:'Tomato',hex:'#e2522f',pct:'1.2%'},{name:'Fire Engine',hex:'#e13b35',pct:'1.2%'},
+ {name:'Carmine',hex:'#c43a3a',pct:'1.5%'},{name:'Coral Red',hex:'#e2795f',pct:'1.5%'},
+ {name:'Chestnut',hex:'#b36358',pct:'2%'},{name:'Rosewood',hex:'#b86a6f',pct:'1.5%'},
+ {name:'Raspberry',hex:'#e0617e',pct:'2%'},{name:'Strawberry',hex:'#e0776f',pct:'1%'},
+ {name:'Fandango',hex:'#c25a9e',pct:'1%'},{name:'Mexican Pink',hex:'#d6428e',pct:'1%'},
+ {name:'Burgundy',hex:'#9a3a56',pct:'2%'},{name:'Dark Lilac',hex:'#9a6fa8',pct:'2%'},
+ {name:'Lavender',hex:'#a680c9',pct:'2%'},{name:'Grape',hex:'#9a6fb0',pct:'1.5%'},
+ {name:'English Violet',hex:'#9c7aa8',pct:'1%'},{name:'French Violet',hex:'#9a4fd1',pct:'1.2%'},
+ {name:'Electric Purple',hex:'#c23fd9',pct:'1%'},{name:'Electric Indigo',hex:'#6a4fe0',pct:'1.5%'},
+ {name:'Cyberpunk',hex:'#8a7af2',pct:'1.5%'},{name:'French Blue',hex:'#4e8fc4',pct:'1.2%'},
+ {name:'Azure Blue',hex:'#3fa0d9',pct:'1.5%'},{name:'Celtic Blue',hex:'#3a8fd0',pct:'1%'},
+ {name:'Sapphire',hex:'#3f7fc9',pct:'1.5%'},{name:'Cobalt Blue',hex:'#3a63c7',pct:'2%'},
+ {name:'Navy Blue',hex:'#5a7fc4',pct:'1.2%'},{name:'Marine Blue',hex:'#4c6fa6',pct:'1.2%'},
+ {name:'Midnight Blue',hex:'#4a567d',pct:'1.5%'},{name:'Indigo Dye',hex:'#3f7a9e',pct:'2%'},
+ {name:'Neon Blue',hex:'#5a6ff0',pct:'2%'},{name:'Moonstone',hex:'#6fa6b0',pct:'2%'},
+ {name:'Pacific Cyan',hex:'#2fa0b0',pct:'2%'},{name:'Deep Cyan',hex:'#2fb0a6',pct:'1.2%'},
+ {name:'Turquoise',hex:'#3fc9b8',pct:'1.5%'},{name:'Aquamarine',hex:'#5fcbb0',pct:'1.2%'},
+ {name:'Jade Green',hex:'#3fb08f',pct:'1.5%'},{name:'Emerald',hex:'#3fb871',pct:'2%'},
+ {name:'Shamrock Green',hex:'#5fb86a',pct:'1%'},{name:'Malachite',hex:'#4fb84a',pct:'1%'},
+ {name:'Mint Green',hex:'#6fcf8a',pct:'1.2%'},{name:'Pistachio',hex:'#8fc46a',pct:'1.5%'},
+ {name:'Lemongrass',hex:'#9fcf5a',pct:'2%'},{name:'Light Olive',hex:'#bfae6a',pct:'1.5%'},
+ {name:'Khaki Green',hex:'#b0b06a',pct:'2%'},{name:'Hunter Green',hex:'#6a9f6f',pct:'1%'},
+ {name:'Dark Green',hex:'#3f7a4a',pct:'1.5%'},{name:'Gunship Green',hex:'#4f8a6a',pct:'1.2%'},
+ {name:'Pine Green',hex:'#3f9080',pct:'1.5%'},{name:'Tactical Pine',hex:'#2f8070',pct:'1.2%'},
+ {name:'Ranger Green',hex:'#5a7a5a',pct:'1.5%'},{name:'Rifle Green',hex:'#5f7a60',pct:'1.2%'},
+ {name:'Feldgrau',hex:'#7a8a7f',pct:'1%'},{name:'Gunmetal',hex:'#4f6670',pct:'1%'},
+ {name:'Roman Silver',hex:'#8a90a0',pct:'1.5%'},{name:'Seal Brown',hex:'#6a4f4a',pct:'1.2%'},
+ {name:'Desert Sand',hex:'#c9ac8a',pct:'2%'},{name:'Mystic Pearl',hex:'#d98a9a',pct:'2%'}
+];
+function populateBgFilterList(){
+ var box=document.getElementById('fBgList');
+ if(!box)return;
+ var q=(document.getElementById('fBgSearch')||{}).value||'';
+ q=q.toLowerCase();
+ var items=BG_CATALOG.slice();
+ if(q)items=items.filter(function(b){return b.name.toLowerCase().indexOf(q)!==-1});
+ if(!items.length){box.innerHTML="<div style='padding:20px 2px;color:#777;font-size:14px;text-align:center'>Ничего не найдено</div>";return;}
+ box.innerHTML=items.map(function(b){
+  var on=activeFilters.bg[b.name]?' on':'';
+  var swatch="<div style='width:46px;height:46px;border-radius:13px;flex:none;background:"+b.hex+";border:2px solid rgba(255,255,255,.3);box-shadow:inset 0 0 0 1px rgba(0,0,0,.25)'></div>";
+  return "<div class='collRow' data-nm=\""+b.name.replace(/"/g,'&quot;')+"\" onclick='toggleBgFilterRow(this)' style='cursor:pointer'><div class='chk"+on+"'></div>"+swatch+"<div class='collName' style='white-space:normal;line-height:1.4'>"+b.name+"<br><span style='color:var(--acc);font-size:12.5px;font-weight:600'>"+b.pct+"</span></div></div>";
+ }).join('');
+ syncBgAllCheckbox();
+}
+function toggleBgFilterRow(el){
+ var nm=el.getAttribute('data-nm');
+ activeFilters.bg[nm]=!activeFilters.bg[nm];
+ el.querySelector('.chk').classList.toggle('on',!!activeFilters.bg[nm]);
+ syncBgAllCheckbox();
+}
+function syncBgAllCheckbox(){
+ var allChk=document.getElementById('fBgAllChk');
+ if(!allChk)return;
+ var rows=document.querySelectorAll('#fBgList .collRow');
+ var allOn=rows.length>0 && Array.prototype.every.call(rows,function(r){return activeFilters.bg[r.getAttribute('data-nm')]});
+ allChk.classList.toggle('on',allOn);
+}
+function toggleAllBgFilter(el){
+ var on=!el.classList.contains('on');
+ el.classList.toggle('on',on);
+ var rows=document.querySelectorAll('#fBgList .collRow');
+ Array.prototype.forEach.call(rows,function(r){
+  activeFilters.bg[r.getAttribute('data-nm')]=on;
+  r.querySelector('.chk').classList.toggle('on',on);
+ });
+}
+function openFilters(openSection){
+ var b=priceBounds();
+ var rMin=document.getElementById('fRangeMin'),rMax=document.getElementById('fRangeMax');
+ rMin.min=rMax.min=Math.floor(b.lo);
+ rMin.max=rMax.max=Math.ceil(b.hi);
+ rMin.step=rMax.step='any';
+ rMin.value=activeFilters.min!=null?activeFilters.min:b.lo;
+ rMax.value=activeFilters.max!=null?activeFilters.max:b.hi;
+ document.getElementById('fPriceMin').value=activeFilters.min!=null?activeFilters.min:'';
+ document.getElementById('fPriceMax').value=activeFilters.max!=null?activeFilters.max:'';
+ updateRangeFill();
+ document.getElementById('fBgSearch').value='';
+ populateBgFilterList();
+ document.getElementById('fNftSearch').value='';
+ populateNftFilterList();
+ document.getElementById('filterOverlay').classList.add('show');document.getElementById('filterSheet').classList.add('show');
+ if(openSection){
+  var ids={price:['fPriceBody','fPriceChev'],bg:['fBgBody','fBgChev'],nft:['fNftBody','fNftChev']}[openSection];
+  if(ids){
+   document.getElementById(ids[0]).style.display='block';
+   document.getElementById(ids[1]).style.transform='rotate(180deg)';
+   setTimeout(function(){
+    var head=document.getElementById(openSection==='bg'?'fBgHead':openSection==='nft'?'fNftHead':'fPriceHead');
+    if(head)head.scrollIntoView({block:'start',behavior:'smooth'});
+   },50);
+  }
+ }
+}
+function closeFilters(){document.getElementById('filterOverlay').classList.remove('show');document.getElementById('filterSheet').classList.remove('show')}
+function applyMarketFilters(){
+ var minV=parseFloat((document.getElementById('fPriceMin').value||'').replace(',','.'));
+ var maxV=parseFloat((document.getElementById('fPriceMax').value||'').replace(',','.'));
+ activeFilters.min=isNaN(minV)?null:minV;
+ activeFilters.max=isNaN(maxV)?null:maxV;
+ closeFilters();
+ rerenderMarket();
+ var cnt=countActiveFilters();
+ var btn=document.getElementById('filterChipBtn');
+ if(btn)btn.classList.toggle('active',cnt>0);
+ if(cnt>0)showToast('Фильтр применён','ok');
+}
+function resetMarketFilters(){
+ activeFilters={min:null,max:null,nft:{},bg:{}};
+ var b=priceBounds();
+ var rMin=document.getElementById('fRangeMin'),rMax=document.getElementById('fRangeMax');
+ rMin.value=b.lo;rMax.value=b.hi;
+ document.getElementById('fPriceMin').value='';
+ document.getElementById('fPriceMax').value='';
+ updateRangeFill();
+ populateBgFilterList();
+ populateNftFilterList();
+ var btn=document.getElementById('filterChipBtn');
+ if(btn)btn.classList.remove('active');
+ rerenderMarket();
+}
+var GLYPHS={
+ ring:'<circle cx="24" cy="26" r="13" fill="#f3c04a" stroke="#8a5a10" stroke-width="3"/><circle cx="24" cy="26" r="7" fill="#1e1e1e"/><circle cx="24" cy="13" r="5" fill="#e0463f" stroke="#8a5a10" stroke-width="2"/><ellipse cx="18" cy="21" rx="3" ry="5" fill="#fff" opacity=".35"/>',
+ heart:'<path d="M24 38C10 29 6 20 6 14a8 8 0 0114-5 8 8 0 0114 5c0 6-4 15-18 24z" fill="#ff4d6d"/>',
+ flame:'<path d="M24 6c3 8 11 10 11 20a11 11 0 01-22 0c0-6 4-8 6-12 .5 3 2 4 4 5-1-5 0-9 1-13z" fill="#ff9a2e"/><path d="M24 24c1.5 2 3 4 3 7a3 3 0 01-6 0c0-2 1-3 2-4.5.3 1 .7 1.4 1 2-.3-1.5 0-3 0-4.5z" fill="#ffe08a"/>',
+ star:'<circle cx="24" cy="7" r="2.6" fill="none" stroke="#8a5a10" stroke-width="2.2"/><path d="M24 9.6v3" stroke="#8a5a10" stroke-width="2.2"/><path d="M24 14l5 11 12 1.6-9 8 2.6 12-10.6-6.4L13 36.6l2.6-12-9-8L18.6 15z" fill="#f3c04a" stroke="#8a5a10" stroke-width="2.4" stroke-linejoin="round"/><ellipse cx="19" cy="25" rx="3" ry="5" fill="#fff" opacity=".3"/>',
+ drop:'<path d="M24 6c8 10 14 17 14 24a14 14 0 01-28 0c0-7 6-14 14-24z" fill="#3fa9f5"/><path d="M14 26c0 3 1 6 3 8" stroke="#dff3ff" stroke-width="2.4" stroke-linecap="round" fill="none"/>',
+ crown:'<path d="M7 35L4 15l10 7 10-14 10 14 10-7-3 20z" fill="#ffd45e" stroke="#8a5a10" stroke-width="2.4" stroke-linejoin="round"/><rect x="7" y="35" width="34" height="7" rx="2" fill="#ffd45e" stroke="#8a5a10" stroke-width="2.4"/><circle cx="14" cy="22" r="2.4" fill="#3fa0e0" stroke="#8a5a10" stroke-width="1.2"/><circle cx="34" cy="22" r="2.4" fill="#3fa0e0" stroke="#8a5a10" stroke-width="1.2"/><circle cx="24" cy="14" r="3" fill="#e0463f" stroke="#8a5a10" stroke-width="1.3"/><ellipse cx="16" cy="35" rx="4.5" ry="1.6" fill="#fff" opacity=".3"/>',
+ leaf:'<path d="M10 38C8 20 20 8 38 8c2 18-10 30-28 30z" fill="#5fb75f"/><path d="M12 36L34 14" stroke="#2f7d3a" stroke-width="2"/>',
+ shell:'<path d="M24 6c10 2 16 12 16 24a16 16 0 01-32 0c0-12 6-22 16-24z" fill="#ff9ad1"/><path d="M24 10v20M16 14l4 16M32 14l-4 16" stroke="#d6397f" stroke-width="2"/>',
+ cup:'<path d="M12 10h24v14a12 12 0 01-24 0z" fill="#f2e4c8"/><path d="M36 14h5a6 6 0 01-6 9" fill="none" stroke="#f2e4c8" stroke-width="4"/><rect x="16" y="38" width="16" height="4" rx="2" fill="#a9754a"/>',
+ feather:'<path d="M32 6C18 10 10 22 10 34c6 2 14 0 18-6 4 6 12 6 16 2-2-12-6-20-12-24z" fill="#b388ff"/>',
+ moon:'<circle cx="24" cy="8" r="3.4" fill="none" stroke="#8a5a10" stroke-width="2.6"/><path d="M24 11v4" stroke="#8a5a10" stroke-width="2.4"/><path d="M30 15c6 3 9 10 6 17-4 9-15 11-22 5 7 2 14-2 16-9 2-6-1-12-6-15a14 14 0 016 2z" fill="#f3c04a" stroke="#8a5a10" stroke-width="2.6" stroke-linejoin="round"/><path d="M32 28l1.4 3.4 3.4 1.4-3.4 1.4-1.4 3.4-1.4-3.4-3.4-1.4 3.4-1.4z" fill="#fff4cf" stroke="#8a5a10" stroke-width="1.2"/><ellipse cx="22" cy="20" rx="3" ry="5" fill="#fff" opacity=".3"/>',
+ spark:'<path d="M24 4l3 15 15 3-15 3-3 15-3-15-15-3 15-3z" fill="#fff1a8"/>',
+ box:'<rect x="8" y="18" width="32" height="20" rx="2" fill="#ff5a6e"/><rect x="6" y="12" width="36" height="8" rx="2" fill="#ff5a6e"/><rect x="21" y="12" width="6" height="26" fill="#ffd36e"/>',
+ bow:'<path d="M24 24L8 12v24zM24 24l16-12v24z" fill="#2fb3ff"/><circle cx="24" cy="24" r="4" fill="#0b2740"/>',
+ note:'<circle cx="14" cy="34" r="6" fill="#b388ff"/><circle cx="34" cy="30" r="6" fill="#b388ff"/><path d="M20 34V10l20-4v24" stroke="#b388ff" stroke-width="4" fill="none"/>',
+ seal:'<circle cx="24" cy="20" r="12" fill="#e23b3b"/><path d="M16 30l-4 12 8-4 4 8 4-8 8 4-4-12" fill="#e23b3b"/>',
+ token:'<circle cx="24" cy="24" r="16" fill="#ffd36e"/><circle cx="24" cy="24" r="10" fill="none" stroke="#c98a1e" stroke-width="2.4"/>',
+ ramen:'<path d="M10 20h28l-3 15a4 4 0 01-4 4H17a4 4 0 01-4-4z" fill="#e2463f" stroke="#7a1f1a" stroke-width="2.4" stroke-linejoin="round"/><rect x="8" y="13" width="32" height="8" rx="2.5" fill="#fff8ea" stroke="#7a1f1a" stroke-width="2.2"/><path d="M14 17c2-3 4 2 6-1s4 2 6-1 4 2 6-1 4 2 6-1" stroke="#f3b23a" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M16 27l1.4 3.4 3.4 1.4-3.4 1.4-1.4 3.4-1.4-3.4-3.4-1.4 3.4-1.4z" fill="#ffd45e"/><path d="M24 31l1.1 2.6 2.6 1.1-2.6 1.1-1.1 2.6-1.1-2.6-2.6-1.1 2.6-1.1z" fill="#ffd45e"/><ellipse cx="16" cy="25" rx="3" ry="5" fill="#fff" opacity=".18"/>',
+ frog:'<ellipse cx="24" cy="30" rx="16" ry="12" fill="#7bcf5e" stroke="#2f6b2a" stroke-width="2.6"/><circle cx="15" cy="16" r="7" fill="#7bcf5e" stroke="#2f6b2a" stroke-width="2.6"/><circle cx="33" cy="16" r="7" fill="#7bcf5e" stroke="#2f6b2a" stroke-width="2.6"/><circle cx="15" cy="15" r="3" fill="#1a1a1a"/><circle cx="33" cy="15" r="3" fill="#1a1a1a"/><circle cx="13.5" cy="13" r=".9" fill="#fff"/><circle cx="31.5" cy="13" r=".9" fill="#fff"/><path d="M16 31q8 5 16 0" stroke="#2f6b2a" stroke-width="2.4" fill="none" stroke-linecap="round"/><ellipse cx="18" cy="26" rx="4" ry="2.5" fill="#fff" opacity=".25"/>',
+ bell:'<path d="M14 22a9 9 0 0118 0v11H14z" fill="#f3c04a" stroke="#8a5a10" stroke-width="2.6" stroke-linejoin="round"/><circle cx="23" cy="35" r="3.2" fill="#8a5a10"/><path d="M24 16a7 7 0 0114 0v9H24z" fill="#ffdd7a" stroke="#8a5a10" stroke-width="2.2" stroke-linejoin="round"/><circle cx="31" cy="27" r="2.6" fill="#8a5a10"/><path d="M20 10l4 4-4 4-4-4z" fill="#3fa84a" stroke="#1f5a24" stroke-width="1.6"/><ellipse cx="19" cy="25" rx="2.6" ry="5" fill="#fff" opacity=".3"/>',
+ cane:'<path d="M18 42V21a10 10 0 0120 0v3" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M18 42V21a10 10 0 0120 0v3" stroke="#e2463f" stroke-width="8" fill="none" stroke-linecap="round" stroke-dasharray="5 7"/><path d="M18 42V21a10 10 0 0120 0v3" stroke="#7a1f1a" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".4"/><path d="M14 12l5 4-5 4-3-4z" fill="#3fa84a" stroke="#1f5a24" stroke-width="1.6"/><ellipse cx="22" cy="24" rx="2.4" ry="5" fill="#fff" opacity=".4"/>',
+ calendar:'<rect x="8" y="14" width="32" height="28" rx="4" fill="#fff" stroke="#6b4a2f" stroke-width="2.4"/><rect x="8" y="14" width="32" height="10" rx="4" fill="#e2463f" stroke="#6b4a2f" stroke-width="2.4"/><rect x="14" y="7" width="4" height="10" rx="2" fill="#f3c04a" stroke="#6b4a2f" stroke-width="1.6"/><rect x="30" y="7" width="4" height="10" rx="2" fill="#f3c04a" stroke="#6b4a2f" stroke-width="1.6"/><rect x="13" y="29" width="22" height="7" rx="2" fill="none" stroke="#b388ff" stroke-width="2.4"/><path d="M11 10l1.2 2.8 2.8 1.2-2.8 1.2L11 18l-1.2-2.8L7 14l2.8-1.2z" fill="#ffd45e"/>',
+ cigar:'<rect x="4" y="21" width="36" height="10" rx="5" fill="#b9814a" stroke="#5e3a1c" stroke-width="2.4" transform="rotate(-10 24 26)"/><rect x="16" y="19" width="7" height="14" fill="#2fb3ff" stroke="#5e3a1c" stroke-width="1.6" transform="rotate(-10 24 26)"/><circle cx="19.5" cy="26" r="2.2" fill="#ffd45e" transform="rotate(-10 24 26)"/><path d="M31 14c2 2 1 4-1 5M33 10c2 2 1 5-1 6" stroke="#bbb" stroke-width="1.8" fill="none" opacity=".6" stroke-linecap="round"/><ellipse cx="13" cy="23" rx="6" ry="2" fill="#fff" opacity=".22" transform="rotate(-10 13 23)"/>',
+ sock:'<path d="M11 4h10v13l6 7a4.5 4.5 0 01-4.5 7H15a4.5 4.5 0 01-4.5-4.5z" fill="#4a5a82" stroke="#1e2438" stroke-width="2.4" stroke-linejoin="round"/><rect x="11" y="4" width="10" height="5" fill="#6c7aa0" stroke="#1e2438" stroke-width="1.6"/><path d="M27 4h10v13l6 7a4.5 4.5 0 01-4.5 7H31a4.5 4.5 0 01-4.5-4.5z" fill="#3a4568" stroke="#1e2438" stroke-width="2.4" stroke-linejoin="round"/><rect x="27" y="4" width="10" height="5" fill="#5c6a92" stroke="#1e2438" stroke-width="1.6"/><ellipse cx="15" cy="12" rx="1.8" ry="5" fill="#fff" opacity=".2"/>',
+ sparkler:'<rect x="21" y="28" width="6" height="16" rx="2" fill="#b9bec4" stroke="#6b6f74" stroke-width="1.6"/><rect x="21" y="28" width="2" height="16" fill="#fff" opacity=".4"/><path d="M24 4l2.5 10.5L37 17l-10.5 2.5L24 30l-2.5-10.5L11 17l10.5-2.5z" fill="#ffd45e" stroke="#b5791a" stroke-width="2"/><circle cx="36" cy="10" r="1.6" fill="#ffe9a8"/><circle cx="10" cy="24" r="1.3" fill="#ffe9a8"/><circle cx="38" cy="22" r="1.1" fill="#ffe9a8"/>',
+ mask:'<path d="M24 6c10 0 16 8 16 18 0 12-7 20-16 20S8 36 8 24C8 14 14 6 24 6z" fill="#f0dcae" stroke="#7a5a2f" stroke-width="2.6"/><path d="M13 20a1.4 1.4 0 112.8 0 1.4 1.4 0 01-2.8 0zM35 20a1.4 1.4 0 112.8 0 1.4 1.4 0 01-2.8 0zM24 14a1.4 1.4 0 112.8 0 1.4 1.4 0 01-2.8 0z" fill="#8a6a3a"/><ellipse cx="16" cy="23" rx="4" ry="5.5" fill="#1a1a1a"/><ellipse cx="32" cy="23" rx="4" ry="5.5" fill="#1a1a1a"/><path d="M22 30h4l-2 5z" fill="#1a1a1a"/><circle cx="24" cy="12" r="2.6" fill="#e0463f" stroke="#7a5a2f" stroke-width="1.4"/><ellipse cx="17" cy="14" rx="5" ry="2.4" fill="#fff" opacity=".28"/>',
+ poop:'<path d="M24 10c4 4 2 7-1 9 5-1 9 2 9 7 0 2-1 3-3 4 3 1 5 3 5 6 0 4-5 7-11 7s-11-3-11-7c0-3 2-5 5-6-2-1-3-2-3-4 0-5 4-8 9-7-3-2-5-5-1-9z" fill="#b07a4e" stroke="#5a3a1f" stroke-width="2.4" stroke-linejoin="round"/><circle cx="19" cy="34" r="1.8" fill="#1a1a1a"/><circle cx="29" cy="34" r="1.8" fill="#1a1a1a"/><path d="M19 39q5 4 10 0" stroke="#1a1a1a" stroke-width="2.2" fill="none" stroke-linecap="round"/><ellipse cx="20" cy="18" rx="3" ry="2" fill="#fff" opacity=".22"/>'
+};
+// Secret catalog of issuable NFT designs. Only the admin sees/knows these codes
+// (entered in the "Выдать NFT" sheet). Each code maps to a fixed name + original
+// hand-drawn icon (from GLYPHS above), so every gift the admin ever issues comes
+// from one known, finite list — which is what lets the market filter list every
+// possible NFT, not just ones already up for sale.
+var NFT_CATALOG={
+ 'COOL-7731':{name:'Myth Mask',glyph:'mask'},
+ 'COOL-2290':{name:'Party Sparkler',glyph:'sparkler'},
+ 'COOL-1088':{name:'Plush Pepe',glyph:'frog'},
+ 'COOL-4417':{name:'Candy Cane',glyph:'cane'},
+ 'COOL-5562':{name:'Instant Ramen',glyph:'ramen'},
+ 'COOL-3309':{name:'Fresh Socks',glyph:'sock'},
+ 'COOL-9024':{name:'Jingle Bells',glyph:'bell'},
+ 'COOL-6650':{name:'Desk Calendar',glyph:'calendar'},
+ 'COOL-1543':{name:'Vintage Cigar',glyph:'cigar'},
+ 'COOL-8871':{name:'Happy Poop',glyph:'poop'},
+ 'COOL-2096':{name:'Moon Pendant',glyph:'moon'},
+ 'COOL-7205':{name:'Lucky Ring',glyph:'ring'},
+ 'COOL-3381':{name:'Royal Crown',glyph:'crown'},
+ 'COOL-9456':{name:'Star Charm',glyph:'star'}
+};
+function glyphImgSrc(key){
+ var inner=GLYPHS[key]||GLYPHS.ring;
+ // Original gift icons get a soft drop-shadow + a glossy highlight so they
+ // read as little premium 3D-ish items rather than flat silhouettes --
+ // still entirely our own shapes/colors, not a copy of any real item.
+ var svg="<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'>"+
+  "<defs><filter id='gf' x='-40%' y='-40%' width='180%' height='180%'>"+
+  "<feDropShadow dx='0' dy='1.6' stdDeviation='1.7' flood-color='#000' flood-opacity='.4'/>"+
+  "</filter></defs>"+
+  "<g filter='url(#gf)'>"+inner+"</g>"+
+  "<ellipse cx='17.5' cy='12.5' rx='8.5' ry='4.6' fill='#fff' opacity='.17'/>"+
+  "</svg>";
+ var b64;
+ try{b64=btoa(unescape(encodeURIComponent(svg)));}catch(e){b64=btoa(svg)}
+ return 'data:image/svg+xml;base64,'+b64;
+}
+var COLL=[
+ {n:"Myth Mask",g:"mask",f:"8",pct:"+0.4%",pcls:"up",v:"24 318.60"},
+ {n:"Party Sparkler",g:"sparkler",f:"1",pct:"+0.5%",pcls:"up",v:"1 940.20"},
+ {n:"Plush Pepe",g:"frog",f:"108",pct:"+1.9%",pcls:"up",v:"1 102.70"},
+ {n:"Candy Cane",g:"cane",f:"1.6",pct:"+0.7%",pcls:"up",v:"1 862.90"},
+ {n:"Instant Ramen",g:"ramen",f:"1.1",pct:"+0.9%",pcls:"up",v:"1 470.40"},
+ {n:"Fresh Socks",g:"sock",f:"0.9",pct:"+0.6%",pcls:"up",v:"1 850.00"},
+ {n:"Jingle Bells",g:"bell",f:"9",pct:"+1.1%",pcls:"up",v:"1 560.90"},
+ {n:"Desk Calendar",g:"calendar",f:"5.9",pct:"+0.6%",pcls:"up",v:"2 660.20"},
+ {n:"Vintage Cigar",g:"cigar",f:"15",pct:"-0.1%",pcls:"down",v:"16 590.40"},
+ {n:"Happy Poop",g:"poop",f:"2.1",pct:"-2.5%",pcls:"down",v:"1 720.70"},
+ {n:"Moon Pendant",g:"moon",f:"1.2",pct:"0%",pcls:"zero",v:"950.95"}
+];
+var collSelected={};
+function collIcon(idx){
+ var it=COLL[idx];
+ var inner=GLYPHS[it.g]||GLYPHS.ring;
+ return "<div class='collIcon'><svg viewBox='0 0 48 48'><defs><filter id='gfc"+idx+"' x='-40%' y='-40%' width='180%' height='180%'><feDropShadow dx='0' dy='1.6' stdDeviation='1.7' flood-color='#000' flood-opacity='.4'/></filter></defs><g filter='url(#gfc"+idx+")'>"+inner+"</g><ellipse cx='17.5' cy='12.5' rx='8.5' ry='4.6' fill='#fff' opacity='.17'/></svg></div>";
+}
+function collectionHtml(q){
+ q=(q||'').toLowerCase();
+ var rows=COLL.map(function(it,i){
+  if(q&&it.n.toLowerCase().indexOf(q)===-1) return '';
+  var on=collSelected[i]?' on':'';
+  return "<div class='collRow'><div class='chk"+on+"' onclick='collToggle("+i+")'></div>"+collIcon(i)+"<div class='collName'>"+it.n+"</div><div class='collFloorCol'><div class='fv'><svg class='i f'><use href='#gem'/></svg>"+it.f+"</div><div class='pct "+it.pcls+"'>"+it.pct+"</div></div><div class='collVolCol'><div class='fv'><svg class='i f'><use href='#gem'/></svg>"+it.v+"</div></div></div>";
+ }).join('');
+ return rows||"<div style='padding:50px 20px;color:#777;text-align:center;font-size:14px'>Ничего не найдено</div>";
+}
+function collRefresh(){document.getElementById('collList').innerHTML=collectionHtml(document.getElementById('collSearchInput').value)}
+function collToggle(i){collSelected[i]=!collSelected[i];collRefresh()}
+function collToggleAll(el){
+ var on=!el.classList.contains('on');
+ el.classList.toggle('on',on);
+ COLL.forEach(function(_,i){collSelected[i]=on});
+ collRefresh();
+}
+function collSearch(v){collRefresh()}
+function collReset(){
+ collSelected={};
+ document.getElementById('collAllChk').classList.remove('on');
+ document.getElementById('collSearchInput').value='';
+ collRefresh();
+}
+function openCollection(){document.getElementById('collPanel').classList.add('show');collRefresh()}
+function closeCollection(){document.getElementById('collPanel').classList.remove('show')}
+function copyGeneric(el,text,label){
+ var span=el.querySelector?el.querySelector('span'):null;
+ var target=span||el;
+ function done(){
+  var old=target.textContent;
+  target.textContent=label||'Скопировано';
+  setTimeout(function(){target.textContent=old},1400);
+ }
+ if(navigator.clipboard&&navigator.clipboard.writeText){
+  navigator.clipboard.writeText(text).then(done).catch(done);
+ }else{
+  var ta=document.createElement('textarea');
+  ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy')}catch(e){}
+  document.body.removeChild(ta);
+  done();
+ }
+}
+function copyCoolbank(el){copyGeneric(el,'@Coolbank')}
+function openGiftInfo(){document.getElementById('giftInfoOverlay').classList.add('show');document.getElementById('giftInfoSheet').classList.add('show')}
+function closeGiftInfo(){document.getElementById('giftInfoOverlay').classList.remove('show');document.getElementById('giftInfoSheet').classList.remove('show')}
+function openMenu(){document.getElementById('menuPanel').classList.add('show')}
+function closeMenu(){document.getElementById('menuPanel').classList.remove('show')}
+document.getElementById('langs').addEventListener('click',function(e){
+ var el=e.target.closest('.lang');if(!el)return;
+ document.querySelectorAll('.lang').forEach(function(x){x.classList.remove('on')});
+ el.classList.add('on');
+ applyLang(el.getAttribute('data-l'));
+});
+function toggleAnim(e){
+ e.stopPropagation();
+ var swEl=document.getElementById('animsw');
+ var on=swEl.classList.toggle('on');
+ document.documentElement.classList.toggle('noanim',!on);
+}
+
+setTimeout(function(){document.getElementById('splash').classList.add('open')},2200);
+setTimeout(function(){document.getElementById('splash').style.display='none'},3300);
+setTimeout(function(){goMarket()},4200);
+</script>
