@@ -7,6 +7,14 @@
 
 const { getJSON, setJSON, isAdmin, readBody } = require('../lib/kv');
 
+async function notify(requesterId, text, kind) {
+  if (!requesterId) return;
+  const key = `coolNotify:${requesterId}`;
+  const list = await getJSON(key, []);
+  list.push({ text, kind, time: Date.now() });
+  await setJSON(key, list.slice(-20));
+}
+
 module.exports = async function handler(req, res) {
   try {
     async function getList() {
@@ -18,6 +26,25 @@ module.exports = async function handler(req, res) {
     }
 
     if (req.method === 'GET') {
+      const mine = String(req.query.mine || '');
+      if (mine) {
+        const list = await getList();
+        const own = list.filter((x) => x.requesterId === mine).slice(0, 50);
+        res.status(200).json(own);
+        return;
+      }
+      // Public global activity feed (listings, sales, purchases, delistings,
+      // price changes) -- deliberately open to everyone, no admin key needed,
+      // like a real marketplace activity feed. Deposit/withdraw requests are
+      // financial and stay admin-only below, so this only exposes market
+      // events, never anyone's money requests.
+      if (String(req.query.feed || '') === 'market') {
+        const marketTypes = ['list', 'unlist', 'buy', 'sale', 'reprice'];
+        const list = await getList();
+        const feed = list.filter((x) => marketTypes.indexOf(x.type) !== -1).slice(0, 80);
+        res.status(200).json(feed);
+        return;
+      }
       if (!isAdmin(req)) {
         res.status(401).json({ error: 'unauthorized' });
         return;
@@ -32,6 +59,7 @@ module.exports = async function handler(req, res) {
       const type = body.type === 'withdraw' ? 'withdraw' : 'deposit';
       const user = String(body.user || '').trim().replace(/^@/, '').slice(0, 64);
       const amount = Number(body.amount) || 0;
+      const requesterId = String(body.requesterId || '').slice(0, 64);
       if (!user || amount <= 0) {
         res.status(400).json({ error: 'bad request' });
         return;
@@ -42,6 +70,7 @@ module.exports = async function handler(req, res) {
         type,
         user,
         amount,
+        requesterId,
         time: Date.now(),
         status: 'pending'
       };
@@ -63,8 +92,22 @@ module.exports = async function handler(req, res) {
         res.status(404).json({ error: 'not found' });
         return;
       }
-      if (body.status === 'approved') list[idx].status = 'approved';
+      const status = body.status === 'rejected' ? 'rejected' : body.status === 'approved' ? 'approved' : null;
+      if (!status) {
+        res.status(400).json({ error: 'bad status' });
+        return;
+      }
+      list[idx].status = status;
       await saveList(list);
+
+      const item = list[idx];
+      const typeLabel = item.type === 'withdraw' ? 'на вывод' : 'на пополнение';
+      if (status === 'approved') {
+        await notify(item.requesterId, `Заявка ${typeLabel} ${item.amount} GRAM принята`, 'ok');
+      } else {
+        await notify(item.requesterId, `Заявка ${typeLabel} ${item.amount} GRAM отклонена`, 'bad');
+      }
+
       res.status(200).json({ ok: true });
       return;
     }
