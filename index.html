@@ -25,6 +25,8 @@ svg.f{fill:currentColor;stroke:none}
 .tab{display:grid;place-items:center;color:#aaa;padding:0 14px;flex:1}
 .tab.on{flex:none;background:#242424;border:1px solid #3a3a3a;border-radius:11px;display:flex;align-items:center;gap:8px;color:#fff;font-size:16px;padding:0 13px;margin:-1px}
 .cart{width:42px;height:42px;border-radius:11px;background:#1c1c1c;border:1px solid #2a2a2a;display:grid;place-items:center;color:#cfcfcf}
+.cartBadge{position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;padding:0 4px;border-radius:9px;background:#2fb3ff;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid #161616}
+.gcart.inCart{background:var(--acc);color:#fff}
 .search{display:flex;gap:8px;padding:12px 11px 8px}
 .field{flex:1;min-width:0;height:42px;border-radius:11px;background:#1e1e1e;border:1px solid #292929;display:flex;align-items:center;gap:10px;padding:0 12px;color:#707070;font-size:15px;white-space:nowrap;overflow:hidden}
 .feed{height:42px;border-radius:11px;background:#1e1e1e;border:1px solid #292929;display:flex;align-items:center;gap:10px;padding:0 16px;color:#999;font-size:15px}
@@ -102,14 +104,14 @@ svg.f{fill:currentColor;stroke:none}
 .smallcard svg{width:18px;height:18px;color:#b7b0d9}
 .smallcard span{flex:1;font-size:14.5px;color:#d6d2ec}
 .smallcard b{font-size:16px}
-.sect{margin-bottom:13px;animation:fadeUp .4s .15s ease both}
-.secthead{font-size:12px;letter-spacing:.6px;color:#777;padding:10px 2px;text-transform:uppercase;display:flex;align-items:center}
+.sect{margin-bottom:16px;background:#1c1c1c;border:1px solid #272727;border-radius:20px;overflow:hidden;animation:fadeUp .4s .15s ease both}
+.secthead{font-size:12px;letter-spacing:.6px;color:#777;padding:16px 16px;text-transform:uppercase;display:flex;align-items:center;border-bottom:1px solid #272727}
 .secthead svg{width:16px;height:16px;margin-left:auto;color:#777}
-.qa{display:flex;gap:8px}
-.qa div{flex:1;background:#1e1e1e;border:1px solid #272727;border-radius:13px;padding:14px 4px;display:flex;flex-direction:column;align-items:center;gap:7px;font-size:13.5px;color:#aaa;transition:.15s}
-.qa div:active{transform:scale(.95);background:#242424}
+.qa{display:flex;gap:8px;padding:14px}
+.qa div{flex:1;background:#262626;border:1px solid #303030;border-radius:13px;padding:14px 4px;display:flex;flex-direction:column;align-items:center;gap:7px;font-size:13.5px;color:#aaa;transition:.15s}
+.qa div:active{transform:scale(.95);background:#2c2c2c}
 .qa svg{width:19px;height:19px;color:#999}
-.histbox{background:#1e1e1e;border:1px solid #272727;border-radius:14px;padding:30px 10px;display:flex;flex-direction:column;align-items:center;animation:fadeUp .4s .2s ease both}
+.histbox{padding:34px 16px;display:flex;flex-direction:column;align-items:center}
 .histbox svg{width:46px;height:46px;color:#444;margin-bottom:14px}
 .histbox h4{font-size:16px;margin-bottom:6px}
 .histbox p{font-size:13px;color:#888;text-align:center;line-height:1.4}
@@ -274,6 +276,12 @@ html.noanim *{transition:none!important;animation:none!important}
 .gbuy{display:flex;gap:8px;padding:8px 10px 11px}
 .gprice{flex:1;background:#232323;border-radius:11px;display:flex;align-items:center;justify-content:center;gap:7px;font-size:15px;font-weight:600;height:42px;color:#fff}
 .gcart{width:50px;height:42px;background:#232323;border-radius:11px;display:grid;place-items:center;color:#cfcfcf;transition:.15s}
+.cartRow{display:flex;align-items:center;gap:12px;padding:11px 2px;border-bottom:1px solid #222}
+.cartThumb{width:46px;height:46px;border-radius:12px;flex:none;background:#232323;display:grid;place-items:center;overflow:hidden}
+.cartBuyBtn{background:var(--acc);color:#fff;font-weight:700;font-size:13.5px;padding:9px 14px;border-radius:11px;flex:none}
+.cartRmBtn{width:34px;height:34px;border-radius:10px;background:#232323;display:grid;place-items:center;color:#999;flex:none}
+.cartFoot{display:flex;align-items:center;gap:12px;padding:14px 0 2px}
+.cartFoot .showBtn{flex:1}
 .gcart:active{transform:scale(.92);background:#2a2a2a}
 .wholesale{position:fixed;left:14px;bottom:78px;z-index:4;background:#1f1f1f;border:1px solid #343434;border-radius:13px;padding:12px 16px;display:flex;align-items:center;gap:9px;font-size:16px;color:#eee;box-shadow:0 8px 22px rgba(0,0,0,.45)}
 .wholesale svg{width:19px;height:19px}
@@ -314,7 +322,7 @@ html.noanim *{transition:none!important;animation:none!important}
 .pct.zero{color:#777}
 .collVolCol{flex:1;padding-left:10px}
 .collActions{display:flex;gap:10px;padding:12px 16px calc(16px + env(safe-area-inset-bottom,0px));border-top:1px solid #1f1f1f}
-.toastWrap{position:fixed;left:0;right:0;bottom:calc(24px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:center;gap:8px;z-index:999;pointer-events:none}
+.toastWrap{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(24px + env(safe-area-inset-bottom,0px));width:100%;max-width:460px;display:flex;flex-direction:column;align-items:center;gap:8px;z-index:999;pointer-events:none}
 .toastMsg{max-width:88%;background:#1f1f1f;border:1px solid #2f2f2f;color:#fff;font-size:14px;font-weight:500;padding:12px 18px;border-radius:14px;box-shadow:0 6px 24px rgba(0,0,0,.35);opacity:0;transform:translateY(12px);transition:opacity .25s ease,transform .25s ease;display:flex;align-items:center;gap:8px}
 .toastMsg.show{opacity:1;transform:translateY(0)}
 .toastMsg.ok{border-color:rgba(56,209,122,.5)}
@@ -338,7 +346,7 @@ html.noanim *{transition:none!important;animation:none!important}
 
 </style></head><body>
 <svg width="0" height="0" style="position:absolute"><defs>
-<symbol id="gem" viewBox="0 0 24 24"><defs><linearGradient id="gemG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fe3ff"/><stop offset=".5" stop-color="#2fb3ff"/><stop offset="1" stop-color="#0b6fa8"/></linearGradient></defs><path d="M12 2.1L20.4 9.3 12 21.9 3.6 9.3z" fill="url(#gemG)" stroke="none"/><path d="M3.6 9.3h16.8M8.5 9.3l3.5 12.6M15.5 9.3l-3.5 12.6M12 2.1L7.6 9.3h8.8z" stroke="#085e8f" stroke-width=".55" fill="none" opacity=".45"/><path d="M12 2.1l3.7 7.2H8.3z" fill="#eaf9ff" opacity=".5" stroke="none"/><path d="M18.3 2.3c.35 1.75 1.1 2.5 2.85 2.85-1.75.35-2.5 1.1-2.85 2.85-.35-1.75-1.1-2.5-2.85-2.85 1.75-.35 2.5-1.1 2.85-2.85z" fill="#f2fbff" stroke="none"/></symbol>
+<symbol id="gem" viewBox="0 0 24 24"><defs><linearGradient id="gemG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4faaE6"/><stop offset="1" stop-color="#2f8fd4"/></linearGradient></defs><circle cx="12" cy="12" r="11" fill="url(#gemG)"/><path d="M7.3 8.6h9.4L12 18z" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><path d="M12 8.6v5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></symbol>
 <symbol id="plus" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor" stroke="none"/><path d="M12 7v10M7 12h10" stroke="#161616" stroke-width="2.4"/></symbol>
 <symbol id="scale" viewBox="0 0 24 24"><path d="M6 5h12l3 5H3z" class="f"/><circle cx="12" cy="15" r="4.2" class="f"/><path d="M4 21h16" stroke-width="2.6"/></symbol>
 <symbol id="mega" viewBox="0 0 24 24"><path class="f" d="M3 10v4l3 1 1 5h3l-1-4.3L18 20V4L7 9H4z"/><path d="M21 9v6" stroke-width="2.4"/></symbol>
@@ -364,7 +372,7 @@ html.noanim *{transition:none!important;animation:none!important}
 <symbol id="doc" viewBox="0 0 24 24"><path class="f" d="M5 3h10l4 4v14H5z"/><path d="M8 9h8M8 13h8M8 17h5" stroke="#161616" stroke-width="1.6"/></symbol>
 <symbol id="offer" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" class="f"/><circle cx="9" cy="10" r="1.3" fill="#161616" stroke="none"/><circle cx="15" cy="14" r="1.3" fill="#161616" stroke="none"/><path d="M9 15l6-6" stroke="#161616" stroke-width="1.8"/></symbol>
 <symbol id="down" viewBox="0 0 24 24"><path d="M12 4v13M6 12l6 6 6-6" stroke-width="2.3"/></symbol>
-<symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5" stroke-width="2"/><path d="M12 7v5l3.5 2" stroke-width="2"/></symbol>
+<symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#4a4a4a" stroke="none"/><path d="M12 7.3v5l3 2" stroke="#1c1c1c" stroke-width="2.2" stroke-linecap="round" fill="none"/></symbol>
 <symbol id="mascot" viewBox="0 0 100 60"><ellipse cx="50" cy="34" rx="26" ry="20" fill="#0b1224" opacity=".9"/><circle cx="36" cy="26" r="5" fill="#0b1224"/><circle cx="64" cy="26" r="5" fill="#0b1224"/><circle cx="36" cy="26" r="2.2" fill="#2fb3ff"/><circle cx="64" cy="26" r="2.2" fill="#2fb3ff"/><path d="M40 38q10 7 20 0" stroke="#2fb3ff" stroke-width="2.4" fill="none" stroke-linecap="round"/></symbol>
 <symbol id="bolt" viewBox="0 0 24 24"><path class="f" d="M13 2L4 14h6l-1 8 9-13h-6z"/></symbol>
 <symbol id="planef" viewBox="0 0 24 24"><path class="f" d="M2 11.3L21.5 3l-4 18-6-5-3 3-.6-5z"/></symbol>
@@ -380,11 +388,11 @@ html.noanim *{transition:none!important;animation:none!important}
 
 <div id="app">
  <div class="row"><div class="av" onclick="openProfile()"></div><div class="bal"><svg class="i" style="width:21px;height:21px"><use href="#gem"/></svg><span id="topBalNum">0</span><svg class="i plus" style="width:21px;height:21px;cursor:pointer" onclick="openDeposit()"><use href="#plus"/></svg></div><div class="sp"></div>
-  <div class="ib"><svg class="i f"><use href="#scale"/></svg></div><div class="ib"><svg class="i f"><use href="#mega"/></svg></div><div class="ib" onclick="openMenu()"><svg class="i"><use href="#menu"/></svg></div></div>
+  <div class="ib" onclick="openMenu()"><svg class="i"><use href="#menu"/></svg></div></div>
 
- <div class="tabrow"><div class="tab on" style="flex:1"><svg class="i f" style="width:23px;height:23px"><use href="#gift"/></svg><span data-i18n="gifts">Подарки</span></div><div class="cart"><svg class="i" style="width:21px;height:21px"><use href="#cart"/></svg></div></div>
- <div class="search"><div class="field"><svg class="i"><use href="#srch"/></svg><span data-i18n="search">Поиск по названию NFT / н</span></div><div class="feed"><svg class="i f"><use href="#feed"/></svg>Feed</div></div>
- <div class="chips"><div class="chip sq" id="filterChipBtn" onclick="openFilters()"><svg class="i"><use href="#sl"/></svg></div><div class="chip" onclick="openCollection()">NFT<svg class="i" style="width:17px"><use href="#chev"/></svg></div><div class="chip"><span data-i18n="model">Модель</span><svg class="i" style="width:17px"><use href="#chev"/></svg></div><div class="chip"><span data-i18n="bg">Фон</span><svg class="i" style="width:17px"><use href="#chev"/></svg></div><div class="chip"><span data-i18n="sym">Симв</span><svg class="i" style="width:17px"><use href="#chev"/></svg></div></div>
+ <div class="tabrow"><div class="tab on"><svg class="i f" style="width:23px;height:23px"><use href="#gift"/></svg><span data-i18n="gifts">Подарки</span></div><div class="sp"></div><div class="cart" id="cartBtn" onclick="openCart()" style="position:relative"><svg class="i" style="width:21px;height:21px"><use href="#cart"/></svg><div id="cartBadge" class="cartBadge" style="display:none">0</div></div></div>
+ <div class="search"><div class="field"><svg class="i"><use href="#srch"/></svg><span data-i18n="search">Поиск по названию NFT / н</span></div><div class="feed" onclick="openFeed()"><svg class="i f"><use href="#feed"/></svg>Feed</div></div>
+ <div class="chips"><div class="chip sq" id="filterChipBtn" onclick="openFilters()"><svg class="i"><use href="#sl"/></svg></div><div class="chip" onclick="openCollection()">NFT<svg class="i" style="width:17px"><use href="#chev"/></svg></div><div class="chip"><span data-i18n="model">Модель</span><svg class="i" style="width:17px"><use href="#chev"/></svg></div><div class="chip" id="bgChipBtn" onclick="openFilters('bg')"><span data-i18n="bg">Фон</span><svg class="i" style="width:17px"><use href="#chev"/></svg></div><div class="chip"><span data-i18n="sym">Симв</span><svg class="i" style="width:17px"><use href="#chev"/></svg></div></div>
 
  <div class="subtabs" id="subtabs" style="display:none">
   <div class="stab on" id="t-sale" onclick="sw('sale')"><span data-i18n="tabSale">На продаже (0)</span></div>
@@ -394,14 +402,14 @@ html.noanim *{transition:none!important;animation:none!important}
 
  <div class="main" id="main"></div>
 
- <div class="nav" id="mainNav"><div class="navind" id="navInd"></div><div class="on" id="nav-market" onclick="goMarket()"><svg class="i f"><use href="#grid"/></svg><span data-i18n="navMarket">Маркет</span></div><div><svg class="i f"><use href="#rec"/></svg><span data-i18n="navOrders">Ордера</span></div><div><svg class="i f"><use href="#pad"/></svg><span data-i18n="navHub">Игровой хаб</span></div><div id="nav-vault" onclick="goVault()"><svg class="i f"><use href="#box"/></svg><span data-i18n="navVault">Хранилище</span></div></div>
+ <div class="nav" id="mainNav"><div class="navind" id="navInd"></div><div class="on" id="nav-market" onclick="goMarket()"><svg class="i f"><use href="#grid"/></svg><span data-i18n="navMarket">Маркет</span></div><div onclick="comingSoon()"><svg class="i f"><use href="#rec"/></svg><span data-i18n="navOrders">Ордера</span></div><div onclick="comingSoon()"><svg class="i f"><use href="#pad"/></svg><span data-i18n="navHub">Игровой хаб</span></div><div id="nav-vault" onclick="goVault()"><svg class="i f"><use href="#box"/></svg><span data-i18n="navVault">Хранилище</span></div></div>
 </div>
 
 <div id="profile">
  <div class="pbody">
   <div class="row" style="padding-left:0;padding-right:0">
    <div class="pback" onclick="closeProfile()" style="flex:1"><svg class="i"><use href="#arrowl"/></svg><span data-i18n="back">Назад</span></div>
-   <div class="ib"><svg class="i f"><use href="#scale"/></svg></div><div class="ib"><svg class="i f"><use href="#mega"/></svg></div><div class="ib" onclick="openMenu()"><svg class="i"><use href="#menu"/></svg></div>
+   <div class="ib" onclick="openMenu()"><svg class="i"><use href="#menu"/></svg></div>
   </div>
 
   <div class="stats">
@@ -424,9 +432,9 @@ html.noanim *{transition:none!important;animation:none!important}
   <div class="sect">
    <div class="secthead" data-i18n="quickActions">Быстрые действия</div>
    <div class="qa">
-    <div onclick="openWithdraw()"><svg><use href="#down"/></svg><span data-i18n="qaWithdraw">Вывод</span></div>
-    <div onclick="openDeposit()"><svg><use href="#plus"/></svg><span data-i18n="qaDeposit">Ввод</span></div>
-    <div><svg class="f"><use href="#gift"/></svg><span data-i18n="qaAdd">Добавить</span></div>
+    <div onclick="openWithdraw()"><svg class="i"><use href="#down"/></svg><span data-i18n="qaWithdraw">Вывод</span></div>
+    <div onclick="openDeposit()"><svg class="f"><use href="#plus"/></svg><span data-i18n="qaDeposit">Ввод</span></div>
+    <div onclick="openGiftInfo()"><svg class="f"><use href="#gift"/></svg><span data-i18n="qaAdd">Добавить</span></div>
    </div>
   </div>
 
@@ -435,7 +443,7 @@ html.noanim *{transition:none!important;animation:none!important}
    <div id="histBox" class="histbox"><svg><use href="#clock"/></svg><h4 data-i18n="histTitle">Истории пока нет</h4><p data-i18n="histText">Вся история вашей активности<br>появится здесь</p></div>
   </div>
  </div>
- <div class="nav"><div class="navind"></div><div class="on"><svg class="i f"><use href="#grid"/></svg><span data-i18n="navMarket">Маркет</span></div><div><svg class="i f"><use href="#rec"/></svg><span data-i18n="navOrders">Ордера</span></div><div><svg class="i f"><use href="#pad"/></svg><span data-i18n="navHub">Игровой хаб</span></div><div><svg class="i f"><use href="#box"/></svg><span data-i18n="navVault">Хранилище</span></div></div>
+ <div class="nav"><div class="navind"></div><div class="on" onclick="closeProfile();goMarket()"><svg class="i f"><use href="#grid"/></svg><span data-i18n="navMarket">Маркет</span></div><div onclick="comingSoon()"><svg class="i f"><use href="#rec"/></svg><span data-i18n="navOrders">Ордера</span></div><div onclick="comingSoon()"><svg class="i f"><use href="#pad"/></svg><span data-i18n="navHub">Игровой хаб</span></div><div onclick="closeProfile();goVault()"><svg class="i f"><use href="#box"/></svg><span data-i18n="navVault">Хранилище</span></div></div>
 </div>
 
 <div id="menuPanel">
@@ -448,7 +456,7 @@ html.noanim *{transition:none!important;animation:none!important}
   <div class="mrow2"><div><svg><use href="#bolt"/></svg><span data-i18n="menuBoost">Буст канала</span></div><div onclick="copyGeneric(this,'@cooll')"><svg><use href="#planef"/></svg><span data-i18n="menuChannel">Канал COOL</span></div></div>
 
   <div class="mlink"><svg class="f"><use href="#planef"/></svg>Peek.tg</div>
-  <div class="mlink"><div class="mbadge"><span>COOL</span></div><span data-i18n="menuOfficial">Официальные каналы</span><svg class="ch"><use href="#chevr"/></svg></div>
+  <div class="mlink" onclick="copyGeneric(this,'@cooll')"><div class="mbadge"><span>COOL</span></div><span data-i18n="menuOfficial">Официальные каналы</span><svg class="ch"><use href="#chevr"/></svg></div>
 
   <div class="mdiv"></div>
   <div class="msec" data-i18n="menuHelp">Помощь</div>
@@ -589,9 +597,9 @@ html.noanim *{transition:none!important;animation:none!important}
 <div id="listOverlay" class="sheetOverlay" onclick="closeListSheet()"></div>
 <div id="listSheet" class="sheet">
  <div class="sheetHead"><div class="xc2" onclick="closeListSheet()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><use href="#x2"/></svg></div></div>
- <h2 class="sheetTitle">Выставить на продажу</h2>
+ <h2 class="sheetTitle" id="listSheetTitle">Выставить на продажу</h2>
  <div class="amountBox"><input class="amountInput" id="listPriceInput" value="1" inputmode="decimal"><svg class="i" style="width:20px;height:20px"><use href="#gem"/></svg></div>
- <div class="depBtn" onclick="confirmListNft()">Выставить</div>
+ <div class="depBtn" id="listSheetBtn" onclick="confirmListNft()">Выставить</div>
 </div>
 
 <div id="issueOverlay" class="sheetOverlay" onclick="closeIssue()"></div>
@@ -605,10 +613,37 @@ html.noanim *{transition:none!important;animation:none!important}
   <span id="issueCodeName" style="font-size:14.5px;color:#ddd;font-weight:500"></span>
  </div>
  <div class="userBox"><input id="issueModel" placeholder="Модель (необязательно)" autocomplete="off"></div>
- <div class="userBox"><input id="issueBg" placeholder="Фон (необязательно)" autocomplete="off"></div>
+ <div class="userBox" id="issueBgRow" onclick="openIssueBgPicker()" style="cursor:pointer">
+  <div id="issueBgSwatch" style="width:24px;height:24px;border-radius:7px;background:#2a2a2a;flex:none;margin-right:10px;border:2px solid rgba(255,255,255,.3);box-shadow:inset 0 0 0 1px rgba(0,0,0,.25)"></div>
+  <span id="issueBgLabel" style="color:#777;flex:1">Фон (не выбран)</span>
+  <svg class="i" style="width:17px;flex:none;color:#666"><use href="#chev"/></svg>
+ </div>
  <div class="userBox"><input id="issueSymbol" placeholder="Символ (необязательно)" autocomplete="off"></div>
  <div class="loginErr" id="issueErr">Выберите пользователя и укажите верный код NFT</div>
  <div class="depBtn" onclick="doIssue()">Выдать</div>
+</div>
+
+<div id="issueBgOverlay" class="sheetOverlay" onclick="closeIssueBgPicker()"></div>
+<div id="issueBgSheet" class="sheet filterSheet">
+ <div class="fHead"><h2>Выберите фон</h2><div class="xc2" onclick="closeIssueBgPicker()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><use href="#x2"/></svg></div></div>
+ <div class="collSearch" style="margin:0 0 10px"><svg class="i"><use href="#srch"/></svg><input id="issueBgSearch" placeholder="Поиск" oninput="populateIssueBgList()"></div>
+ <div id="issueBgList" style="max-height:420px;overflow:auto"></div>
+</div>
+
+<div id="feedOverlay" class="sheetOverlay" onclick="closeFeed()"></div>
+<div id="feedSheet" class="sheet filterSheet">
+ <div class="fHead"><h2>Активность</h2><div class="xc2" onclick="closeFeed()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><use href="#x2"/></svg></div></div>
+ <div id="feedList" style="max-height:65vh;overflow:auto"></div>
+</div>
+
+<div id="cartOverlay" class="sheetOverlay" onclick="closeCart()"></div>
+<div id="cartSheet" class="sheet filterSheet">
+ <div class="fHead"><h2>Корзина</h2><div class="xc2" onclick="closeCart()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><use href="#x2"/></svg></div></div>
+ <div id="cartList" style="max-height:50vh;overflow:auto"></div>
+ <div class="cartFoot" id="cartFoot">
+  <div style="display:flex;align-items:center;gap:6px;font-size:17px;font-weight:700;color:#fff"><svg class="i f"><use href="#gem"/></svg><span id="cartTotal">0</span></div>
+  <div class="showBtn" onclick="buyAllCart()">Купить всё</div>
+ </div>
 </div>
 
 <div id="filterOverlay" class="sheetOverlay" onclick="closeFilters()"></div>
@@ -627,6 +662,12 @@ html.noanim *{transition:none!important;animation:none!important}
    <input type="range" id="fRangeMin" min="0" max="100" value="0" oninput="onRangeInput('min')">
    <input type="range" id="fRangeMax" min="0" max="100" value="100" oninput="onRangeInput('max')">
   </div>
+ </div>
+ <div class="frow" id="fBgHead" onclick="toggleFRow('bg')"><span>Фон</span><svg class="i fChev" id="fBgChev"><use href="#chev"/></svg></div>
+ <div class="fBody" id="fBgBody" style="display:none">
+  <div class="collSearch" style="margin:0 0 10px"><svg class="i"><use href="#srch"/></svg><input id="fBgSearch" placeholder="Поиск" oninput="populateBgFilterList()"></div>
+  <div class="collAllRow" style="padding:4px 2px 12px"><div class="chk" id="fBgAllChk" onclick="toggleAllBgFilter(this)"></div><span>Выбрать все</span></div>
+  <div id="fBgList" style="max-height:260px;overflow:auto"></div>
  </div>
  <div class="frow" id="fNftHead" onclick="toggleFRow('nft')"><span>NFT</span><svg class="i fChev" id="fNftChev"><use href="#chev"/></svg></div>
  <div class="fBody" id="fNftBody" style="display:none">
@@ -671,6 +712,7 @@ html.noanim *{transition:none!important;animation:none!important}
  <div class="half r"><div class="in"><div class="badge"><span>COOL</span></div></div></div>
 </div>
 <script>
+function comingSoon(){showToast('Скоро: в разработке','info')}
 function showToast(msg,kind){
  var wrap=document.getElementById('toastWrap');
  if(!wrap){wrap=document.createElement('div');wrap.id='toastWrap';wrap.className='toastWrap';document.body.appendChild(wrap)}
@@ -768,26 +810,69 @@ function openIssue(){
  document.getElementById('issueErr').classList.remove('show');
  document.getElementById('issueCode').value='';
  document.getElementById('issueModel').value='';
- document.getElementById('issueBg').value='';
+ resetIssueBgChoice();
  document.getElementById('issueSymbol').value='';
  document.getElementById('issueCodePreview').style.display='none';
  issueImg=null;issueTargetId=null;issueTargetName=null;issueResolvedName=null;
  var listEl=document.getElementById('issueUserList');
  listEl.innerHTML="<div style='color:#777;font-size:14px;padding:8px 0'>Загрузка...</div>";
+ var selfRow="<div class='apRow' style='cursor:pointer' data-uid='"+MY_ID+"' data-uname=\""+String(MY_NAME||'Вы').replace(/"/g,'&quot;')+"\"><svg><use href='#bulb'/></svg><span style='flex:1'>"+(MY_NAME||'Вы')+"</span><div class='mbadge' style='width:auto;padding:0 8px'><span style='font-size:11px'>Админ</span></div></div>";
  fetch('/api/presence').then(function(r){return r.json()}).then(function(d){
-  if(!d.users||!d.users.length){listEl.innerHTML="<div style='color:#777;font-size:14px;padding:8px 0'>Сейчас никто не в сети</div>";return;}
-  listEl.innerHTML=d.users.map(function(u){
+  var others=(d.users||[]).filter(function(u){return u.id!==MY_ID});
+  if(!others.length){listEl.innerHTML=selfRow+"<div style='color:#777;font-size:14px;padding:8px 0'>Больше никого нет в сети</div>";return;}
+  listEl.innerHTML=selfRow+others.map(function(u){
    return "<div class='apRow' style='cursor:pointer' data-uid='"+u.id+"' data-uname=\""+String(u.name).replace(/"/g,'&quot;')+"\"><svg><use href='#bulb'/></svg><span>"+u.name+"</span></div>";
   }).join('');
- }).catch(function(){listEl.innerHTML="<div style='color:#777;font-size:14px;padding:8px 0'>Не удалось загрузить список</div>";});
+ }).catch(function(){listEl.innerHTML=selfRow;});
  document.getElementById('issueOverlay').classList.add('show');
  document.getElementById('issueSheet').classList.add('show');
 }
 function closeIssue(){document.getElementById('issueOverlay').classList.remove('show');document.getElementById('issueSheet').classList.remove('show')}
+var issueBgChoice=null;
+function darkenHex(hex,f){
+ var h=String(hex||'').replace('#','');var n=parseInt(h,16)||0;
+ var r=Math.round(((n>>16)&255)*f),g=Math.round(((n>>8)&255)*f),bl=Math.round((n&255)*f);
+ return '#'+[r,g,bl].map(function(v){return (v<16?'0':'')+v.toString(16)}).join('');
+}
+function resetIssueBgChoice(){
+ issueBgChoice=null;
+ var sw=document.getElementById('issueBgSwatch'),lb=document.getElementById('issueBgLabel');
+ if(sw)sw.style.background='#2a2a2a';
+ if(lb){lb.textContent='Фон (не выбран)';lb.style.color='#777';}
+}
+function openIssueBgPicker(){
+ document.getElementById('issueBgSearch').value='';
+ populateIssueBgList();
+ document.getElementById('issueBgOverlay').classList.add('show');
+ document.getElementById('issueBgSheet').classList.add('show');
+}
+function closeIssueBgPicker(){
+ document.getElementById('issueBgOverlay').classList.remove('show');
+ document.getElementById('issueBgSheet').classList.remove('show');
+}
+function populateIssueBgList(){
+ var box=document.getElementById('issueBgList');
+ if(!box)return;
+ var q=(document.getElementById('issueBgSearch')||{}).value||'';
+ q=q.toLowerCase();
+ var items=BG_CATALOG.filter(function(b){return !q||b.name.toLowerCase().indexOf(q)!==-1});
+ box.innerHTML=items.map(function(b){
+  return "<div class='collRow' style='cursor:pointer' onclick='pickIssueBg(\""+b.name.replace(/"/g,'&quot;')+"\")'><div style='width:28px;height:28px;border-radius:9px;background:"+b.hex+";flex:none;border:2px solid rgba(255,255,255,.3);box-shadow:inset 0 0 0 1px rgba(0,0,0,.25)'></div><div class='collName'>"+b.name+"</div></div>";
+ }).join('')||"<div style='padding:40px 20px;color:#777;text-align:center;font-size:14px'>Ничего не найдено</div>";
+}
+function pickIssueBg(name){
+ var b=BG_CATALOG.find(function(x){return x.name===name});
+ if(!b)return;
+ issueBgChoice=b;
+ document.getElementById('issueBgSwatch').style.background=b.hex;
+ var lb=document.getElementById('issueBgLabel');
+ lb.textContent=b.name;lb.style.color='#fff';
+ closeIssueBgPicker();
+}
 function doIssue(){
  var name=issueResolvedName;
  var model=document.getElementById('issueModel').value.trim();
- var bg=document.getElementById('issueBg').value.trim();
+ var bg=issueBgChoice?('linear-gradient(160deg,'+issueBgChoice.hex+','+darkenHex(issueBgChoice.hex,.62)+')'):'';
  var symbol=document.getElementById('issueSymbol').value.trim();
  var err=document.getElementById('issueErr');
  if(!issueTargetId||!name||!issueImg){
@@ -899,17 +984,19 @@ function sw(tt){
  if(tt=='sale')loadMine();else loadVault();
 }
 function nftCardHtml(n,mode){
- var sub=[n.model,n.bg,n.symbol].filter(Boolean).join(' • ');
+ var sub=[n.model,n.bg?bgNameFor(n):'',n.symbol].filter(Boolean).join(' • ');
  var imgHtml=n.img?("<img src='"+n.img+"' style='width:100%;height:100%;object-fit:cover'>"):"<svg class='art' viewBox='0 0 24 24' fill='none' stroke='#444'><use href='#tagbig'/></svg>";
  var actionHtml;
  if(mode==='market'){
-  actionHtml="<div class='gprice'><svg class='i' style='width:15px;height:15px'><use href='#gem'/></svg>"+n.price+"</div><div class='gcart' onclick='buyNft(\""+n.id+"\")'><svg class='i'><use href='#cart'/></svg></div>";
+  var inCart=cartIds.indexOf(n.id)!==-1;
+  actionHtml="<div class='gprice'><svg class='i' style='width:15px;height:15px'><use href='#gem'/></svg>"+n.price+"</div><div class='gcart"+(inCart?' inCart':'')+"' onclick='toggleCart(\""+n.id+"\",this)'><svg class='i'><use href='#"+(inCart?'check':'cart')+"'/></svg></div>";
  }else if(mode==='mine'){
-  actionHtml="<div class='gprice'><svg class='i' style='width:15px;height:15px'><use href='#gem'/></svg>"+n.price+"</div><div class='gcart' onclick='unlistNft(\""+n.id+"\")'><svg class='i'><use href='#x2'/></svg></div>";
+  actionHtml="<div class='gprice' style='cursor:pointer' onclick='promptReprice(\""+n.id+"\","+n.price+")'><svg class='i' style='width:15px;height:15px'><use href='#gem'/></svg>"+n.price+"</div><div class='gcart' onclick='unlistNft(\""+n.id+"\")'><svg class='i'><use href='#x2'/></svg></div>";
  }else{
   actionHtml="<div class='gprice' style='cursor:pointer' onclick='promptListNft(\""+n.id+"\")'>Выставить</div>";
  }
- return "<div class='gcard'><div class='gtile'><div class='gpat'></div>"+imgHtml+"</div><div class='gmeta'><div class='gname'>"+(n.name||'NFT')+"</div><div class='gid'>"+sub+"</div></div><div class='gbuy'>"+actionHtml+"</div></div>";
+ var tileStyle=n.bg?(" style=\"background:"+n.bg+"\""):"";
+ return "<div class='gcard'><div class='gtile'"+tileStyle+"><div class='gpat'></div>"+imgHtml+"</div><div class='gmeta'><div class='gname'>"+(n.name||'NFT')+"</div><div class='gid'>"+sub+"</div></div><div class='gbuy'>"+actionHtml+"</div></div>";
 }
 function renderGrid(list,mode){
  if(!list||!list.length){
@@ -948,21 +1035,104 @@ function buyNft(id){
  fetch('/api/market',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'buy',nftId:id,buyerId:MY_ID,buyerName:MY_NAME})})
   .then(function(){loadMarket()}).catch(function(){});
 }
+var cartIds=[];
+try{cartIds=JSON.parse(localStorage.getItem('coolCart')||'[]')}catch(e){cartIds=[]}
+function saveCart(){
+ try{localStorage.setItem('coolCart',JSON.stringify(cartIds))}catch(e){}
+ updateCartBadge();
+}
+function updateCartBadge(){
+ var b=document.getElementById('cartBadge');
+ if(!b)return;
+ if(cartIds.length>0){b.textContent=cartIds.length;b.style.display='flex';}
+ else{b.style.display='none';}
+}
+function toggleCart(id,el){
+ var idx=cartIds.indexOf(id);
+ if(idx===-1){cartIds.push(id);showToast('Добавлено в корзину','ok');}
+ else{cartIds.splice(idx,1);}
+ saveCart();
+ if(el){
+  var inCart=cartIds.indexOf(id)!==-1;
+  el.classList.toggle('inCart',inCart);
+  el.innerHTML="<svg class='i'><use href='#"+(inCart?'check':'cart')+"'/></svg>";
+ }
+ if(document.getElementById('cartSheet')&&document.getElementById('cartSheet').classList.contains('show'))renderCart();
+}
+function cartItemsData(){
+ return cartIds.map(function(id){return marketFullCache.find(function(x){return x.id===id})}).filter(Boolean);
+}
+function openCart(){
+ renderCart();
+ document.getElementById('cartOverlay').classList.add('show');
+ document.getElementById('cartSheet').classList.add('show');
+}
+function closeCart(){
+ document.getElementById('cartOverlay').classList.remove('show');
+ document.getElementById('cartSheet').classList.remove('show');
+}
+function removeFromCart(id){
+ var idx=cartIds.indexOf(id);
+ if(idx!==-1)cartIds.splice(idx,1);
+ saveCart();
+ renderCart();
+ rerenderMarket();
+}
+function buyCartItem(id){
+ buyNft(id);
+ removeFromCart(id);
+}
+function buyAllCart(){
+ var items=cartItemsData();
+ if(!items.length)return;
+ items.forEach(function(it){buyNft(it.id)});
+ cartIds=[];
+ saveCart();
+ renderCart();
+}
+function renderCart(){
+ var box=document.getElementById('cartList');
+ var items=cartItemsData();
+ var totalEl=document.getElementById('cartTotal');
+ var foot=document.getElementById('cartFoot');
+ if(!items.length){
+  box.innerHTML="<div class='empty'><svg class='big' viewBox='0 0 24 24' fill='none' stroke='#444' stroke-width='1.6'><use href='#cart'/></svg><h3>Корзина пуста</h3><p>Добавьте подарки с маркета,<br>чтобы купить их здесь.</p></div>";
+  if(foot)foot.style.display='none';
+  return;
+ }
+ if(foot)foot.style.display='flex';
+ var total=items.reduce(function(s,n){return s+(Number(n.price)||0)},0);
+ if(totalEl)totalEl.textContent=total.toFixed(2);
+ box.innerHTML=items.map(function(n){
+  var imgHtml=n.img?("<img src='"+n.img+"' style='width:100%;height:100%;object-fit:cover'>"):"";
+  var tileStyle=n.bg?(" style=\"background:"+n.bg+"\""):"";
+  return "<div class='cartRow'><div class='cartThumb'"+tileStyle+">"+imgHtml+"</div><div style='flex:1;min-width:0'><div class='collName' style='margin-bottom:3px'>"+(n.name||'NFT')+"</div><div style='display:flex;align-items:center;gap:5px;font-size:15px;color:#fff'><svg class='i f' style='width:14px;height:14px'><use href='#gem'/></svg>"+n.price+"</div></div><div class='cartBuyBtn' onclick='buyCartItem(\""+n.id+"\")'>Купить</div><div class='cartRmBtn' onclick='removeFromCart(\""+n.id+"\")'><svg class='i' style='width:16px;height:16px'><use href='#x2'/></svg></div></div>";
+ }).join('');
+}
 function unlistNft(id){
  fetch('/api/market',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'unlist',nftId:id,ownerId:MY_ID})})
   .then(function(){loadMine()}).catch(function(){});
 }
 var listingNftId=null;
 function promptListNft(id){
- listingNftId=id;
+ listingNftId=id;repricingNftId=null;
  document.getElementById('listPriceInput').value='1';
+ document.getElementById('listSheetTitle').textContent='Выставить на продажу';
+ document.getElementById('listSheetBtn').textContent='Выставить';
  document.getElementById('listOverlay').classList.add('show');
  document.getElementById('listSheet').classList.add('show');
 }
-function closeListSheet(){document.getElementById('listOverlay').classList.remove('show');document.getElementById('listSheet').classList.remove('show')}
+function closeListSheet(){document.getElementById('listOverlay').classList.remove('show');document.getElementById('listSheet').classList.remove('show');repricingNftId=null}
 function confirmListNft(){
  var price=parseFloat((document.getElementById('listPriceInput').value||'0').replace(',','.'))||0;
- if(price<=0||!listingNftId)return;
+ if(price<=0)return;
+ if(repricingNftId){
+  var id=repricingNftId;
+  fetch('/api/market',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'reprice',nftId:id,price:price,ownerId:MY_ID,ownerName:MY_NAME})})
+   .then(function(){closeListSheet();loadMine();showToast('Цена обновлена','ok')});
+  return;
+ }
+ if(!listingNftId)return;
  fetch('/api/market',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'list',nftId:listingNftId,price:price,ownerId:MY_ID,ownerName:MY_NAME})})
   .then(function(){closeListSheet();loadVault()});
 }
@@ -974,13 +1144,29 @@ function positionIndicator(el){
  ind.style.left=(r.left-nr.left+r.width/2-42)+'px';
 }
 var marketFullCache=[];
-var activeFilters={min:null,max:null,nft:{}};
+var activeFilters={min:null,max:null,nft:{},bg:{}};
+function hexToRgb3(h){h=String(h||'888888').replace('#','');if(h.length===3)h=h.split('').map(function(c){return c+c}).join('');var n=parseInt(h,16)||0x888888;return [(n>>16)&255,(n>>8)&255,n&255];}
+function extractFirstHex(bg){var m=String(bg||'').match(/#([0-9a-fA-F]{3,6})/);return m?('#'+m[1]):'#888888';}
+function bgNameFor(n){
+ if(n._bgName)return n._bgName;
+ var rgb=hexToRgb3(extractFirstHex(n.bg));
+ var best=null,bestD=Infinity;
+ for(var i=0;i<BG_CATALOG.length;i++){
+  var c=BG_CATALOG[i],crgb=hexToRgb3(c.hex);
+  var d=(rgb[0]-crgb[0])*(rgb[0]-crgb[0])+(rgb[1]-crgb[1])*(rgb[1]-crgb[1])+(rgb[2]-crgb[2])*(rgb[2]-crgb[2]);
+  if(d<bestD){bestD=d;best=c.name;}
+ }
+ n._bgName=best;
+ return best;
+}
 function filteredMarket(list){
  var hasNftFilter=Object.keys(activeFilters.nft).some(function(k){return activeFilters.nft[k]});
+ var hasBgFilter=Object.keys(activeFilters.bg).some(function(k){return activeFilters.bg[k]});
  return (list||[]).filter(function(n){
   if(activeFilters.min!=null && Number(n.price)<activeFilters.min)return false;
   if(activeFilters.max!=null && Number(n.price)>activeFilters.max)return false;
   if(hasNftFilter && !activeFilters.nft[n.name])return false;
+  if(hasBgFilter && !activeFilters.bg[bgNameFor(n)])return false;
   return true;
  });
 }
@@ -988,18 +1174,19 @@ function countActiveFilters(){
  var n=0;
  if(activeFilters.min!=null||activeFilters.max!=null)n++;
  if(Object.keys(activeFilters.nft).some(function(k){return activeFilters.nft[k]}))n++;
+ if(Object.keys(activeFilters.bg).some(function(k){return activeFilters.bg[k]}))n++;
  return n;
 }
 var currentNav='market';
 var CLOVER="<svg viewBox='0 0 24 24' fill='currentColor'><path d='M12 3c-1.6 0-2.4 1.9-1.3 3.1C9.5 5 7.6 5.8 7.6 7.4c0 1.6 1.9 2.4 3.1 1.3C9.6 9.9 10.4 11.8 12 11.8s2.4-1.9 1.3-3.1c1.2 1.1 3.1.3 3.1-1.3 0-1.6-1.9-2.4-3.1-1.3C14.4 4.9 13.6 3 12 3z'/><rect x='11' y='11' width='2' height='8' rx='1'/></svg>";
 var BAG="<svg viewBox='0 0 24 24' fill='currentColor'><path d='M8.5 6.5L7 3.5h10l-1.5 3c3 1.2 5.5 4 5.5 8.5a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4c0-4.5 2.5-7.3 5.5-8.5z'/></svg>";
 var gifts=[
-{name:"Chill Flame",id:"#340034",price:"5.87",bg:"linear-gradient(160deg,#e8a93a,#c08020)",art:"<svg viewBox='0 0 64 64' class='art'><defs><linearGradient id='fl1' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#fff3b0'/><stop offset='.5' stop-color='#ffb43c'/><stop offset='1' stop-color='#ff7a1a'/></linearGradient></defs><path d='M32 4c3 11 15 15 15 30 0 11-7 20-15 20s-15-9-15-20c0-9 6-12 9-18 1 5 3 7 6 9-1-8 0-15 0-21z' fill='url(#fl1)' stroke='#e85d12' stroke-width='1.5'/><path d='M32 30c2 4 6 6 6 12 0 5-3 8-6 8s-6-3-6-8c0-4 3-6 4-9 0 3 1 4 2 5z' fill='#fff6cf' opacity='.85'/></svg>"},
-{name:"Star Amulet",id:"#139619",price:"7.35",bg:"linear-gradient(160deg,#6f8f5e,#52704a)",art:"<svg viewBox='0 0 64 64' class='art'><defs><linearGradient id='am1' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#ffe08a'/><stop offset='.5' stop-color='#f3b63f'/><stop offset='1' stop-color='#c98a1e'/></linearGradient></defs><path d='M46 10a24 24 0 1 0 0 44 18 18 0 1 1 0-44z' fill='url(#am1)' stroke='#b5791a' stroke-width='1.5' stroke-linejoin='round'/><path d='M28 22l3 6.5 7 .8-5 4.6 1.3 6.9-6.3-3.4-6.3 3.4 1.3-6.9-5-4.6 7-.8z' fill='#fff4cf'/></svg>"},
-{name:"Sweet Cone",id:"#082210",price:"2.14",bg:"linear-gradient(160deg,#5fa06a,#42754c)",art:"<svg viewBox='0 0 64 64' class='art'><defs><linearGradient id='ic1' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#fff3df'/><stop offset='1' stop-color='#ead0a0'/></linearGradient><linearGradient id='ic2' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#9a6836'/><stop offset='1' stop-color='#5e3a1c'/></linearGradient></defs><path d='M20 30c0-9 24-9 24 0 0 3-2 5-4 6 2 1 3 3 3 5 0 8-21 8-21 0 0-2 1-4 3-5-2-1-4-3-4-6z' fill='url(#ic1)'/><path d='M25 44h14l-6 17a1 1 0 0 1-2 0z' fill='url(#ic2)'/></svg>"},
-{name:"Dusk Crystal",id:"#410077",price:"9.12",bg:"linear-gradient(160deg,#cf6a33,#9e4420)",art:"<svg viewBox='0 0 64 64' class='art'><defs><linearGradient id='cr1' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#d9b6ff'/><stop offset='1' stop-color='#6a3fd6'/></linearGradient></defs><path d='M32 5l16 15-8 37-8 2-8-2-8-37z' fill='url(#cr1)' stroke='#4a2a9e' stroke-width='1.5' stroke-linejoin='round'/><path d='M32 5v54M16 20h32' stroke='#fff' stroke-opacity='.4' stroke-width='1.5'/></svg>"},
-{name:"Aqua Gem",id:"#220145",price:"4.60",bg:"linear-gradient(160deg,#3b7fd6,#285aa0)",art:"<svg viewBox='0 0 64 64' class='art'><defs><linearGradient id='gm1' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#a9e8ff'/><stop offset='1' stop-color='#2a7fd0'/></linearGradient></defs><path d='M20 14h24l10 12-22 26L10 26z' fill='url(#gm1)' stroke='#1f5e9e' stroke-width='1.5' stroke-linejoin='round'/><path d='M10 26h44M24 14l8 38 8-38' stroke='#fff' stroke-opacity='.45' stroke-width='1.5'/></svg>"},
-{name:"Royal Crown",id:"#905512",price:"12.0",bg:"linear-gradient(160deg,#8a5cff,#6236cc)",art:"<svg viewBox='0 0 64 64' class='art'><defs><linearGradient id='cw1' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#ffe691'/><stop offset='1' stop-color='#e0a62f'/></linearGradient></defs><path d='M9 46L6 20l13 9 13-19 13 19 13-9-3 26z' fill='url(#cw1)' stroke='#b5791a' stroke-width='1.5' stroke-linejoin='round'/><rect x='9' y='46' width='46' height='8' rx='2' fill='url(#cw1)' stroke='#b5791a' stroke-width='1.5'/><circle cx='32' cy='19' r='3' fill='#ff6b8a'/></svg>"}
+{name:"Chill Flame",id:"#340034",price:"5.87",bg:"linear-gradient(160deg,#e8a93a,#c08020)",art:"<svg viewBox='0 0 64 64' class='art'><ellipse cx='32' cy='58' rx='13' ry='3.2' fill='#000' opacity='.22'/><path d='M32 4c3 11 15 15 15 30 0 11-7 20-15 20s-15-9-15-20c0-9 6-12 9-18 1 5 3 7 6 9-1-8 0-15 0-21z' fill='#ff9a2e' stroke='#5c2b0a' stroke-width='2.5' stroke-linejoin='round'/><path d='M32 30c2 4 6 6 6 12 0 5-3 8-6 8s-6-3-6-8c0-4 3-6 4-9 0 3 1 4 2 5z' fill='#ffe066' stroke='#5c2b0a' stroke-width='1.6' stroke-linejoin='round'/><ellipse cx='25' cy='17' rx='4.2' ry='7' fill='#fff' opacity='.3' transform='rotate(-18 25 17)'/></svg>"},
+{name:"Star Amulet",id:"#139619",price:"7.35",bg:"linear-gradient(160deg,#6f8f5e,#52704a)",art:"<svg viewBox='0 0 64 64' class='art'><ellipse cx='32' cy='58' rx='13' ry='3.2' fill='#000' opacity='.22'/><path d='M24 8h16v6a8 8 0 0 1-16 0z' fill='#f3c04a' stroke='#8a5a10' stroke-width='2.3' stroke-linejoin='round'/><circle cx='32' cy='38' r='22' fill='#f6cd5e' stroke='#8a5a10' stroke-width='2.8'/><circle cx='32' cy='38' r='22' fill='none' stroke='#fff' stroke-opacity='.25' stroke-width='3'/><path d='M32 24l4.5 9.2 10.2 1.5-7.4 7.2 1.7 10.1L32 47.4l-9 4.6 1.7-10.1-7.4-7.2 10.2-1.5z' fill='#fff4cf' stroke='#8a5a10' stroke-width='2'/><ellipse cx='23' cy='27' rx='5' ry='8' fill='#fff' opacity='.28' transform='rotate(-18 23 27)'/></svg>"},
+{name:"Sweet Cone",id:"#082210",price:"2.14",bg:"linear-gradient(160deg,#5fa06a,#42754c)",art:"<svg viewBox='0 0 64 64' class='art'><ellipse cx='32' cy='58' rx='13' ry='3.2' fill='#000' opacity='.22'/><path d='M22 42h20l-7.5 18a2.5 2.5 0 0 1-5 0z' fill='#c98a44' stroke='#6b3f17' stroke-width='2.4' stroke-linejoin='round'/><path d='M24 46l16 0M23 51l18 0M25 56l14 0' stroke='#6b3f17' stroke-width='1.6' stroke-linecap='round' opacity='.6'/><path d='M19 29c0-9 26-9 26 0 0 3.5-2.5 5.6-5 6.6 2 1.2 3.5 3.2 3.5 5.4 0 7.5-23 7.5-23 0 0-2.2 1.5-4.2 3.5-5.4-2.5-1-5-3.1-5-6.6z' fill='#fff2d8' stroke='#6b3f17' stroke-width='2.4' stroke-linejoin='round'/><circle cx='32' cy='17' r='4' fill='#e0463f' stroke='#6b3f17' stroke-width='2'/><ellipse cx='24' cy='27' rx='4.5' ry='7' fill='#fff' opacity='.35' transform='rotate(-15 24 27)'/></svg>"},
+{name:"Dusk Crystal",id:"#410077",price:"9.12",bg:"linear-gradient(160deg,#cf6a33,#9e4420)",art:"<svg viewBox='0 0 64 64' class='art'><ellipse cx='32' cy='58' rx='12' ry='3.2' fill='#000' opacity='.22'/><path d='M32 5l16 15-8 37-8 2-8-2-8-37z' fill='#b07cf0' stroke='#4a2a9e' stroke-width='2.4' stroke-linejoin='round'/><path d='M32 5l16 15-16 4z' fill='#d9b6ff'/><path d='M32 5l-16 15 16 4z' fill='#9a5fe0'/><path d='M16 20l16 4 16-4-4.5 32-11.5 4-11.5-4z' fill='#8a52d6'/><path d='M32 24v33M16 20l16 4 16-4' stroke='#4a2a9e' stroke-width='1.6' stroke-linejoin='round'/><ellipse cx='26' cy='15' rx='4' ry='7' fill='#fff' opacity='.4' transform='rotate(-20 26 15)'/></svg>"},
+{name:"Aqua Gem",id:"#220145",price:"4.60",bg:"linear-gradient(160deg,#3b7fd6,#285aa0)",art:"<svg viewBox='0 0 64 64' class='art'><ellipse cx='32' cy='58' rx='13' ry='3.2' fill='#000' opacity='.22'/><path d='M20 14h24l10 12-22 26L10 26z' fill='#4fb4ec' stroke='#1f5e9e' stroke-width='2.4' stroke-linejoin='round'/><path d='M20 14h24l5 12H15z' fill='#8adcff'/><path d='M15 26h9l8 26z' fill='#2a8fd0'/><path d='M49 26h-9l-8 26z' fill='#3fa0e0'/><path d='M10 26h44M24 14l8 38 8-38' stroke='#1f5e9e' stroke-width='1.6'/><ellipse cx='26' cy='20' rx='3.6' ry='6' fill='#fff' opacity='.45' transform='rotate(-18 26 20)'/></svg>"},
+{name:"Royal Crown",id:"#905512",price:"12.0",bg:"linear-gradient(160deg,#8a5cff,#6236cc)",art:"<svg viewBox='0 0 64 64' class='art'><ellipse cx='32' cy='58' rx='15' ry='3.2' fill='#000' opacity='.22'/><path d='M9 46L6 20l13 9 13-19 13 19 13-9-3 26z' fill='#ffd45e' stroke='#8a5a10' stroke-width='2.4' stroke-linejoin='round'/><path d='M9 46L6 20l13 9 6-9 7 18 7-18 6 9 13-9-3 26z' fill='#fff0b0' opacity='.45'/><rect x='9' y='46' width='46' height='9' rx='2.5' fill='#ffd45e' stroke='#8a5a10' stroke-width='2.4'/><circle cx='19' cy='29' r='3.2' fill='#3fa0e0' stroke='#8a5a10' stroke-width='1.4'/><circle cx='45' cy='29' r='3.2' fill='#3fa0e0' stroke='#8a5a10' stroke-width='1.4'/><circle cx='32' cy='19' r='4' fill='#e0463f' stroke='#8a5a10' stroke-width='1.6'/><ellipse cx='22' cy='46' rx='6' ry='2.2' fill='#fff' opacity='.3'/></svg>"}
 ];
 function marketHtml(){
  return "<div class='spin' style='margin:50px auto'></div>";
@@ -1035,6 +1222,21 @@ function refreshBalance(){
 }
 refreshBalance();
 setInterval(refreshBalance,12000);
+// Shared look for every kind of history/activity entry: deposits, withdrawals,
+// and now market activity (buy/sale/list/unlist) all come out of the same
+// coolRequests log (see lib/kv.js pushHistory), so one place decides how
+// each type is shown.
+function histMeta(type){
+ switch(type){
+  case 'withdraw': return {icon:'down',color:'#ff5a5a',label:'Вывод'};
+  case 'buy': return {icon:'cart',color:'#38d17a',label:'Покупка'};
+  case 'sale': return {icon:'tagbig',color:'#38d17a',label:'Продажа'};
+  case 'list': return {icon:'tagheart',color:'#2fb3ff',label:'Выставлено'};
+  case 'unlist': return {icon:'x2',color:'#ff5a5a',label:'Снято с продажи'};
+  case 'reprice': return {icon:'gem',color:'#f0a830',label:'Изменение цены'};
+  default: return {icon:'plus',color:'#38d17a',label:'Пополнение'};
+ }
+}
 function loadHistory(){
  var box=document.getElementById('histBox');
  if(!box)return;
@@ -1042,16 +1244,51 @@ function loadHistory(){
   if(!list||!list.length)return;
   box.classList.add('filled');
   box.innerHTML=list.map(function(r){
-   var icon=r.type==='withdraw'?'down':'plus';
-   var col=r.type==='withdraw'?'#ff5a5a':'#38d17a';
-   var label=r.type==='withdraw'?'Вывод':'Пополнение';
+   var m=histMeta(r.type);
    var d=new Date(r.time);
    var dt=('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).slice(-2)+' '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);
    var statusCls=r.status==='approved'?'ok':r.status==='rejected'?'bad':'pend';
    var statusTxt=r.status==='approved'?'Принято':r.status==='rejected'?'Отклонено':'Ожидает';
-   return "<div class='histRow'><svg class='f' style='color:"+col+"'><use href='#"+icon+"'/></svg><div><div class='hName'>"+label+"</div><div class='hTime'>"+dt+"</div></div><div style='margin-left:auto;text-align:right'><div class='hAmt'><svg class='i' style='width:13px;height:13px'><use href='#gem'/></svg>"+r.amount+"</div><div class='hStatus "+statusCls+"'>"+statusTxt+"</div></div></div>";
+   var title=m.label+(r.nftName?' · '+r.nftName:'');
+   return "<div class='histRow'><svg class='f' style='color:"+m.color+"'><use href='#"+m.icon+"'/></svg><div><div class='hName'>"+title+"</div><div class='hTime'>"+dt+"</div></div><div style='margin-left:auto;text-align:right'><div class='hAmt'><svg class='i' style='width:13px;height:13px'><use href='#gem'/></svg>"+r.amount+"</div><div class='hStatus "+statusCls+"'>"+statusTxt+"</div></div></div>";
   }).join('');
  }).catch(function(){});
+}
+var feedTimer=null;
+function openFeed(){
+ document.getElementById('feedOverlay').classList.add('show');
+ document.getElementById('feedSheet').classList.add('show');
+ loadFeed();
+ if(feedTimer)clearInterval(feedTimer);
+ feedTimer=setInterval(loadFeed,8000);
+}
+function closeFeed(){
+ document.getElementById('feedOverlay').classList.remove('show');
+ document.getElementById('feedSheet').classList.remove('show');
+ if(feedTimer){clearInterval(feedTimer);feedTimer=null;}
+}
+function loadFeed(){
+ var box=document.getElementById('feedList');
+ if(!box)return;
+ fetch('/api/requests?feed=market').then(function(r){return r.ok?r.json():[]}).then(function(list){
+  if(!list||!list.length){box.innerHTML="<div class='empty'><svg class='big' viewBox='0 0 24 24' fill='none' stroke='#444' stroke-width='1.6'><use href='#feed'/></svg><h3>Пока тихо</h3><p>Здесь появится вся активность рынка:<br>листинги, продажи, покупки.</p></div>";return;}
+  box.innerHTML=list.map(function(r){
+   var m=histMeta(r.type);
+   var d=new Date(r.time);
+   var dt=('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).slice(-2)+' '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);
+   var title=(r.nftName?r.nftName:'NFT')+(r.user?' · '+r.user:'');
+   return "<div class='histRow'><svg class='f' style='color:"+m.color+"'><use href='#"+m.icon+"'/></svg><div style='min-width:0'><div class='hName'>"+title+"</div><div class='hTime'>"+m.label+" · "+dt+"</div></div><div style='margin-left:auto;text-align:right'><div class='hAmt'><svg class='i' style='width:13px;height:13px'><use href='#gem'/></svg>"+r.amount+"</div></div></div>";
+  }).join('');
+ }).catch(function(){});
+}
+var repricingNftId=null;
+function promptReprice(id,currentPrice){
+ repricingNftId=id;listingNftId=null;
+ document.getElementById('listPriceInput').value=currentPrice;
+ document.getElementById('listSheetTitle').textContent='Изменить цену';
+ document.getElementById('listSheetBtn').textContent='Сохранить';
+ document.getElementById('listOverlay').classList.add('show');
+ document.getElementById('listSheet').classList.add('show');
 }
 function openProfile(){document.getElementById('profile').classList.add('show');refreshBalance();loadHistory()}
 function closeProfile(){document.getElementById('profile').classList.remove('show')}
@@ -1075,15 +1312,14 @@ function renderRequests(){
  loadRequests().then(function(list){
   if(!list||!list.length){el.innerHTML="<div style='padding:16px 2px;color:#777;font-size:14px'>Заявок пока нет</div>";return;}
   el.innerHTML=list.map(function(r){
-   var icon=r.type==='withdraw'?'down':'plus';
-   var label=r.type==='withdraw'?'Вывод':'Пополнение';
-   var col=r.type==='withdraw'?'#ff5a5a':'#38d17a';
+   var m=histMeta(r.type);
+   var label=m.label+(r.nftName?' · '+r.nftName:'');
    var d=new Date(r.time);
    var ts=('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);
    var statusHtml='';
    if(r.status==='approved')statusHtml="<svg class='f' style='width:16px;height:16px;color:#38d17a;margin-left:6px'><use href='#check'/></svg>";
    else if(r.status==='rejected')statusHtml="<svg viewBox='0 0 24 24' fill='none' stroke='#ff5a5a' stroke-width='2.6' stroke-linecap='round' style='width:14px;height:14px;margin-left:6px'><use href='#x2'/></svg>";
-   return "<div class='apRow' style='cursor:pointer' data-id='"+r.id+"'><svg class='f' style='color:"+col+"'><use href='#"+icon+"'/></svg><span>"+label+" • @"+r.user+statusHtml+"</span><span style='margin-left:auto;display:flex;align-items:center;gap:4px;color:#ddd;font-size:14px;font-weight:600'><svg class='i' style='width:14px;height:14px'><use href='#gem'/></svg>"+r.amount+"</span><span style='margin-left:10px;color:#999;font-size:13px'>"+ts+"</span></div>";
+   return "<div class='apRow' style='cursor:pointer' data-id='"+r.id+"'><svg class='f' style='color:"+m.color+"'><use href='#"+m.icon+"'/></svg><span>"+label+" • @"+r.user+statusHtml+"</span><span style='margin-left:auto;display:flex;align-items:center;gap:4px;color:#ddd;font-size:14px;font-weight:600'><svg class='i' style='width:14px;height:14px'><use href='#gem'/></svg>"+r.amount+"</span><span style='margin-left:10px;color:#999;font-size:13px'>"+ts+"</span></div>";
   }).join('');
  });
 }
@@ -1109,8 +1345,10 @@ function openReqDetail(id){
   }else{
    statusRow="<div class='apBtnRow'><div class='depBtn' onclick=\"decideRequest('approved')\">Принять</div><div class='depBtn apBtnReject' onclick=\"decideRequest('rejected')\">Отклонить</div></div>";
   }
+  var m=histMeta(r.type);
   document.getElementById('reqDetailBody').innerHTML=
-   "<div class='apStat'><span class='lb'>Тип</span><span class='vl'>"+(r.type==='withdraw'?'Вывод':'Пополнение')+"</span></div>"+
+   "<div class='apStat'><span class='lb'>Тип</span><span class='vl'>"+m.label+"</span></div>"+
+   (r.nftName?"<div class='apStat'><span class='lb'>Подарок</span><span class='vl'>"+r.nftName+"</span></div>":"")+
    "<div class='apStat'><span class='lb'>Username</span><span class='vl'>@"+r.user+"</span></div>"+
    "<div class='apStat'><span class='lb'>Сумма</span><span class='vl'>"+r.amount+" GRAM</span></div>"+
    "<div class='apStat'><span class='lb'>Время</span><span class='vl' style='font-size:14px'>"+dateStr+"</span></div>"+
@@ -1315,9 +1553,11 @@ function refreshAdminUI(){
  if(ap)ap.style.display=logged?'':'none';
 }
 refreshAdminUI();
+updateCartBadge();
 function toggleFRow(which){
- var body=document.getElementById(which==='price'?'fPriceBody':'fNftBody');
- var chev=document.getElementById(which==='price'?'fPriceChev':'fNftChev');
+ var ids={price:['fPriceBody','fPriceChev'],bg:['fBgBody','fBgChev'],nft:['fNftBody','fNftChev']}[which];
+ var body=document.getElementById(ids[0]);
+ var chev=document.getElementById(ids[1]);
  var open=body.style.display!=='none';
  body.style.display=open?'none':'block';
  chev.style.transform=open?'':'rotate(180deg)';
@@ -1399,7 +1639,87 @@ function toggleAllNftFilter(el){
   r.querySelector('.chk').classList.toggle('on',on);
  });
 }
-function openFilters(){
+// Backdrop ("Фон") colors a gift can be issued with. Purely descriptive
+// color names + our own invented rarity percentages -- not tied to any
+// outside catalog, just a palette for sorting/filtering the market.
+var BG_CATALOG=[
+ {name:'Black',hex:'#1c1c1e',pct:'2%'},{name:'Onyx Black',hex:'#2b2b30',pct:'1.5%'},
+ {name:'Battleship Grey',hex:'#8a8d91',pct:'1%'},{name:'Steel Grey',hex:'#9aa0a6',pct:'1.5%'},
+ {name:'Silver Blue',hex:'#7fa6c4',pct:'1%'},{name:'Ivory White',hex:'#e9e6df',pct:'1.5%'},
+ {name:'Platinum',hex:'#cfd3d6',pct:'1%'},{name:'Amber',hex:'#e0a92d',pct:'1%'},
+ {name:'Mustard',hex:'#d9a52c',pct:'1.5%'},{name:'Old Gold',hex:'#c79a2e',pct:'1.2%'},
+ {name:'Pure Gold',hex:'#e8c23a',pct:'2%'},{name:'Satin Gold',hex:'#d8b24a',pct:'1.5%'},
+ {name:'Caramel',hex:'#c88a3a',pct:'1.5%'},{name:'Copper',hex:'#b5712f',pct:'2%'},
+ {name:'Chocolate',hex:'#6b4a35',pct:'1.5%'},{name:'Cappuccino',hex:'#9c7c6a',pct:'2%'},
+ {name:'Burnt Sienna',hex:'#d2602f',pct:'1.5%'},{name:'Persimmon',hex:'#e0783a',pct:'2%'},
+ {name:'Orange',hex:'#e08a2e',pct:'1.5%'},{name:'Carrot Juice',hex:'#e2884f',pct:'2%'},
+ {name:'Tomato',hex:'#e2522f',pct:'1.2%'},{name:'Fire Engine',hex:'#e13b35',pct:'1.2%'},
+ {name:'Carmine',hex:'#c43a3a',pct:'1.5%'},{name:'Coral Red',hex:'#e2795f',pct:'1.5%'},
+ {name:'Chestnut',hex:'#b36358',pct:'2%'},{name:'Rosewood',hex:'#b86a6f',pct:'1.5%'},
+ {name:'Raspberry',hex:'#e0617e',pct:'2%'},{name:'Strawberry',hex:'#e0776f',pct:'1%'},
+ {name:'Fandango',hex:'#c25a9e',pct:'1%'},{name:'Mexican Pink',hex:'#d6428e',pct:'1%'},
+ {name:'Burgundy',hex:'#9a3a56',pct:'2%'},{name:'Dark Lilac',hex:'#9a6fa8',pct:'2%'},
+ {name:'Lavender',hex:'#a680c9',pct:'2%'},{name:'Grape',hex:'#9a6fb0',pct:'1.5%'},
+ {name:'English Violet',hex:'#9c7aa8',pct:'1%'},{name:'French Violet',hex:'#9a4fd1',pct:'1.2%'},
+ {name:'Electric Purple',hex:'#c23fd9',pct:'1%'},{name:'Electric Indigo',hex:'#6a4fe0',pct:'1.5%'},
+ {name:'Cyberpunk',hex:'#8a7af2',pct:'1.5%'},{name:'French Blue',hex:'#4e8fc4',pct:'1.2%'},
+ {name:'Azure Blue',hex:'#3fa0d9',pct:'1.5%'},{name:'Celtic Blue',hex:'#3a8fd0',pct:'1%'},
+ {name:'Sapphire',hex:'#3f7fc9',pct:'1.5%'},{name:'Cobalt Blue',hex:'#3a63c7',pct:'2%'},
+ {name:'Navy Blue',hex:'#5a7fc4',pct:'1.2%'},{name:'Marine Blue',hex:'#4c6fa6',pct:'1.2%'},
+ {name:'Midnight Blue',hex:'#4a567d',pct:'1.5%'},{name:'Indigo Dye',hex:'#3f7a9e',pct:'2%'},
+ {name:'Neon Blue',hex:'#5a6ff0',pct:'2%'},{name:'Moonstone',hex:'#6fa6b0',pct:'2%'},
+ {name:'Pacific Cyan',hex:'#2fa0b0',pct:'2%'},{name:'Deep Cyan',hex:'#2fb0a6',pct:'1.2%'},
+ {name:'Turquoise',hex:'#3fc9b8',pct:'1.5%'},{name:'Aquamarine',hex:'#5fcbb0',pct:'1.2%'},
+ {name:'Jade Green',hex:'#3fb08f',pct:'1.5%'},{name:'Emerald',hex:'#3fb871',pct:'2%'},
+ {name:'Shamrock Green',hex:'#5fb86a',pct:'1%'},{name:'Malachite',hex:'#4fb84a',pct:'1%'},
+ {name:'Mint Green',hex:'#6fcf8a',pct:'1.2%'},{name:'Pistachio',hex:'#8fc46a',pct:'1.5%'},
+ {name:'Lemongrass',hex:'#9fcf5a',pct:'2%'},{name:'Light Olive',hex:'#bfae6a',pct:'1.5%'},
+ {name:'Khaki Green',hex:'#b0b06a',pct:'2%'},{name:'Hunter Green',hex:'#6a9f6f',pct:'1%'},
+ {name:'Dark Green',hex:'#3f7a4a',pct:'1.5%'},{name:'Gunship Green',hex:'#4f8a6a',pct:'1.2%'},
+ {name:'Pine Green',hex:'#3f9080',pct:'1.5%'},{name:'Tactical Pine',hex:'#2f8070',pct:'1.2%'},
+ {name:'Ranger Green',hex:'#5a7a5a',pct:'1.5%'},{name:'Rifle Green',hex:'#5f7a60',pct:'1.2%'},
+ {name:'Feldgrau',hex:'#7a8a7f',pct:'1%'},{name:'Gunmetal',hex:'#4f6670',pct:'1%'},
+ {name:'Roman Silver',hex:'#8a90a0',pct:'1.5%'},{name:'Seal Brown',hex:'#6a4f4a',pct:'1.2%'},
+ {name:'Desert Sand',hex:'#c9ac8a',pct:'2%'},{name:'Mystic Pearl',hex:'#d98a9a',pct:'2%'}
+];
+function populateBgFilterList(){
+ var box=document.getElementById('fBgList');
+ if(!box)return;
+ var q=(document.getElementById('fBgSearch')||{}).value||'';
+ q=q.toLowerCase();
+ var items=BG_CATALOG.slice();
+ if(q)items=items.filter(function(b){return b.name.toLowerCase().indexOf(q)!==-1});
+ if(!items.length){box.innerHTML="<div style='padding:20px 2px;color:#777;font-size:14px;text-align:center'>Ничего не найдено</div>";return;}
+ box.innerHTML=items.map(function(b){
+  var on=activeFilters.bg[b.name]?' on':'';
+  var swatch="<div style='width:46px;height:46px;border-radius:13px;flex:none;background:"+b.hex+";border:2px solid rgba(255,255,255,.3);box-shadow:inset 0 0 0 1px rgba(0,0,0,.25)'></div>";
+  return "<div class='collRow' data-nm=\""+b.name.replace(/"/g,'&quot;')+"\" onclick='toggleBgFilterRow(this)' style='cursor:pointer'><div class='chk"+on+"'></div>"+swatch+"<div class='collName' style='white-space:normal;line-height:1.4'>"+b.name+"<br><span style='color:var(--acc);font-size:12.5px;font-weight:600'>"+b.pct+"</span></div></div>";
+ }).join('');
+ syncBgAllCheckbox();
+}
+function toggleBgFilterRow(el){
+ var nm=el.getAttribute('data-nm');
+ activeFilters.bg[nm]=!activeFilters.bg[nm];
+ el.querySelector('.chk').classList.toggle('on',!!activeFilters.bg[nm]);
+ syncBgAllCheckbox();
+}
+function syncBgAllCheckbox(){
+ var allChk=document.getElementById('fBgAllChk');
+ if(!allChk)return;
+ var rows=document.querySelectorAll('#fBgList .collRow');
+ var allOn=rows.length>0 && Array.prototype.every.call(rows,function(r){return activeFilters.bg[r.getAttribute('data-nm')]});
+ allChk.classList.toggle('on',allOn);
+}
+function toggleAllBgFilter(el){
+ var on=!el.classList.contains('on');
+ el.classList.toggle('on',on);
+ var rows=document.querySelectorAll('#fBgList .collRow');
+ Array.prototype.forEach.call(rows,function(r){
+  activeFilters.bg[r.getAttribute('data-nm')]=on;
+  r.querySelector('.chk').classList.toggle('on',on);
+ });
+}
+function openFilters(openSection){
  var b=priceBounds();
  var rMin=document.getElementById('fRangeMin'),rMax=document.getElementById('fRangeMax');
  rMin.min=rMax.min=Math.floor(b.lo);
@@ -1410,9 +1730,22 @@ function openFilters(){
  document.getElementById('fPriceMin').value=activeFilters.min!=null?activeFilters.min:'';
  document.getElementById('fPriceMax').value=activeFilters.max!=null?activeFilters.max:'';
  updateRangeFill();
+ document.getElementById('fBgSearch').value='';
+ populateBgFilterList();
  document.getElementById('fNftSearch').value='';
  populateNftFilterList();
  document.getElementById('filterOverlay').classList.add('show');document.getElementById('filterSheet').classList.add('show');
+ if(openSection){
+  var ids={price:['fPriceBody','fPriceChev'],bg:['fBgBody','fBgChev'],nft:['fNftBody','fNftChev']}[openSection];
+  if(ids){
+   document.getElementById(ids[0]).style.display='block';
+   document.getElementById(ids[1]).style.transform='rotate(180deg)';
+   setTimeout(function(){
+    var head=document.getElementById(openSection==='bg'?'fBgHead':openSection==='nft'?'fNftHead':'fPriceHead');
+    if(head)head.scrollIntoView({block:'start',behavior:'smooth'});
+   },50);
+  }
+ }
 }
 function closeFilters(){document.getElementById('filterOverlay').classList.remove('show');document.getElementById('filterSheet').classList.remove('show')}
 function applyMarketFilters(){
@@ -1428,46 +1761,47 @@ function applyMarketFilters(){
  if(cnt>0)showToast('Фильтр применён','ok');
 }
 function resetMarketFilters(){
- activeFilters={min:null,max:null,nft:{}};
+ activeFilters={min:null,max:null,nft:{},bg:{}};
  var b=priceBounds();
  var rMin=document.getElementById('fRangeMin'),rMax=document.getElementById('fRangeMax');
  rMin.value=b.lo;rMax.value=b.hi;
  document.getElementById('fPriceMin').value='';
  document.getElementById('fPriceMax').value='';
  updateRangeFill();
+ populateBgFilterList();
  populateNftFilterList();
  var btn=document.getElementById('filterChipBtn');
  if(btn)btn.classList.remove('active');
  rerenderMarket();
 }
 var GLYPHS={
- ring:'<circle cx="24" cy="24" r="13" fill="none" stroke="#ffd36e" stroke-width="5"/><circle cx="24" cy="24" r="13" fill="none" stroke="#c98a1e" stroke-width="1.4"/>',
+ ring:'<circle cx="24" cy="26" r="13" fill="#f3c04a" stroke="#8a5a10" stroke-width="3"/><circle cx="24" cy="26" r="7" fill="#1e1e1e"/><circle cx="24" cy="13" r="5" fill="#e0463f" stroke="#8a5a10" stroke-width="2"/><ellipse cx="18" cy="21" rx="3" ry="5" fill="#fff" opacity=".35"/>',
  heart:'<path d="M24 38C10 29 6 20 6 14a8 8 0 0114-5 8 8 0 0114 5c0 6-4 15-18 24z" fill="#ff4d6d"/>',
  flame:'<path d="M24 6c3 8 11 10 11 20a11 11 0 01-22 0c0-6 4-8 6-12 .5 3 2 4 4 5-1-5 0-9 1-13z" fill="#ff9a2e"/><path d="M24 24c1.5 2 3 4 3 7a3 3 0 01-6 0c0-2 1-3 2-4.5.3 1 .7 1.4 1 2-.3-1.5 0-3 0-4.5z" fill="#ffe08a"/>',
- star:'<path d="M24 4l4 14 14 4-14 4-4 14-4-14-14-4 14-4z" fill="#ffd93d"/>',
+ star:'<circle cx="24" cy="7" r="2.6" fill="none" stroke="#8a5a10" stroke-width="2.2"/><path d="M24 9.6v3" stroke="#8a5a10" stroke-width="2.2"/><path d="M24 14l5 11 12 1.6-9 8 2.6 12-10.6-6.4L13 36.6l2.6-12-9-8L18.6 15z" fill="#f3c04a" stroke="#8a5a10" stroke-width="2.4" stroke-linejoin="round"/><ellipse cx="19" cy="25" rx="3" ry="5" fill="#fff" opacity=".3"/>',
  drop:'<path d="M24 6c8 10 14 17 14 24a14 14 0 01-28 0c0-7 6-14 14-24z" fill="#3fa9f5"/><path d="M14 26c0 3 1 6 3 8" stroke="#dff3ff" stroke-width="2.4" stroke-linecap="round" fill="none"/>',
- crown:'<path d="M6 34L4 14l9 7 11-15 11 15 9-7-2 20z" fill="#ffd36e"/><rect x="6" y="34" width="36" height="6" rx="2" fill="#ffd36e"/>',
+ crown:'<path d="M7 35L4 15l10 7 10-14 10 14 10-7-3 20z" fill="#ffd45e" stroke="#8a5a10" stroke-width="2.4" stroke-linejoin="round"/><rect x="7" y="35" width="34" height="7" rx="2" fill="#ffd45e" stroke="#8a5a10" stroke-width="2.4"/><circle cx="14" cy="22" r="2.4" fill="#3fa0e0" stroke="#8a5a10" stroke-width="1.2"/><circle cx="34" cy="22" r="2.4" fill="#3fa0e0" stroke="#8a5a10" stroke-width="1.2"/><circle cx="24" cy="14" r="3" fill="#e0463f" stroke="#8a5a10" stroke-width="1.3"/><ellipse cx="16" cy="35" rx="4.5" ry="1.6" fill="#fff" opacity=".3"/>',
  leaf:'<path d="M10 38C8 20 20 8 38 8c2 18-10 30-28 30z" fill="#5fb75f"/><path d="M12 36L34 14" stroke="#2f7d3a" stroke-width="2"/>',
  shell:'<path d="M24 6c10 2 16 12 16 24a16 16 0 01-32 0c0-12 6-22 16-24z" fill="#ff9ad1"/><path d="M24 10v20M16 14l4 16M32 14l-4 16" stroke="#d6397f" stroke-width="2"/>',
  cup:'<path d="M12 10h24v14a12 12 0 01-24 0z" fill="#f2e4c8"/><path d="M36 14h5a6 6 0 01-6 9" fill="none" stroke="#f2e4c8" stroke-width="4"/><rect x="16" y="38" width="16" height="4" rx="2" fill="#a9754a"/>',
  feather:'<path d="M32 6C18 10 10 22 10 34c6 2 14 0 18-6 4 6 12 6 16 2-2-12-6-20-12-24z" fill="#b388ff"/>',
- moon:'<circle cx="25" cy="24" r="15" fill="#ffd36e"/><circle cx="32" cy="19" r="13" fill="#161616"/><path d="M36 30l1.6 4 4 1.6-4 1.6-1.6 4-1.6-4-4-1.6 4-1.6z" fill="#ffd36e"/>',
+ moon:'<circle cx="24" cy="8" r="3.4" fill="none" stroke="#8a5a10" stroke-width="2.6"/><path d="M24 11v4" stroke="#8a5a10" stroke-width="2.4"/><path d="M30 15c6 3 9 10 6 17-4 9-15 11-22 5 7 2 14-2 16-9 2-6-1-12-6-15a14 14 0 016 2z" fill="#f3c04a" stroke="#8a5a10" stroke-width="2.6" stroke-linejoin="round"/><path d="M32 28l1.4 3.4 3.4 1.4-3.4 1.4-1.4 3.4-1.4-3.4-3.4-1.4 3.4-1.4z" fill="#fff4cf" stroke="#8a5a10" stroke-width="1.2"/><ellipse cx="22" cy="20" rx="3" ry="5" fill="#fff" opacity=".3"/>',
  spark:'<path d="M24 4l3 15 15 3-15 3-3 15-3-15-15-3 15-3z" fill="#fff1a8"/>',
  box:'<rect x="8" y="18" width="32" height="20" rx="2" fill="#ff5a6e"/><rect x="6" y="12" width="36" height="8" rx="2" fill="#ff5a6e"/><rect x="21" y="12" width="6" height="26" fill="#ffd36e"/>',
  bow:'<path d="M24 24L8 12v24zM24 24l16-12v24z" fill="#2fb3ff"/><circle cx="24" cy="24" r="4" fill="#0b2740"/>',
  note:'<circle cx="14" cy="34" r="6" fill="#b388ff"/><circle cx="34" cy="30" r="6" fill="#b388ff"/><path d="M20 34V10l20-4v24" stroke="#b388ff" stroke-width="4" fill="none"/>',
  seal:'<circle cx="24" cy="20" r="12" fill="#e23b3b"/><path d="M16 30l-4 12 8-4 4 8 4-8 8 4-4-12" fill="#e23b3b"/>',
  token:'<circle cx="24" cy="24" r="16" fill="#ffd36e"/><circle cx="24" cy="24" r="10" fill="none" stroke="#c98a1e" stroke-width="2.4"/>',
- ramen:'<defs><linearGradient id="gRm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff6b63"/><stop offset="1" stop-color="#d6362f"/></linearGradient></defs><path d="M10 20h28l-3 15a4 4 0 01-4 4H17a4 4 0 01-4-4z" fill="url(#gRm)"/><rect x="8" y="13" width="32" height="8" rx="2.5" fill="#fff8ea"/><rect x="8" y="13" width="32" height="3.5" rx="2" fill="#fff" opacity=".7"/><path d="M14 17c2-3 4 2 6-1s4 2 6-1 4 2 6-1 4 2 6-1" stroke="#f3b23a" stroke-width="2.4" fill="none" stroke-linecap="round"/><ellipse cx="16" cy="25" rx="3" ry="5" fill="#fff" opacity=".18"/>',
- frog:'<defs><linearGradient id="gFr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8ed973"/><stop offset="1" stop-color="#4e9a3d"/></linearGradient></defs><ellipse cx="24" cy="30" rx="16" ry="12" fill="url(#gFr)"/><circle cx="15" cy="16" r="7" fill="url(#gFr)"/><circle cx="33" cy="16" r="7" fill="url(#gFr)"/><circle cx="15" cy="15" r="3" fill="#1a1a1a"/><circle cx="33" cy="15" r="3" fill="#1a1a1a"/><circle cx="13.5" cy="13" r=".9" fill="#fff"/><circle cx="31.5" cy="13" r=".9" fill="#fff"/><path d="M16 31q8 5 16 0" stroke="#2f7d3a" stroke-width="2.4" fill="none" stroke-linecap="round"/><ellipse cx="18" cy="26" rx="4" ry="2.5" fill="#fff" opacity=".2"/>',
- bell:'<defs><linearGradient id="gBl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a8"/><stop offset="1" stop-color="#d6951e"/></linearGradient></defs><path d="M24 8a5 5 0 015 5c6 2 9 8 9 15H10c0-7 3-13 9-15a5 5 0 015-5z" fill="url(#gBl)"/><rect x="8" y="30" width="32" height="5" rx="2.5" fill="#c9811a"/><circle cx="24" cy="39" r="4" fill="url(#gBl)"/><ellipse cx="19" cy="20" rx="2.6" ry="6" fill="#fff" opacity=".35"/>',
- cane:'<defs><linearGradient id="gCn" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff6b6b"/><stop offset="1" stop-color="#d6362f"/></linearGradient></defs><path d="M18 42V21a10 10 0 0120 0v3" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M18 42V21a10 10 0 0120 0v3" stroke="url(#gCn)" stroke-width="8" fill="none" stroke-linecap="round" stroke-dasharray="4 6"/><path d="M15 20a9 9 0 019-9" stroke="#fff" stroke-width="2" fill="none" opacity=".55" stroke-linecap="round"/>',
- calendar:'<defs><linearGradient id="gCl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff6b63"/><stop offset="1" stop-color="#d6362f"/></linearGradient></defs><rect x="8" y="12" width="32" height="30" rx="4" fill="#fff"/><rect x="8" y="12" width="32" height="10" rx="4" fill="url(#gCl)"/><rect x="14" y="6" width="4" height="9" rx="2" fill="#ffd36e"/><rect x="30" y="6" width="4" height="9" rx="2" fill="#ffd36e"/><rect x="13" y="27" width="22" height="6" rx="2" fill="none" stroke="#b388ff" stroke-width="2.2"/><rect x="8" y="12" width="32" height="3" rx="1.5" fill="#fff" opacity=".3"/>',
- cigar:'<defs><linearGradient id="gCg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c89361"/><stop offset="1" stop-color="#7a5230"/></linearGradient></defs><rect x="4" y="21" width="36" height="10" rx="5" fill="url(#gCg)" transform="rotate(-10 24 26)"/><rect x="16" y="19" width="7" height="14" fill="#ffd36e" transform="rotate(-10 24 26)"/><path d="M31 14c2 2 1 4-1 5" stroke="#bbb" stroke-width="1.6" fill="none" opacity=".6" stroke-linecap="round"/><ellipse cx="13" cy="23" rx="7" ry="2" fill="#fff" opacity=".2" transform="rotate(-10 13 23)"/>',
- sock:'<defs><linearGradient id="gSk" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5c6d92"/><stop offset="1" stop-color="#2c3650"/></linearGradient></defs><path d="M17 5h14v19l9 9a6 6 0 01-6 10H17a6 6 0 01-6-6V5z" fill="url(#gSk)"/><rect x="17" y="5" width="14" height="7" fill="#7686a8"/><rect x="18" y="13" width="3" height="24" fill="#fff" opacity=".08"/><rect x="23" y="13" width="3" height="24" fill="#fff" opacity=".08"/>',
- sparkler:'<defs><radialGradient id="gSp" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff6cf"/><stop offset="1" stop-color="#ffc94d"/></radialGradient></defs><rect x="21" y="28" width="6" height="16" rx="2" fill="#b9bec4"/><rect x="21" y="28" width="2" height="16" fill="#fff" opacity=".4"/><path d="M24 4l2.5 10.5L37 17l-10.5 2.5L24 30l-2.5-10.5L11 17l10.5-2.5z" fill="url(#gSp)"/>',
- mask:'<defs><linearGradient id="gMk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f5e9cd"/><stop offset="1" stop-color="#cdb584"/></linearGradient></defs><path d="M24 6c10 0 16 8 16 18 0 12-7 20-16 20S8 36 8 24C8 14 14 6 24 6z" fill="url(#gMk)"/><path d="M14 23l5 6-5 2z" fill="#9a2f2f"/><path d="M34 23l-5 6 5 2z" fill="#9a2f2f"/><circle cx="15" cy="18" r="1.6" fill="#1a1a1a"/><circle cx="33" cy="18" r="1.6" fill="#1a1a1a"/><ellipse cx="18" cy="13" rx="5" ry="2.4" fill="#fff" opacity=".3"/>',
- poop:'<defs><linearGradient id="gPp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b07a4e"/><stop offset="1" stop-color="#6b462c"/></linearGradient></defs><path d="M24 10c4 4 2 7-1 9 5-1 9 2 9 7 0 2-1 3-3 4 3 1 5 3 5 6 0 4-5 7-11 7s-11-3-11-7c0-3 2-5 5-6-2-1-3-2-3-4 0-5 4-8 9-7-3-2-5-5-1-9z" fill="url(#gPp)"/><circle cx="19" cy="34" r="1.6" fill="#1a1a1a"/><circle cx="29" cy="34" r="1.6" fill="#1a1a1a"/><path d="M19 39q5 4 10 0" stroke="#1a1a1a" stroke-width="2" fill="none" stroke-linecap="round"/><ellipse cx="20" cy="18" rx="3" ry="2" fill="#fff" opacity=".2"/>'
+ ramen:'<path d="M10 20h28l-3 15a4 4 0 01-4 4H17a4 4 0 01-4-4z" fill="#e2463f" stroke="#7a1f1a" stroke-width="2.4" stroke-linejoin="round"/><rect x="8" y="13" width="32" height="8" rx="2.5" fill="#fff8ea" stroke="#7a1f1a" stroke-width="2.2"/><path d="M14 17c2-3 4 2 6-1s4 2 6-1 4 2 6-1 4 2 6-1" stroke="#f3b23a" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M16 27l1.4 3.4 3.4 1.4-3.4 1.4-1.4 3.4-1.4-3.4-3.4-1.4 3.4-1.4z" fill="#ffd45e"/><path d="M24 31l1.1 2.6 2.6 1.1-2.6 1.1-1.1 2.6-1.1-2.6-2.6-1.1 2.6-1.1z" fill="#ffd45e"/><ellipse cx="16" cy="25" rx="3" ry="5" fill="#fff" opacity=".18"/>',
+ frog:'<ellipse cx="24" cy="30" rx="16" ry="12" fill="#7bcf5e" stroke="#2f6b2a" stroke-width="2.6"/><circle cx="15" cy="16" r="7" fill="#7bcf5e" stroke="#2f6b2a" stroke-width="2.6"/><circle cx="33" cy="16" r="7" fill="#7bcf5e" stroke="#2f6b2a" stroke-width="2.6"/><circle cx="15" cy="15" r="3" fill="#1a1a1a"/><circle cx="33" cy="15" r="3" fill="#1a1a1a"/><circle cx="13.5" cy="13" r=".9" fill="#fff"/><circle cx="31.5" cy="13" r=".9" fill="#fff"/><path d="M16 31q8 5 16 0" stroke="#2f6b2a" stroke-width="2.4" fill="none" stroke-linecap="round"/><ellipse cx="18" cy="26" rx="4" ry="2.5" fill="#fff" opacity=".25"/>',
+ bell:'<path d="M14 22a9 9 0 0118 0v11H14z" fill="#f3c04a" stroke="#8a5a10" stroke-width="2.6" stroke-linejoin="round"/><circle cx="23" cy="35" r="3.2" fill="#8a5a10"/><path d="M24 16a7 7 0 0114 0v9H24z" fill="#ffdd7a" stroke="#8a5a10" stroke-width="2.2" stroke-linejoin="round"/><circle cx="31" cy="27" r="2.6" fill="#8a5a10"/><path d="M20 10l4 4-4 4-4-4z" fill="#3fa84a" stroke="#1f5a24" stroke-width="1.6"/><ellipse cx="19" cy="25" rx="2.6" ry="5" fill="#fff" opacity=".3"/>',
+ cane:'<path d="M18 42V21a10 10 0 0120 0v3" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M18 42V21a10 10 0 0120 0v3" stroke="#e2463f" stroke-width="8" fill="none" stroke-linecap="round" stroke-dasharray="5 7"/><path d="M18 42V21a10 10 0 0120 0v3" stroke="#7a1f1a" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".4"/><path d="M14 12l5 4-5 4-3-4z" fill="#3fa84a" stroke="#1f5a24" stroke-width="1.6"/><ellipse cx="22" cy="24" rx="2.4" ry="5" fill="#fff" opacity=".4"/>',
+ calendar:'<rect x="8" y="14" width="32" height="28" rx="4" fill="#fff" stroke="#6b4a2f" stroke-width="2.4"/><rect x="8" y="14" width="32" height="10" rx="4" fill="#e2463f" stroke="#6b4a2f" stroke-width="2.4"/><rect x="14" y="7" width="4" height="10" rx="2" fill="#f3c04a" stroke="#6b4a2f" stroke-width="1.6"/><rect x="30" y="7" width="4" height="10" rx="2" fill="#f3c04a" stroke="#6b4a2f" stroke-width="1.6"/><rect x="13" y="29" width="22" height="7" rx="2" fill="none" stroke="#b388ff" stroke-width="2.4"/><path d="M11 10l1.2 2.8 2.8 1.2-2.8 1.2L11 18l-1.2-2.8L7 14l2.8-1.2z" fill="#ffd45e"/>',
+ cigar:'<rect x="4" y="21" width="36" height="10" rx="5" fill="#b9814a" stroke="#5e3a1c" stroke-width="2.4" transform="rotate(-10 24 26)"/><rect x="16" y="19" width="7" height="14" fill="#2fb3ff" stroke="#5e3a1c" stroke-width="1.6" transform="rotate(-10 24 26)"/><circle cx="19.5" cy="26" r="2.2" fill="#ffd45e" transform="rotate(-10 24 26)"/><path d="M31 14c2 2 1 4-1 5M33 10c2 2 1 5-1 6" stroke="#bbb" stroke-width="1.8" fill="none" opacity=".6" stroke-linecap="round"/><ellipse cx="13" cy="23" rx="6" ry="2" fill="#fff" opacity=".22" transform="rotate(-10 13 23)"/>',
+ sock:'<path d="M11 4h10v13l6 7a4.5 4.5 0 01-4.5 7H15a4.5 4.5 0 01-4.5-4.5z" fill="#4a5a82" stroke="#1e2438" stroke-width="2.4" stroke-linejoin="round"/><rect x="11" y="4" width="10" height="5" fill="#6c7aa0" stroke="#1e2438" stroke-width="1.6"/><path d="M27 4h10v13l6 7a4.5 4.5 0 01-4.5 7H31a4.5 4.5 0 01-4.5-4.5z" fill="#3a4568" stroke="#1e2438" stroke-width="2.4" stroke-linejoin="round"/><rect x="27" y="4" width="10" height="5" fill="#5c6a92" stroke="#1e2438" stroke-width="1.6"/><ellipse cx="15" cy="12" rx="1.8" ry="5" fill="#fff" opacity=".2"/>',
+ sparkler:'<rect x="21" y="28" width="6" height="16" rx="2" fill="#b9bec4" stroke="#6b6f74" stroke-width="1.6"/><rect x="21" y="28" width="2" height="16" fill="#fff" opacity=".4"/><path d="M24 4l2.5 10.5L37 17l-10.5 2.5L24 30l-2.5-10.5L11 17l10.5-2.5z" fill="#ffd45e" stroke="#b5791a" stroke-width="2"/><circle cx="36" cy="10" r="1.6" fill="#ffe9a8"/><circle cx="10" cy="24" r="1.3" fill="#ffe9a8"/><circle cx="38" cy="22" r="1.1" fill="#ffe9a8"/>',
+ mask:'<path d="M24 6c10 0 16 8 16 18 0 12-7 20-16 20S8 36 8 24C8 14 14 6 24 6z" fill="#f0dcae" stroke="#7a5a2f" stroke-width="2.6"/><path d="M13 20a1.4 1.4 0 112.8 0 1.4 1.4 0 01-2.8 0zM35 20a1.4 1.4 0 112.8 0 1.4 1.4 0 01-2.8 0zM24 14a1.4 1.4 0 112.8 0 1.4 1.4 0 01-2.8 0z" fill="#8a6a3a"/><ellipse cx="16" cy="23" rx="4" ry="5.5" fill="#1a1a1a"/><ellipse cx="32" cy="23" rx="4" ry="5.5" fill="#1a1a1a"/><path d="M22 30h4l-2 5z" fill="#1a1a1a"/><circle cx="24" cy="12" r="2.6" fill="#e0463f" stroke="#7a5a2f" stroke-width="1.4"/><ellipse cx="17" cy="14" rx="5" ry="2.4" fill="#fff" opacity=".28"/>',
+ poop:'<path d="M24 10c4 4 2 7-1 9 5-1 9 2 9 7 0 2-1 3-3 4 3 1 5 3 5 6 0 4-5 7-11 7s-11-3-11-7c0-3 2-5 5-6-2-1-3-2-3-4 0-5 4-8 9-7-3-2-5-5-1-9z" fill="#b07a4e" stroke="#5a3a1f" stroke-width="2.4" stroke-linejoin="round"/><circle cx="19" cy="34" r="1.8" fill="#1a1a1a"/><circle cx="29" cy="34" r="1.8" fill="#1a1a1a"/><path d="M19 39q5 4 10 0" stroke="#1a1a1a" stroke-width="2.2" fill="none" stroke-linecap="round"/><ellipse cx="20" cy="18" rx="3" ry="2" fill="#fff" opacity=".22"/>'
 };
 // Secret catalog of issuable NFT designs. Only the admin sees/knows these codes
 // (entered in the "Выдать NFT" sheet). Each code maps to a fixed name + original
@@ -1492,7 +1826,16 @@ var NFT_CATALOG={
 };
 function glyphImgSrc(key){
  var inner=GLYPHS[key]||GLYPHS.ring;
- var svg="<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'>"+inner+"</svg>";
+ // Original gift icons get a soft drop-shadow + a glossy highlight so they
+ // read as little premium 3D-ish items rather than flat silhouettes --
+ // still entirely our own shapes/colors, not a copy of any real item.
+ var svg="<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'>"+
+  "<defs><filter id='gf' x='-40%' y='-40%' width='180%' height='180%'>"+
+  "<feDropShadow dx='0' dy='1.6' stdDeviation='1.7' flood-color='#000' flood-opacity='.4'/>"+
+  "</filter></defs>"+
+  "<g filter='url(#gf)'>"+inner+"</g>"+
+  "<ellipse cx='17.5' cy='12.5' rx='8.5' ry='4.6' fill='#fff' opacity='.17'/>"+
+  "</svg>";
  var b64;
  try{b64=btoa(unescape(encodeURIComponent(svg)));}catch(e){b64=btoa(svg)}
  return 'data:image/svg+xml;base64,'+b64;
@@ -1513,7 +1856,8 @@ var COLL=[
 var collSelected={};
 function collIcon(idx){
  var it=COLL[idx];
- return "<div class='collIcon'><svg viewBox='0 0 48 48'>"+(GLYPHS[it.g]||GLYPHS.ring)+"</svg></div>";
+ var inner=GLYPHS[it.g]||GLYPHS.ring;
+ return "<div class='collIcon'><svg viewBox='0 0 48 48'><defs><filter id='gfc"+idx+"' x='-40%' y='-40%' width='180%' height='180%'><feDropShadow dx='0' dy='1.6' stdDeviation='1.7' flood-color='#000' flood-opacity='.4'/></filter></defs><g filter='url(#gfc"+idx+")'>"+inner+"</g><ellipse cx='17.5' cy='12.5' rx='8.5' ry='4.6' fill='#fff' opacity='.17'/></svg></div>";
 }
 function collectionHtml(q){
  q=(q||'').toLowerCase();
