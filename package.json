@@ -4,5 +4,10 @@
   "private": true,
   "engines": {
     "node": "26.x"
+  },
+  "dependencies": {
+    "@ton/core": "^0.59.0",
+    "@ton/crypto": "^3.3.0",
+    "@ton/ton": "^15.1.0"
   }
 }
